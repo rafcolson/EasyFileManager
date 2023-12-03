@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ApplyButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>930, 0</value>
+  </data>
+  <data name="ApplyButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 31</value>
+  </data>
+  <data name="ApplyButton.Text" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+  <data name="PathTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>798, 29</value>
+  </data>
+  <data name="CustomizeCheckBox.Text" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="KeywordsGroupBox.Text" xml:space="preserve">
+    <value>Palabras clave</value>
+  </data>
+  <data name="CommentGroupBox.Text" xml:space="preserve">
+    <value>Comentario</value>
+  </data>
+  <data name="SubjectGroupBox.Text" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+  <data name="TitleGroupBox.Text" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="EasyMetadataGroupBox.Text" xml:space="preserve">
+    <value>Easy metadatos</value>
+  </data>
+  <data name="DateGroupBox.Text" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="GeolocationGroupBox.Text" xml:space="preserve">
+    <value>Geolocalización</value>
+  </data>
+  <data name="MoveCheckBox.Text" xml:space="preserve">
+    <value>Mover</value>
+  </data>
+  <data name="FilterGroupBox.Text" xml:space="preserve">
+    <value>Filtro</value>
+  </data>
+  <data name="BackupFolderGroupBox.Text" xml:space="preserve">
+    <value>Carpeta de copia de seguridad</value>
+  </data>
+  <data name="SubfoldersGroupBox.Text" xml:space="preserve">
+    <value>Subcarpeta(s)</value>
+  </data>
+  <data name="TopFolderGroupBox.Text" xml:space="preserve">
+    <value>Carpeta superior</value>
+  </data>
+  <data name="RenameCheckBox.Text" xml:space="preserve">
+    <value>Rebautizar</value>
+  </data>
+  <data name="DateFormatGroupBox.Text" xml:space="preserve">
+    <value>Formato de fecha</value>
+  </data>
+  <data name="WithGroupBox.Text" xml:space="preserve">
+    <value>por</value>
+  </data>
+  <data name="ReplaceGroupBox.Text" xml:space="preserve">
+    <value>Reemplazar</value>
+  </data>
+  <data name="SuffixGroupBox.Text" xml:space="preserve">
+    <value>Sufijo</value>
+  </data>
+  <data name="PrefixGroupBox.Text" xml:space="preserve">
+    <value>Prefijo</value>
+  </data>
+  <data name="FinalizeCheckBox.Text" xml:space="preserve">
+    <value>Culminar</value>
+  </data>
+  <data name="DuplicatesGroupBox.Text" xml:space="preserve">
+    <value>Duplicados</value>
+  </data>
+  <data name="CleanUpGroupBox.Text" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="DeleteEmptyFoldersCheckBox.Text" xml:space="preserve">
+    <value>Eliminar carpetas vacías</value>
+  </data>
+  <data name="FileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="FileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Archivo</value>
+  </data>
+  <data name="ImportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 26</value>
+  </data>
+  <data name="ImportToolStripMenuItem.Text" xml:space="preserve">
+    <value>Importar...</value>
+  </data>
+  <data name="ExportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 26</value>
+  </data>
+  <data name="ExportToolStripMenuItem.Text" xml:space="preserve">
+    <value>Exportar...</value>
+  </data>
+  <data name="ExitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 26</value>
+  </data>
+  <data name="ExitToolStripMenuItem.Text" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="ViewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 25</value>
+  </data>
+  <data name="ViewToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Ver</value>
+  </data>
+  <data name="ShowThumbnailToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 26</value>
+  </data>
+  <data name="ShowThumbnailToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mostrar miniatura</value>
+  </data>
+  <data name="ShowPropertiesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 26</value>
+  </data>
+  <data name="ShowPropertiesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mostrar propiedades</value>
+  </data>
+  <data name="ShowMillisecondsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 26</value>
+  </data>
+  <data name="ShowMillisecondsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mostrar milisegundos</value>
+  </data>
+  <data name="ShowHiddenItemsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 26</value>
+  </data>
+  <data name="ShowHiddenItemsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mostrar elementos ocultos</value>
+  </data>
+  <data name="ShowVideoMetadataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 26</value>
+  </data>
+  <data name="ShowVideoMetadataToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mostrar metadatos de vídeo</value>
+  </data>
+  <data name="ViewToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>272, 6</value>
+  </data>
+  <data name="LanguageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 26</value>
+  </data>
+  <data name="LanguageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Idioma...</value>
+  </data>
+  <data name="OptionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 25</value>
+  </data>
+  <data name="OptionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Opciones</value>
+  </data>
+  <data name="UseEasyMetadataWithVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="UseEasyMetadataWithVideoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Easy metadatos para vídeo</value>
+  </data>
+  <data name="PreserveDateModifiedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="PreserveDateModifiedToolStripMenuItem.Text" xml:space="preserve">
+    <value>Conservar fecha de modificación</value>
+  </data>
+  <data name="PreserveDateCreatedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="PreserveDateCreatedToolStripMenuItem.Text" xml:space="preserve">
+    <value>Conservar fecha de creación</value>
+  </data>
+  <data name="LogApplicationEventsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="LogApplicationEventsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Registrar eventos de aplicación</value>
+  </data>
+  <data name="ShutDownUponCompletionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 26</value>
+  </data>
+  <data name="ShutDownUponCompletionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Apague el sistema al finalizar</value>
+  </data>
+  <data name="HelpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 25</value>
+  </data>
+  <data name="HelpToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ayu&amp;da</value>
+  </data>
+  <data name="SplashScreenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 26</value>
+  </data>
+  <data name="SplashScreenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Pantalla de presentación</value>
+  </data>
+  <data name="RestoreToDefaultToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 26</value>
+  </data>
+  <data name="RestoreToDefaultToolStripMenuItem.Text" xml:space="preserve">
+    <value>Restaurar a la configuración predeterminada</value>
+  </data>
+  <data name="HelpToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 6</value>
+  </data>
+  <data name="AboutEasyFileManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 26</value>
+  </data>
+  <data name="AboutEasyFileManagerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Acerca de Easy File Manager...</value>
+  </data>
+</root>

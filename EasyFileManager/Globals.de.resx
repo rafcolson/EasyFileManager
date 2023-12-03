@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Anwendung</value>
+  </data>
+  <data name="AreaInfo" xml:space="preserve">
+    <value>Umgebungsinfo</value>
+  </data>
+  <data name="AreaInfoFromEasyMetadata" xml:space="preserve">
+    <value>Umgebungsinfo von Easy-Metadaten</value>
+  </data>
+  <data name="Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="Compressed" xml:space="preserve">
+    <value>Komprimiert</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Kontakte</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>Inhalt</value>
+  </data>
+  <data name="Coordinates" xml:space="preserve">
+    <value>Koordinaten</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Benutzerdefinierung</value>
+  </data>
+  <data name="CustomDict" xml:space="preserve">
+    <value>Benutzerwörterbuch</value>
+  </data>
+  <data name="CustomMetadata" xml:space="preserve">
+    <value>Benutzerdefinierte Metadaten</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Datum der Kreation</value>
+  </data>
+  <data name="DateCustomize" xml:space="preserve">
+    <value>Datum (benutzerdefiniert)</value>
+  </data>
+  <data name="DateDefault" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateEarliest" xml:space="preserve">
+    <value>Frühestes Datum</value>
+  </data>
+  <data name="DateEncoded" xml:space="preserve">
+    <value>Datum der Kodierung</value>
+  </data>
+  <data name="DateFromEasyMetadata" xml:space="preserve">
+    <value>Datum aus Easy-Metadaten</value>
+  </data>
+  <data name="DateMetadata" xml:space="preserve">
+    <value>Datum (Metadaten)</value>
+  </data>
+  <data name="DateModified" xml:space="preserve">
+    <value>Datum der Änderung</value>
+  </data>
+  <data name="DateTaken" xml:space="preserve">
+    <value>Aufnahmedatum</value>
+  </data>
+  <data name="DateTakenOrEncoded" xml:space="preserve">
+    <value>Datum der Aufnahme oder Kodierung</value>
+  </data>
+  <data name="DayCreated" xml:space="preserve">
+    <value>Tag der Kreation</value>
+  </data>
+  <data name="DayEarliest" xml:space="preserve">
+    <value>Frühester Tag</value>
+  </data>
+  <data name="DayFromEasyMetadata" xml:space="preserve">
+    <value>Tag aus Easy-Metadaten</value>
+  </data>
+  <data name="DayTakenOrEncoded" xml:space="preserve">
+    <value>Tag der Aufnahme oder Kodierung</value>
+  </data>
+  <data name="DeleteEasyMetadata" xml:space="preserve">
+    <value>Easy-Metadaten werden gelöscht. Fortsetzen?</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="EasyMetadata" xml:space="preserve">
+    <value>Easy-Metadaten</value>
+  </data>
+  <data name="EasyShellOrVideoMetadata" xml:space="preserve">
+    <value>Easy-, Shell- or Video-Metadaten</value>
+  </data>
+  <data name="FileExtension" xml:space="preserve">
+    <value>Dateiendung</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Dateityp</value>
+  </data>
+  <data name="FileTypeText" xml:space="preserve">
+    <value>Dateityp Text</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Ordner</value>
+  </data>
+  <data name="FormatAlreadyExists" xml:space="preserve">
+    <value>'{0}' existiert bereits.</value>
+  </data>
+  <data name="GameMedia" xml:space="preserve">
+    <value>Spielmedien</value>
+  </data>
+  <data name="Geocoords" xml:space="preserve">
+    <value>Koordinaten</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Bild</value>
+  </data>
+  <data name="KeywordsAdd" xml:space="preserve">
+    <value>Schlüsselwörter (hinzufügen)</value>
+  </data>
+  <data name="KeywordsDefault" xml:space="preserve">
+    <value>Schlüsselwörter</value>
+  </data>
+  <data name="KeywordsReplace" xml:space="preserve">
+    <value>Schlüsselwörter (ersetzen)</value>
+  </data>
+  <data name="MessageCheckDialogText" xml:space="preserve">
+    <value>Fragen Sie nicht noch einmal.</value>
+  </data>
+  <data name="MonthCreated" xml:space="preserve">
+    <value>Monat der Kreation</value>
+  </data>
+  <data name="MonthEarliest" xml:space="preserve">
+    <value>Frühester Monat</value>
+  </data>
+  <data name="MonthFromEasyMetadata" xml:space="preserve">
+    <value>Monat aus Easy-Metadaten</value>
+  </data>
+  <data name="MonthTakenOrEncoded" xml:space="preserve">
+    <value>Monat der Aufnahme oder Kodierung</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OverwriteEasyMetadata" xml:space="preserve">
+    <value>Easy-Metadaten werden überschrieben. Fortsetzen?</value>
+  </data>
+  <data name="ReplaceNormal" xml:space="preserve">
+    <value>Ersetzen</value>
+  </data>
+  <data name="ReplaceRegex" xml:space="preserve">
+    <value>Ersetzen (regex)</value>
+  </data>
+  <data name="ShellProperties" xml:space="preserve">
+    <value>Shell-Eigenschaften</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Größe</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Betreff</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
+  <data name="Unspecified" xml:space="preserve">
+    <value>Unspezifiziert</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="VideoMetadata" xml:space="preserve">
+    <value>Video-Metadaten</value>
+  </data>
+  <data name="WriteEasyMetadata" xml:space="preserve">
+    <value>Video-Metadaten als Easy Metadaten schreiben?</value>
+  </data>
+  <data name="YearCreated" xml:space="preserve">
+    <value>Jahr der Kreation</value>
+  </data>
+  <data name="YearEarliest" xml:space="preserve">
+    <value>Frühestes Jahr</value>
+  </data>
+  <data name="YearFromEasyMetadata" xml:space="preserve">
+    <value>Jahr aus Easy-Metadaten</value>
+  </data>
+  <data name="YearTakenOrEncoded" xml:space="preserve">
+    <value>Jahr der Aufnahme oder Kodierung</value>
+  </data>
+  <data name="PreviousFolder" xml:space="preserve">
+    <value>Vorheriger Ordner</value>
+  </data>
+  <data name="NextFolder" xml:space="preserve">
+    <value>Nächster Ordner</value>
+  </data>
+  <data name="OneLevelUp" xml:space="preserve">
+    <value>Eine Ebene höher</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Ordner auswählen</value>
+  </data>
+  <data name="SelectTopFolder" xml:space="preserve">
+    <value>Oberen Ordner auswählen</value>
+  </data>
+  <data name="EditKeywords" xml:space="preserve">
+    <value>Schlüsselwörter bearbeiten</value>
+  </data>
+  <data name="EditGPS" xml:space="preserve">
+    <value>GPS bearbeiten</value>
+  </data>
+  <data name="EditSubfolders" xml:space="preserve">
+    <value>Unterordner bearbeiten</value>
+  </data>
+  <data name="WriteGPSCoords" xml:space="preserve">
+    <value>GPS-Koordinaten schreiben</value>
+  </data>
+  <data name="WriteGPSAreaInfo" xml:space="preserve">
+    <value>GPS-Umgebungsinfo schreiben</value>
+  </data>
+  <data name="WriteGPSEasyMetadata" xml:space="preserve">
+    <value>GPS Easy-Metadaten schreiben</value>
+  </data>
+  <data name="WriteDateModified" xml:space="preserve">
+    <value>Änderungsdatum schreiben</value>
+  </data>
+  <data name="WriteDateCreated" xml:space="preserve">
+    <value>Datum der Kreation schreiben</value>
+  </data>
+  <data name="WriteDateTakenOrEncoded" xml:space="preserve">
+    <value>Datum der Aufnahme oder Kodierung schreiben</value>
+  </data>
+  <data name="WriteDateEasyMetadata" xml:space="preserve">
+    <value>Datum aus Easy-Metadaten schreiben</value>
+  </data>
+  <data name="EditEasyMetadata" xml:space="preserve">
+    <value>Easy-Metadaten bearbeiten</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Datei</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Dateien</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Ordnern</value>
+  </data>
+  <data name="DateFromFolderName" xml:space="preserve">
+    <value>Datum aus Ordnername</value>
+  </data>
+  <data name="DeleteEmptyFolders" xml:space="preserve">
+    <value>Leere Ordner löschen</value>
+  </data>
+  <data name="SmallThumbnail" xml:space="preserve">
+    <value>Kleines Vorschaubild</value>
+  </data>
+  <data name="SelectBackupFolder" xml:space="preserve">
+    <value>Backup-Ordner auswählen</value>
+  </data>
+  <data name="EditComparisonProfile" xml:space="preserve">
+    <value>Vergleichsprofil bearbeiten</value>
+  </data>
+  <data name="ShowComparisonDialog" xml:space="preserve">
+    <value>Vergleichsdialog anzeigen</value>
+  </data>
+  <data name="SelectDuplicatesFolder" xml:space="preserve">
+    <value>Zielordner für Duplikate auswählen</value>
+  </data>
+  <data name="DuplicatesDefault" xml:space="preserve">
+    <value>Duplikate</value>
+  </data>
+  <data name="DuplicatesDelete" xml:space="preserve">
+    <value>Duplikate (löschen)</value>
+  </data>
+  <data name="DuplicatesMove" xml:space="preserve">
+    <value>Duplikate (verschieben)</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="ShutingDown" xml:space="preserve">
+    <value>System wird heruntergefahren...</value>
+  </data>
+  <data name="ExtraLargeThumbnail" xml:space="preserve">
+    <value>Extra großes Vorschaubild</value>
+  </data>
+  <data name="LargeThumbnail" xml:space="preserve">
+    <value>Großes Vorschaubild</value>
+  </data>
+  <data name="MediumThumbnail" xml:space="preserve">
+    <value>Mittleres Vorschaubild</value>
+  </data>
+  <data name="RawName" xml:space="preserve">
+    <value>Unformatierter Name</value>
+  </data>
+  <data name="DeleteDuplicates" xml:space="preserve">
+    <value>Duplikate von '{0}' werden dauerhaft gelöscht. Fortsetzen?</value>
+  </data>
+  <data name="DeleteAllDuplicates" xml:space="preserve">
+    <value>Alle Duplikate werden dauerhaft gelöscht. Fortsetzen?</value>
+  </data>
+  <data name="DuplicatesFolderDoesNotExist" xml:space="preserve">
+    <value>Zielordner für Duplikate ist nicht vorhanden. Es wurden keine Änderungen vorgenommen.</value>
+  </data>
+  <data name="StoreDuplicates" xml:space="preserve">
+    <value>Duplikate von '{0}' werden im Zielordner gespeichert. Fortsetzen?</value>
+  </data>
+  <data name="StoreAllDuplicates" xml:space="preserve">
+    <value>Alle Duplikate werden im Zielordner gespeichert. Fortsetzen?</value>
+  </data>
+  <data name="BackupFolderCopy" xml:space="preserve">
+    <value>Sichern (kopieren)</value>
+  </data>
+  <data name="BackupFolderDefault" xml:space="preserve">
+    <value>Sichern</value>
+  </data>
+  <data name="BackupFolderMove" xml:space="preserve">
+    <value>Sichern (verschieben)</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>Erforschen...</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Offen</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Ungültig</value>
+  </data>
+  <data name="SymbolicLink" xml:space="preserve">
+    <value>Symbolischer Link</value>
+  </data>
+  <data name="EditFilter" xml:space="preserve">
+    <value>Filter bearbeiten</value>
+  </data>
+  <data name="AboutMessage" xml:space="preserve">
+    <value>Informationen zur Lizenzierung und Verwendung von Easy File Manager finden Sie unter https://github.com/rafcolson/EasyFileManager. Probleme können auf https://github.com/rafcolson/EasyFileManager/issues gemeldet werden. Releases können unter https://github.com/rafcolson/EasyFileManager/releases heruntergeladen werden.</value>
+  </data>
+  <data name="CameraManufacturer" xml:space="preserve">
+    <value>Kamera-Hersteller</value>
+  </data>
+  <data name="CameraModel" xml:space="preserve">
+    <value>Kameramodell</value>
+  </data>
+</root>
