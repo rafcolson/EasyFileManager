@@ -212,8 +212,16 @@ namespace EasyFileManager
             TopFolderCheckBox.Checked = Options.TopFolderEnabled;
             TopFolderTextBox.Text = Options.TopFolderPath;
             SubfoldersCheckBox.Checked = Options.SubfoldersEnabled;
-            FilterCheckBox.Checked = Options.FilterEnabled;
             UpdateFolderControlsA();
+
+            FilterCheckBox.Checked = Options.FilterEnabled;
+            FilterNameComboBox.Items.Clear();
+            FilterNameComboBox.Items.AddRange(Enum.GetValues<EasyNameFilter>().Select(x => x.GetEasyGlobalStringValue()).ToArray());
+            FilterNameComboBox.Dock = DockStyle.None;
+            FilterNameComboBox.UpdateDropDownList();
+            FilterNameComboBox.Dock = DockStyle.Fill;
+            FilterNameComboBox.SelectedIndex = (int)Options.NameFilter;
+            FilterStringTextBox.Text = Options.FilterString;
             UpdateFilterControlsA();
 
             FinalizeCheckBox.Checked = Options.FinalizeEnabled;
@@ -367,12 +375,15 @@ namespace EasyFileManager
             BackupFolderCheckBox.CheckStateChanged += BackupFolderCheckBox_CheckStateChanged;
             TopFolderCheckBox.CheckedChanged += TopFolderCheckBox_CheckedChangedAsync;
             SubfoldersCheckBox.CheckedChanged += SubfoldersCheckBox_CheckedChangedAsync;
-            FilterCheckBox.CheckedChanged += FilterCheckBox_CheckedChanged;
+            FilterCheckBox.CheckedChanged += FilterCheckBox_CheckedChangedAsync;
 
             SelectBackupFolderButton.Click += SelectBackupFolderButton_Click;
             SelectTopFolderButton.Click += SelectTopFolderButton_ClickAsync;
             SubfoldersEditButton.Click += SubfoldersEditButton_ClickAsync;
-            FilterEditButton.Click += FilterEditButton_Click;
+            FilterEditButton.Click += FilterEditButton_ClickAsync;
+
+            FilterNameComboBox.SelectedIndexChanged += FilterNameComboBox_SelectedIndexChangedAsync;
+            FilterStringTextBox.Leave += FilterStringTextBox_LeaveAsync;
 
             DeleteEmptyFoldersCheckBox.CheckedChanged += DeleteEmptyFoldersCheckBox_CheckedChanged;
             DuplicatesCheckBox.CheckStateChanged += DuplicatesCheckBox_CheckStateChanged;
@@ -632,12 +643,15 @@ namespace EasyFileManager
             BackupFolderCheckBox.CheckStateChanged -= BackupFolderCheckBox_CheckStateChanged;
             TopFolderCheckBox.CheckedChanged -= TopFolderCheckBox_CheckedChangedAsync;
             SubfoldersCheckBox.CheckedChanged -= SubfoldersCheckBox_CheckedChangedAsync;
-            FilterCheckBox.CheckedChanged -= FilterCheckBox_CheckedChanged;
+            FilterCheckBox.CheckedChanged -= FilterCheckBox_CheckedChangedAsync;
+
+            FilterNameComboBox.SelectedIndexChanged -= FilterNameComboBox_SelectedIndexChangedAsync;
+            FilterStringTextBox.Leave -= FilterStringTextBox_LeaveAsync;
 
             SelectBackupFolderButton.Click -= SelectBackupFolderButton_Click;
             SelectTopFolderButton.Click -= SelectTopFolderButton_ClickAsync;
             SubfoldersEditButton.Click -= SubfoldersEditButton_ClickAsync;
-            FilterEditButton.Click -= FilterEditButton_Click;
+            FilterEditButton.Click -= FilterEditButton_ClickAsync;
 
             DeleteEmptyFoldersCheckBox.CheckedChanged -= DeleteEmptyFoldersCheckBox_CheckedChanged;
             DuplicatesCheckBox.CheckStateChanged -= DuplicatesCheckBox_CheckStateChanged;

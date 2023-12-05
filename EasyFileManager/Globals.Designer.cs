@@ -205,6 +205,15 @@ namespace EasyFileManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contains.
+        /// </summary>
+        public static string Contains {
+            get {
+                return ResourceManager.GetString("Contains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content.
         /// </summary>
         public static string Contents {
@@ -534,6 +543,15 @@ namespace EasyFileManager {
         public static string EditSubfolders {
             get {
                 return ResourceManager.GetString("EditSubfolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ends with.
+        /// </summary>
+        public static string EndsWith {
+            get {
+                return ResourceManager.GetString("EndsWith", resourceCulture);
             }
         }
         
@@ -912,6 +930,15 @@ namespace EasyFileManager {
         public static string SmallThumbnail {
             get {
                 return ResourceManager.GetString("SmallThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starts with.
+        /// </summary>
+        public static string StartsWith {
+            get {
+                return ResourceManager.GetString("StartsWith", resourceCulture);
             }
         }
         

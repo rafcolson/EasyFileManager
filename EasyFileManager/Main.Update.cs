@@ -345,16 +345,21 @@ namespace EasyFileManager
 
         private void UpdateFilterControlsA()
         {
-            FilterTextBox.BackColor = Options.FilterEnabled ? SystemColors.ControlLightLight : SystemColors.Control;
-            FilterEditButton.Enabled = Options.FilterEnabled;
+            bool enabled = Options.FilterEnabled;
+            FilterStringTextBox.Enabled = enabled;
+            FilterTypeTextBox.BackColor = enabled ? SystemColors.ControlLightLight : SystemColors.Control;
+            FilterEditButton.Enabled = enabled;
             UpdateFilterControlsB();
+            UpdateFilterControlsC();
         }
 
         private void UpdateFilterControlsB()
         {
-            string[] sa = Options.Filter.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
-            FilterTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
+            string[] sa = Options.TypeFilter.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            FilterTypeTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
         }
+
+        private void UpdateFilterControlsC() => FilterNameComboBox.Enabled = Options.FilterEnabled && !string.IsNullOrEmpty(FilterStringTextBox.Text);
 
         private void UpdateDuplicatesControlsA()
         {
@@ -389,12 +394,7 @@ namespace EasyFileManager
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            EasyType filter = EasyType.None;
-            if (Options.MoveEnabled && Options.FilterEnabled)
-            {
-                filter = Options.Filter.GetContainingFlags().Select(x => x.GetValue<EasyType>()).Aggregate((x, y) => x |= y);
-            }
-
+            bool filterEnabled = Options.MoveEnabled && Options.FilterEnabled;
             if (!apply)
             {
                 if (!GetSelectedFilePaths().Any())
@@ -427,7 +427,11 @@ namespace EasyFileManager
 
                     string backupName = $"{BACKUP_PREFIX}{DateTime.Now.ToDateSecondString()}";
                     string backupPath = Path.Join(Options.BackupFolderPath, backupName);
-                    string[] paths = GetFilteredFilePaths(GetSelectedFilePaths(true), filter);
+                    string[] paths = GetSelectedFilePaths(true);
+                    if (filterEnabled)
+                    {
+                        paths = GetFilteredFilePaths(paths, Options.TypeFilter, Options.NameFilter, Options.FilterString);
+                    }
                     int numPaths = paths.Length;
                     for (int i = 0; i < numPaths; i++)
                     {
@@ -465,7 +469,12 @@ namespace EasyFileManager
             {
                 if (row.Tag is EasyFolder ed)
                 {
-                    l.AddRange(GetFilteredFilePaths(ed.GetFilePaths(true), filter));
+                    string[] paths = ed.GetFilePaths(true);
+                    if (filterEnabled)
+                    {
+                        paths = GetFilteredFilePaths(paths, Options.TypeFilter, Options.NameFilter, Options.FilterString);
+                    }
+                    l.AddRange(paths);
                 }
             }
             
@@ -512,29 +521,41 @@ namespace EasyFileManager
                 DataGridViewRow row = rows[i];
                 if (row.Tag is EasyFile ef)
                 {
+                    string p = ef.Path;
                     string fp = EMPTY_STRING;
                     if (row.Selected)
                     {
-                        om.Remove(ef.Path);
-                        ef.UpdateFormatting(Options, om.GetValues());
-                        if (!apply)
+                        om.Remove(p);
+                        if (!filterEnabled || FilteredPathExists(p, Options.TypeFilter, Options.NameFilter, Options.FilterString))
                         {
-                            fp = ef.FormattedPath;
-                            string pp = $"{Folder.Path}{BACKSLASH}";
-                            if (fp.StartsWith(pp))
+                            ef.UpdateFormatting(Options, om.GetValues());
+                            if (!apply)
                             {
-                                fp = fp[pp.Length..];
-                            }
-                        }
-                        else if (filter == EasyType.None || filter.HasFlag(ef.Type))
-                        {
-                            if (copyInsteadOfMove)
-                            {
-                                ef.Copy(ef.FormattedPath, Options.PreserveDateCreated, Options.PreserveDateModified);
+                                fp = ef.FormattedPath;
+                                string pp = $"{Folder.Path}{BACKSLASH}";
+                                if (fp.StartsWith(pp))
+                                {
+                                    fp = fp[pp.Length..];
+                                }
                             }
                             else
                             {
-                                ef.Move(ef.FormattedPath, Options.PreserveDateCreated, Options.PreserveDateModified);
+                                if (copyInsteadOfMove)
+                                {
+                                    ef.Copy(ef.FormattedPath, Options.PreserveDateCreated, Options.PreserveDateModified);
+                                    if (Options.LogApplicationEvents)
+                                    {
+                                        Logger.Write($"Copied {p} -> {ef.FormattedPath}");
+                                    }
+                                }
+                                else
+                                {
+                                    ef.Move(ef.FormattedPath, Options.PreserveDateCreated, Options.PreserveDateModified);
+                                    if (Options.LogApplicationEvents)
+                                    {
+                                        Logger.Write($"Moved {p} -> {ef.FormattedPath}");
+                                    }
+                                }
                             }
                         }
                         om.Put(ef.Path, ef.FormattedPath);
@@ -542,12 +563,8 @@ namespace EasyFileManager
                     row.Cells[0].Value = fp;
 
                     int value = EasyProgress.GetValue(((maxValue * i) / n), maxValue, subStepIndex, numSubSteps);
-                    string info = $"{ef.Path} -> {ef.FormattedPath}";
+                    string info = $"{p} -> {ef.FormattedPath}";
                     Progress.Report(value, info);
-                    if (apply && Options.LogApplicationEvents)
-                    {
-                        Logger.Write($"Formatted {info}");
-                    }
                 }
             }
             Options.TopFolderPath = dp;

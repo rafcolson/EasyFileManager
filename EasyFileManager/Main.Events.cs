@@ -534,36 +534,6 @@ namespace EasyFileManager
             BackupFolderGroupBox.Focus();
         }
 
-        private void FilterEditButton_Click(object? sender, EventArgs e)
-        {
-            List<object> items = Options.Filter.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
-            using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
-            object[] oa = EasyFilter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
-            eld.OnAddItem = () =>
-            {
-                using DropDownListDialog ddld = new(oa, 0, font: Font);
-                while (ddld.ShowDialog() == DialogResult.OK)
-                {
-                    if (!eld.Items.Contains(ddld.SelectedItem))
-                    {
-                        eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
-                        break;
-                    }
-                }
-                return Task.CompletedTask;
-            };
-            if (eld.ShowDialog() == DialogResult.OK)
-            {
-                Options.Filter = EasyFilter.None;
-                foreach (string s in items.Cast<string>())
-                {
-                    Options.Filter |= s.AsEasyEnumFromGlobal<EasyFilter>();
-                }
-                UpdateFilterControlsB();
-            }
-            FilterGroupBox.Focus();
-        }
-
         private void SelectDuplicatesFolderButton_Click(object? sender, EventArgs e)
         {
             OpenFolderDialog.SelectedPath = Options.DuplicatesFolderPath;
@@ -704,6 +674,37 @@ namespace EasyFileManager
             SubfoldersGroupBox.Focus();
         }
 
+        private async void FilterEditButton_ClickAsync(object? sender, EventArgs e)
+        {
+            List<object> items = Options.TypeFilter.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
+            using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
+            object[] oa = EasyTypeFilter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            eld.OnAddItem = () =>
+            {
+                using DropDownListDialog ddld = new(oa, 0, font: Font);
+                while (ddld.ShowDialog() == DialogResult.OK)
+                {
+                    if (!eld.Items.Contains(ddld.SelectedItem))
+                    {
+                        eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
+                        break;
+                    }
+                }
+                return Task.CompletedTask;
+            };
+            if (eld.ShowDialog() == DialogResult.OK)
+            {
+                Options.TypeFilter = EasyTypeFilter.None;
+                foreach (string s in items.Cast<string>())
+                {
+                    Options.TypeFilter |= s.AsEasyEnumFromGlobal<EasyTypeFilter>();
+                }
+                UpdateFilterControlsB();
+                await UpdateFormattingAsync();
+            }
+            FilterGroupBox.Focus();
+        }
+
         #endregion
 
         #region TextBox
@@ -787,6 +788,17 @@ namespace EasyFileManager
             if (s != Options.Suffix)
             {
                 Options.Suffix = s;
+                await UpdateFormattingAsync();
+            }
+        }
+
+        private async void FilterStringTextBox_LeaveAsync(object? sender, EventArgs e)
+        {
+            string s = FilterStringTextBox.Text;
+            if (s != Options.FilterString)
+            {
+                Options.FilterString = s;
+                UpdateFilterControlsC();
                 await UpdateFormattingAsync();
             }
         }
@@ -969,7 +981,7 @@ namespace EasyFileManager
             await UpdateFormattingAsync();
         }
 
-        private async void FilterCheckBox_CheckedChanged(object? sender, EventArgs e)
+        private async void FilterCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
         {
             Options.FilterEnabled = FilterCheckBox.Checked;
             UpdateFilterControlsA();
@@ -1027,6 +1039,12 @@ namespace EasyFileManager
         private async void DateFormatComboBox_SelectedIndexChangedAsync(object? sender, EventArgs e)
         {
             Options.DateFormat = (string)DateFormatComboBox.SelectedItem;
+            await UpdateFormattingAsync();
+        }
+
+        private async void FilterNameComboBox_SelectedIndexChangedAsync(object? sender, EventArgs e)
+        {
+            Options.NameFilter = (EasyNameFilter)FilterNameComboBox.SelectedIndex;
             await UpdateFormattingAsync();
         }
 

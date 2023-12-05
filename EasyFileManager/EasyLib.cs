@@ -366,7 +366,7 @@ namespace EasyFileManager
     }
 
     [Flags]
-    public enum EasyFilter
+    public enum EasyTypeFilter
     {
         None = 0,
         [EasyGlobalStringValue("Text")]
@@ -389,6 +389,16 @@ namespace EasyFileManager
         Compressed = 1 << 5,
         Default = Image | Video,
         All = Text | Document | Image | Video | Audio | Compressed
+    }
+
+    public enum EasyNameFilter
+    {
+        [EasyGlobalStringValue("StartsWith")]
+        StartsWith,
+        [EasyGlobalStringValue("EndsWith")]
+        EndsWith,
+        [EasyGlobalStringValue("Contains")]
+        Contains
     }
 
     [Flags]
@@ -468,6 +478,7 @@ namespace EasyFileManager
         public string Replace { get; set; } = EMPTY_STRING;
         public string With { get; set; } = EMPTY_STRING;
         public string Suffix { get; set; } = EMPTY_STRING;
+        public string FilterString { get; set; } = EMPTY_STRING;
         public string DateFormat { get; set; } = DateTimeExtensions.FORMAT_DATE_SECOND;
         public string BackupFolderPath { get; set; } = STARTUP_DIRECTORY_DEFAULT;
         public string TopFolderPath { get; set; } = STARTUP_DIRECTORY_DEFAULT;
@@ -515,7 +526,8 @@ namespace EasyFileManager
         public CheckState BackupFolderState { get; set; } = CheckState.Unchecked;
         public CheckState DuplicatesState { get; set; } = CheckState.Unchecked;
 
-        public EasyFilter Filter { get; set; } = EasyFilter.Default;
+        public EasyTypeFilter TypeFilter { get; set; } = EasyTypeFilter.Default;
+        public EasyNameFilter NameFilter { get; set; } = EasyNameFilter.Contains;
         public EasyCompareParameter DuplicatesCompareParameters { get; set; } = EasyCompareParameter.Default;
 
         public List<EasyList<string>> Keywords { get; set; } = new();
@@ -538,6 +550,7 @@ namespace EasyFileManager
                 With = eo.With;
                 Suffix = eo.Suffix;
                 DateFormat = eo.DateFormat;
+                FilterString = eo.FilterString;
                 BackupFolderPath = Utils.IsValidDirectoryPath(eo.BackupFolderPath) ? eo.BackupFolderPath : STARTUP_DIRECTORY_DEFAULT;
                 TopFolderPath = Utils.IsValidDirectoryPath(eo.TopFolderPath) ? eo.TopFolderPath : STARTUP_DIRECTORY_DEFAULT;
                 DuplicatesFolderPath = Utils.IsValidDirectoryPath(eo.DuplicatesFolderPath) ? eo.DuplicatesFolderPath : STARTUP_DIRECTORY_DEFAULT;
@@ -583,6 +596,9 @@ namespace EasyFileManager
                 ReplaceWithState = eo.ReplaceWithState;
                 BackupFolderState = eo.BackupFolderState;
                 DuplicatesState = eo.DuplicatesState;
+
+                TypeFilter = eo.TypeFilter;
+                NameFilter = eo.NameFilter;
                 DuplicatesCompareParameters = eo.DuplicatesCompareParameters;
 
                 Keywords = eo.Keywords;
@@ -590,7 +606,6 @@ namespace EasyFileManager
                 EasyMetadata = eo.EasyMetadata;
                 Dates = eo.Dates;
                 Subfolders = eo.Subfolders;
-                Filter = eo.Filter;
             }
         }
 

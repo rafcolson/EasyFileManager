@@ -474,4 +474,13 @@
   <data name="CameraModel" xml:space="preserve">
     <value>Kameramodell</value>
   </data>
+  <data name="Contains" xml:space="preserve">
+    <value>Enthält</value>
+  </data>
+  <data name="EndsWith" xml:space="preserve">
+    <value>Endet mit</value>
+  </data>
+  <data name="StartsWith" xml:space="preserve">
+    <value>Beginnt mit</value>
+  </data>
 </root>

@@ -100,8 +100,10 @@
             MoveTableLayoutPanel = new TableLayoutPanel();
             FilterGroupBox = new GroupBox();
             FilterTableLayoutPanel = new TableLayoutPanel();
+            FilterStringTextBox = new TextBox();
+            FilterNameComboBox = new ComboBox();
             FilterCheckBox = new CheckBox();
-            FilterTextBox = new TextBox();
+            FilterTypeTextBox = new TextBox();
             FilterEditButton = new Button();
             BackupFolderGroupBox = new GroupBox();
             BackupFolderTableLayoutPanel = new TableLayoutPanel();
@@ -855,10 +857,23 @@
             // FilterTableLayoutPanel
             // 
             resources.ApplyResources(FilterTableLayoutPanel, "FilterTableLayoutPanel");
+            FilterTableLayoutPanel.Controls.Add(FilterStringTextBox, 2, 0);
+            FilterTableLayoutPanel.Controls.Add(FilterNameComboBox, 1, 0);
             FilterTableLayoutPanel.Controls.Add(FilterCheckBox, 0, 0);
-            FilterTableLayoutPanel.Controls.Add(FilterTextBox, 1, 0);
-            FilterTableLayoutPanel.Controls.Add(FilterEditButton, 2, 0);
+            FilterTableLayoutPanel.Controls.Add(FilterTypeTextBox, 3, 0);
+            FilterTableLayoutPanel.Controls.Add(FilterEditButton, 4, 0);
             FilterTableLayoutPanel.Name = "FilterTableLayoutPanel";
+            // 
+            // FilterStringTextBox
+            // 
+            resources.ApplyResources(FilterStringTextBox, "FilterStringTextBox");
+            FilterStringTextBox.Name = "FilterStringTextBox";
+            // 
+            // FilterNameComboBox
+            // 
+            resources.ApplyResources(FilterNameComboBox, "FilterNameComboBox");
+            FilterNameComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            FilterNameComboBox.Name = "FilterNameComboBox";
             // 
             // FilterCheckBox
             // 
@@ -866,11 +881,11 @@
             FilterCheckBox.Name = "FilterCheckBox";
             FilterCheckBox.UseVisualStyleBackColor = true;
             // 
-            // FilterTextBox
+            // FilterTypeTextBox
             // 
-            resources.ApplyResources(FilterTextBox, "FilterTextBox");
-            FilterTextBox.Name = "FilterTextBox";
-            FilterTextBox.ReadOnly = true;
+            resources.ApplyResources(FilterTypeTextBox, "FilterTypeTextBox");
+            FilterTypeTextBox.Name = "FilterTypeTextBox";
+            FilterTypeTextBox.ReadOnly = true;
             // 
             // FilterEditButton
             // 
@@ -1453,6 +1468,7 @@
             MoveTableLayoutPanel.ResumeLayout(false);
             MoveTableLayoutPanel.PerformLayout();
             FilterGroupBox.ResumeLayout(false);
+            FilterGroupBox.PerformLayout();
             FilterTableLayoutPanel.ResumeLayout(false);
             FilterTableLayoutPanel.PerformLayout();
             BackupFolderGroupBox.ResumeLayout(false);
@@ -1657,7 +1673,9 @@
         private GroupBox FilterGroupBox;
         private TableLayoutPanel FilterTableLayoutPanel;
         private CheckBox FilterCheckBox;
-        private TextBox FilterTextBox;
+        private TextBox FilterTypeTextBox;
         private Button FilterEditButton;
+        private ComboBox FilterNameComboBox;
+        private TextBox FilterStringTextBox;
     }
 }

@@ -165,6 +165,9 @@
   <data name="Contacts" xml:space="preserve">
     <value>Contacts</value>
   </data>
+  <data name="Contains" xml:space="preserve">
+    <value>Contains</value>
+  </data>
   <data name="Contents" xml:space="preserve">
     <value>Content</value>
   </data>
@@ -275,6 +278,9 @@
   </data>
   <data name="EditSubfolders" xml:space="preserve">
     <value>Edit subfolders</value>
+  </data>
+  <data name="EndsWith" xml:space="preserve">
+    <value>Ends with</value>
   </data>
   <data name="Explore" xml:space="preserve">
     <value>Explore...</value>
@@ -401,6 +407,9 @@
   </data>
   <data name="SmallThumbnail" xml:space="preserve">
     <value>Small thumbnail</value>
+  </data>
+  <data name="StartsWith" xml:space="preserve">
+    <value>Starts with</value>
   </data>
   <data name="StoreAllDuplicates" xml:space="preserve">
     <value>All duplicates will be stored in destination folder. Continue?</value>

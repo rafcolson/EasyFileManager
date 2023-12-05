@@ -2638,8 +2638,68 @@
   <metadata name="FilterTableLayoutPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="FilterTableLayoutPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FilterTableLayoutPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
   <data name="FilterTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
+  </data>
+  <data name="FilterStringTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="FilterStringTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>125, 1</value>
+  </data>
+  <data name="FilterStringTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
+  </data>
+  <data name="FilterStringTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 29</value>
+  </data>
+  <data name="FilterStringTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;FilterStringTextBox.Name" xml:space="preserve">
+    <value>FilterStringTextBox</value>
+  </data>
+  <data name="&gt;&gt;FilterStringTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FilterStringTextBox.Parent" xml:space="preserve">
+    <value>FilterTableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;FilterStringTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="FilterNameComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="FilterNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 1</value>
+  </data>
+  <data name="FilterNameComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
+  </data>
+  <data name="FilterNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 29</value>
+  </data>
+  <data name="FilterNameComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;FilterNameComboBox.Name" xml:space="preserve">
+    <value>FilterNameComboBox</value>
+  </data>
+  <data name="&gt;&gt;FilterNameComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FilterNameComboBox.Parent" xml:space="preserve">
+    <value>FilterTableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;FilterNameComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="FilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2672,37 +2732,37 @@
     <value>FilterTableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;FilterCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
-  <data name="FilterTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="FilterTypeTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="FilterTextBox.Enabled" type="System.Boolean, mscorlib">
+  <data name="FilterTypeTextBox.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="FilterTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 1</value>
+  <data name="FilterTypeTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>229, 1</value>
   </data>
-  <data name="FilterTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="FilterTypeTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 1</value>
   </data>
-  <data name="FilterTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 29</value>
+  <data name="FilterTypeTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 29</value>
   </data>
-  <data name="FilterTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="FilterTypeTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;FilterTextBox.Name" xml:space="preserve">
-    <value>FilterTextBox</value>
+  <data name="&gt;&gt;FilterTypeTextBox.Name" xml:space="preserve">
+    <value>FilterTypeTextBox</value>
   </data>
-  <data name="&gt;&gt;FilterTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;FilterTypeTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FilterTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;FilterTypeTextBox.Parent" xml:space="preserve">
     <value>FilterTableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;FilterTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;FilterTypeTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="FilterEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2720,7 +2780,7 @@
     <value>NoControl</value>
   </data>
   <data name="FilterEditButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 0</value>
+    <value>331, 0</value>
   </data>
   <data name="FilterEditButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -2729,7 +2789,7 @@
     <value>31, 31</value>
   </data>
   <data name="FilterEditButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 31</value>
+    <value>33, 31</value>
   </data>
   <data name="FilterEditButton.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -2744,7 +2804,7 @@
     <value>FilterTableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;FilterEditButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="FilterTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2756,7 +2816,7 @@
     <value>1</value>
   </data>
   <data name="FilterTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>217, 31</value>
+    <value>364, 31</value>
   </data>
   <data name="FilterTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2774,13 +2834,13 @@
     <value>0</value>
   </data>
   <data name="FilterTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="FilterCheckBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FilterTextBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FilterEditButton" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="FilterStringTextBox" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="FilterNameComboBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FilterCheckBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FilterTypeTextBox" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="FilterEditButton" Row="0" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,33,33,Percent,33,34,Percent,33,33,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="FilterGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="FilterGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>745, 4</value>
+    <value>598, 4</value>
   </data>
   <data name="FilterGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -2789,7 +2849,7 @@
     <value>12, 7, 12, 12</value>
   </data>
   <data name="FilterGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 72</value>
+    <value>388, 72</value>
   </data>
   <data name="FilterGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -2909,7 +2969,7 @@
     <value>1, 1, 1, 1</value>
   </data>
   <data name="BackupFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 29</value>
+    <value>112, 29</value>
   </data>
   <data name="BackupFolderTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -2936,7 +2996,7 @@
     <value>1</value>
   </data>
   <data name="BackupFolderTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 31</value>
+    <value>166, 31</value>
   </data>
   <data name="BackupFolderTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2969,7 +3029,7 @@
     <value>12, 7, 12, 12</value>
   </data>
   <data name="BackupFolderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 72</value>
+    <value>190, 72</value>
   </data>
   <data name="BackupFolderGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -3044,7 +3104,7 @@
     <value>1, 1, 1, 1</value>
   </data>
   <data name="SubfoldersTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 29</value>
+    <value>112, 29</value>
   </data>
   <data name="SubfoldersTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -3074,7 +3134,7 @@
     <value>Fill</value>
   </data>
   <data name="SubfoldersEditButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 0</value>
+    <value>135, 0</value>
   </data>
   <data name="SubfoldersEditButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -3110,7 +3170,7 @@
     <value>1</value>
   </data>
   <data name="SubfoldersTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 31</value>
+    <value>166, 31</value>
   </data>
   <data name="SubfoldersTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3134,7 +3194,7 @@
     <value>Fill</value>
   </data>
   <data name="SubfoldersGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>498, 4</value>
+    <value>400, 4</value>
   </data>
   <data name="SubfoldersGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -3143,7 +3203,7 @@
     <value>12, 7, 12, 12</value>
   </data>
   <data name="SubfoldersGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 72</value>
+    <value>190, 72</value>
   </data>
   <data name="SubfoldersGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3257,7 +3317,7 @@
     <value>1, 1, 1, 1</value>
   </data>
   <data name="TopFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 29</value>
+    <value>112, 29</value>
   </data>
   <data name="TopFolderTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -3284,7 +3344,7 @@
     <value>1</value>
   </data>
   <data name="TopFolderTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 31</value>
+    <value>166, 31</value>
   </data>
   <data name="TopFolderTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -3308,7 +3368,7 @@
     <value>Fill</value>
   </data>
   <data name="TopFolderGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 4</value>
+    <value>202, 4</value>
   </data>
   <data name="TopFolderGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -3317,7 +3377,7 @@
     <value>12, 7, 12, 12</value>
   </data>
   <data name="TopFolderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 72</value>
+    <value>190, 72</value>
   </data>
   <data name="TopFolderGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3368,7 +3428,7 @@
     <value>0</value>
   </data>
   <data name="MoveTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="FilterGroupBox" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="BackupFolderGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="SubfoldersGroupBox" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="TopFolderGroupBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,25,Percent,25,Percent,25,Percent,25" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="FilterGroupBox" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="BackupFolderGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="SubfoldersGroupBox" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="TopFolderGroupBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,20,Percent,20,Percent,20,Percent,40" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;MoveSplitContainer.Panel2.Name" xml:space="preserve">
     <value>MoveSplitContainer.Panel2</value>

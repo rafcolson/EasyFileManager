@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using WinFormsLib;
 
 using static WinFormsLib.Forms;
+using static WinFormsLib.Constants;
 using static WinFormsLib.GeoLocator;
 
 namespace EasyFileManager
@@ -177,23 +178,39 @@ namespace EasyFileManager
             try { _task.Dispose(); _cancellationTokenSource.Dispose(); _cancellationTokenSource = new(); } catch { }
         }
 
-        private static string[] GetFilteredFilePaths(string[] paths, EasyType filter)
+        private static bool FilteredPathExists(string path, EasyTypeFilter typeFilter = default, EasyNameFilter nameFilter = default, string filterString = EMPTY_STRING)
         {
-            if (filter == EasyType.None)
+            bool result = false;
+            string n = Utils.GetFileNameWithoutExtension(path);
+            if (string.IsNullOrEmpty(filterString) || (nameFilter switch
             {
-                return paths;
-            }
-            List<string> l = new();
-            foreach (string path in paths)
+                EasyNameFilter.StartsWith => n.StartsWith(filterString),
+                EasyNameFilter.EndsWith => n.EndsWith(filterString),
+                EasyNameFilter.Contains => n.Contains(filterString),
+                _ => n.StartsWith(filterString),
+            }))
             {
-                EasyPath ep = new(path);
-                if (filter.HasFlag(ep.Type))
+                EasyType et = Options.TypeFilter.GetContainingFlags().Select(x => x.GetValue<EasyType>()).Aggregate((x, y) => x |= y);
+                if (et == EasyType.None)
                 {
-                    l.Add(path);
+                    result = true;
                 }
-                ep.Dispose();
+                else
+                {
+                    EasyPath ep = new(path);
+                    if (et.HasFlag(ep.Type))
+                    {
+                        result = true;
+                    }
+                    ep.Dispose();
+                }
             }
-            return l.ToArray();
+            return result;
+        }
+
+        private static string[] GetFilteredFilePaths(string[] paths, EasyTypeFilter typeFilter, EasyNameFilter nameFilter = default, string filterString = EMPTY_STRING)
+        {
+            return paths.Where(path => FilteredPathExists(path, typeFilter, nameFilter, filterString)).ToArray();
         }
 
         private static bool SetAddRemoveProgramsIcon()
