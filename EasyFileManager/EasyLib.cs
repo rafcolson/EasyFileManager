@@ -786,8 +786,8 @@ namespace EasyFileManager
 
         public new void Remove(EasyPath easyPath)
         {
-            base.Remove(easyPath);
             easyPath.Dispose();
+            base.Remove(easyPath);
         }
 
         public new int RemoveAll(Predicate<EasyPath> predicate)
@@ -801,9 +801,8 @@ namespace EasyFileManager
 
         public new void RemoveAt(int index)
         {
-            EasyPath ep = this[index];
+            this[index].Dispose();
             base.RemoveAt(index);
-            ep.Dispose();
         }
 
         public new void RemoveRange(int index, int count)
