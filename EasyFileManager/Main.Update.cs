@@ -488,13 +488,13 @@ namespace EasyFileManager
                 }
                 else if (row.Tag is EasyFile ef)
                 {
-                    if (!filterEnabled || FilteredPathExists(ef.Path, Options.TypeFilter, Options.NameFilter, Options.FilterString))
+                    if (!filterEnabled || (NameFilteredPathExists(ef.Path, Options.NameFilter, Options.FilterString) && TypeFilteredPathExists(ef, Options.TypeFilter)))
                     {
                         selectedFiles.Add(ef);
                     }
                 }
             }
-            
+            EasyFiles selectedViewFiles = new();
             int n = selectedFiles.Count;
             for (int i = 0; i < n; i++)
             {
@@ -529,9 +529,13 @@ namespace EasyFileManager
                 {
                     Logger.Write($"Formatted {p} -> {fp}");
                 }
-                if (!viewFiles.Contains(ef))
+                if (viewFiles.Contains(ef))
                 {
-                    selectedFiles.Remove(ef);
+                    selectedViewFiles.Add(ef);
+                }
+                else
+                {
+                    ef.Dispose();
                 }
                 Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, subStepIndex, numSubSteps), $"{p} -> {fp}");
             }
@@ -550,7 +554,7 @@ namespace EasyFileManager
                     string fp = string.Empty;
                     if (!apply)
                     {
-                        if (selectedFiles.Contains(ef))
+                        if (selectedViewFiles.Contains(ef))
                         {
                             fp = ef.FormattedPath;
                             string pp = $"{Folder.Path}{BACKSLASH}";

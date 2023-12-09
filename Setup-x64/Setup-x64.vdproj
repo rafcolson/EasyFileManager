@@ -256,7 +256,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EasyFileManager"
         "ProductCode" = "8:{517E95AF-9EC1-4CB4-A674-64CB32CD5215}"
-        "PackageCode" = "8:{894DCA6D-02C6-4F0D-8DFE-6B3DB2E5B93D}"
+        "PackageCode" = "8:{95F4BF56-3840-4015-B183-8D065D5A3639}"
         "UpgradeCode" = "8:{3B13BB25-9128-4994-BD63-D4785DF2FAD3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
