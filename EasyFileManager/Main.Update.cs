@@ -392,6 +392,7 @@ namespace EasyFileManager
             int maxValue = 100;
             int numSubSteps = 2;
             int subStepIndex = 0;
+            int numValues;
 
             bool copyInsteadOfMove = false;
             bool filterEnabled = Options.MoveEnabled && Options.FilterEnabled;
@@ -435,17 +436,16 @@ namespace EasyFileManager
                     {
                         paths = GetFilteredFilePaths(paths, Options.TypeFilter, Options.NameFilter, Options.FilterString);
                     }
-                    int numPaths = paths.Length;
-                    for (int i = 0; i < numPaths; i++)
+                    numValues = paths.Length;
+                    for (int i = 0; i < numValues; i++)
                     {
                         string path = paths[i];
                         EasyPath ep = new(path);
                         string bp = Utils.GetPathDuplicate(Path.Join(backupPath, ep.Name));
                         ep.Copy(bp, Options.PreserveDateCreated, Options.PreserveDateModified);
                         ep.Dispose();
-                        int value = EasyProgress.GetValue(((maxValue * i) / numPaths), maxValue, subStepIndex, numSubSteps);
-                        string info = $"{path} -> {bp}";
-                        Progress.Report(value, info);
+
+                        Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{path} -> {bp}");
                     }
                     subStepIndex += 1;
 
@@ -495,8 +495,8 @@ namespace EasyFileManager
                 }
             }
             EasyFiles selectedViewFiles = new();
-            int n = selectedFiles.Count;
-            for (int i = 0; i < n; i++)
+            numValues = selectedFiles.Count;
+            for (int i = 0; i < numValues; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -537,13 +537,14 @@ namespace EasyFileManager
                 {
                     ef.Dispose();
                 }
-                Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, subStepIndex, numSubSteps), $"{p} -> {fp}");
+
+                Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{p} -> {fp}");
             }
 
             subStepIndex += 1;
 
-            n = rows.Count;
-            for (int i = 0; i < n; i++)
+            numValues = rows.Count;
+            for (int i = 0; i < numValues; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -566,8 +567,8 @@ namespace EasyFileManager
                         row.Cells[0].Value = fp;
                     }
                 }
-                int value = EasyProgress.GetValue(((maxValue * i) / n), maxValue, subStepIndex, numSubSteps);
-                Progress.Report(value, string.Empty);
+
+                Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), string.Empty);
             }
             Options.TopFolderPath = dp;
 

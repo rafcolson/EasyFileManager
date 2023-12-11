@@ -224,7 +224,7 @@ namespace EasyFileManager
         public static int GetValue(int value, int maxValue, int stepIndex, int numSteps)
         {
             double f = ((double)stepIndex) / numSteps;
-            return (int)((1 - f) * value + f * maxValue);
+            return (int)(f * maxValue) + (value / numSteps);
         }
         public void ReportValue(int value, int stepIndex, int numSteps, bool update = true)
         {
