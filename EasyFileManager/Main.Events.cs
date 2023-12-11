@@ -152,10 +152,7 @@ namespace EasyFileManager
             if (ImportSettingsDialog.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.ImportExportDirectory = ImportSettingsDialog.InitialDirectory;
-                string s = new FileInfo(ImportSettingsDialog.FileName).ReadText();
-                Options = new(s);
-                Properties.Settings.Default.EasyOptions = s;
-                Properties.Settings.Default.Save();
+                UpdateOptions(ImportSettingsDialog.FileName);
 
                 WaitUntilTaskCompleted();
 

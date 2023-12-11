@@ -202,6 +202,29 @@
         }
         "FileType"
         {
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_172088BBB5C344CCBAAF4238B3B53CD2"
+            {
+            "Name" = "8:EFM"
+            "Description" = "8:EasyFileManager settings"
+            "Extensions" = "8:efm"
+            "MIME" = "8:"
+            "Icon" = "8:_DADAEDFF1E154F3F9AB32B87A9327C59"
+            "IconIndex" = "3:0"
+                "Command"
+                {
+                "Command" = "8:_4228E6DB6EA34BB08D63720E3A9191F5"
+                }
+                "Verbs"
+                {
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_31524CC357F34DA9AF1C96575B2FEA14"
+                    {
+                    "Command" = "8:&Open"
+                    "Verb" = "8:open"
+                    "Arguments" = "8:\"%1\""
+                    "Order" = "3:0"
+                    }
+                }
+            }
         }
         "Folder"
         {
@@ -256,7 +279,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EasyFileManager"
         "ProductCode" = "8:{517E95AF-9EC1-4CB4-A674-64CB32CD5215}"
-        "PackageCode" = "8:{95F4BF56-3840-4015-B183-8D065D5A3639}"
+        "PackageCode" = "8:{8D3AD3CC-78CC-4809-A6CE-4DDC2CDFC152}"
         "UpgradeCode" = "8:{3B13BB25-9128-4994-BD63-D4785DF2FAD3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

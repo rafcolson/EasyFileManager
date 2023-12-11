@@ -12,6 +12,20 @@ namespace EasyFileManager
 {
     public partial class Main
     {
+        public static bool UpdateOptions(string path)
+        {
+            FileInfo fi = new(path);
+            if (!fi.Exists)
+            {
+                return false;
+            }
+            string s = fi.ReadText();
+            Options = new(s);
+            Properties.Settings.Default.EasyOptions = s;
+            Properties.Settings.Default.Save();
+            return true;
+        }
+
         private bool Update(string path, bool forceRefresh = false)
         {
             if (!Utils.IsValidDirectoryPath(path) || !Directory.Exists(path))
