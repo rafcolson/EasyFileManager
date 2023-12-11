@@ -6,6 +6,7 @@ using WinFormsLib;
 using static WinFormsLib.Utils;
 using static WinFormsLib.Forms;
 using static WinFormsLib.Buttons;
+using static WinFormsLib.Constants;
 using static WinFormsLib.GeoLocator;
 
 namespace EasyFileManager
@@ -61,7 +62,14 @@ namespace EasyFileManager
         private void ExplorerDataGridView_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = ExplorerDataGridView.Rows[e.RowIndex];
-            if (row.Tag is EasyFolder ed) { Update(ed.Path); }
+            if (row.Tag is EasyFolder ed)
+            {
+                Update(ed.Path);
+            }
+            else if (row.Tag is EasyFile ef)
+            {
+                Process.Start(EXPLORER_EXE, ef.Path);
+            }
         }
 
         private void DataGridView_CellMouseDown(object? sender, DataGridViewCellMouseEventArgs e)
@@ -272,7 +280,7 @@ namespace EasyFileManager
                 string s = tb.Text;
                 if (IsValidDirectoryPath(s))
                 {
-                    Process.Start("explorer.exe", GetParentPath(s));
+                    Process.Start(EXPLORER_EXE, GetParentPath(s));
                 }
             }
         }
@@ -283,7 +291,7 @@ namespace EasyFileManager
             {
                 if (dgv.SelectedRows.Count == 1 && dgv.SelectedRows[0].Tag is EasyPath ep)
                 {
-                    Process.Start("explorer.exe", open ? ep.Path : ep.ParentPath);
+                    Process.Start(EXPLORER_EXE, open ? ep.Path : ep.ParentPath);
                 }
             }
         }
