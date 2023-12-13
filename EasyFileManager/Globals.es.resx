@@ -483,4 +483,10 @@
   <data name="StartsWith" xml:space="preserve">
     <value>Comienza con</value>
   </data>
+  <data name="BackupFolderDoesNotExist" xml:space="preserve">
+    <value>Carpeta de copia de seguridad no existe. No se han realizado cambios.</value>
+  </data>
+  <data name="TopFolderDoesNotExist" xml:space="preserve">
+    <value>Carpeta superior no existe. No se han realizado cambios.</value>
+  </data>
 </root>

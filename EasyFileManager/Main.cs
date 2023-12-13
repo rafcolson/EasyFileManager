@@ -104,10 +104,8 @@ namespace EasyFileManager
             _editPathContextMenuStrip.Items.Add(GetToolStripMenuItem(Globals.Explore, PathToolStripMenuItem_Click));
             _editPropsContextMenuStrip = new(Font, EditMenuItems.CopySelectAll);
             _editExplorerContextMenuStrip = new(Font, EditMenuItems.CopySelectAll);
-            ToolStripMenuItem? tsmiE = GetToolStripMenuItem(Globals.Explore, (o, e) => ExplorerToolStripMenuItem_Click(o, e));
-            ToolStripMenuItem? tsmiO = GetToolStripMenuItem(Globals.Open, (o, e) => ExplorerToolStripMenuItem_Click(o, e, true));
-            _editExplorerContextMenuStrip.Items.Add(tsmiE);
-            _editExplorerContextMenuStrip.Items.Add(tsmiO);
+            _editExplorerContextMenuStrip.Items.Add(GetToolStripMenuItem(Globals.Explore, (o, e) => ExplorerToolStripMenuItem_Click(o, e)));
+            _editExplorerContextMenuStrip.Items.Add(GetToolStripMenuItem(Globals.Open, (o, e) => ExplorerToolStripMenuItem_Click(o, e, true)));
             _editExplorerContextMenuStrip.Opening += EditExplorerContextMenuStrip_Opening;
         }
 
@@ -430,10 +428,6 @@ namespace EasyFileManager
             InitializeLanguage();
             InitializeComponent();
             Icon = Properties.Resources.ApplicationIcon;
-            if (!Debugger.IsAttached)
-            {
-                //SetAddRemoveProgramsIcon();
-            }
             InitializeFields();
             //RestoreToDefault(@"G:\_TEMP\Test");
             Options = new(Properties.Settings.Default.EasyOptions);

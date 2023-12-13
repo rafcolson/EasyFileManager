@@ -526,14 +526,13 @@ namespace EasyFileManager
 
         private void SelectBackupFolderButton_Click(object? sender, EventArgs e)
         {
-            OpenFolderDialog.SelectedPath = Options.BackupFolderPath;
+            OpenFolderDialog.SelectedPath = GetValidDirectoryPath(Options.BackupFolderPath);
             if (OpenFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                string p = OpenFolderDialog.SelectedPath;
-                if (p != Options.BackupFolderPath)
+                if (OpenFolderDialog.SelectedPath != Options.BackupFolderPath)
                 {
-                    Options.BackupFolderPath = p;
-                    BackupFolderTextBox.Text = p;
+                    Options.BackupFolderPath = OpenFolderDialog.SelectedPath;
+                    BackupFolderTextBox.Text = OpenFolderDialog.SelectedPath;
                 }
             }
             BackupFolderGroupBox.Focus();
@@ -541,14 +540,13 @@ namespace EasyFileManager
 
         private void SelectDuplicatesFolderButton_Click(object? sender, EventArgs e)
         {
-            OpenFolderDialog.SelectedPath = Options.DuplicatesFolderPath;
+            OpenFolderDialog.SelectedPath = GetValidDirectoryPath(Options.DuplicatesFolderPath);
             if (OpenFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                string p = OpenFolderDialog.SelectedPath;
-                if (p != Options.DuplicatesFolderPath)
+                if (OpenFolderDialog.SelectedPath != Options.DuplicatesFolderPath)
                 {
-                    Options.DuplicatesFolderPath = p;
-                    DuplicatesFolderTextBox.Text = p;
+                    Options.DuplicatesFolderPath = OpenFolderDialog.SelectedPath;
+                    DuplicatesFolderTextBox.Text = OpenFolderDialog.SelectedPath;
                 }
             }
             DuplicatesGroupBox.Focus();
@@ -594,15 +592,15 @@ namespace EasyFileManager
             UpdateApplyButton(true);
 
             List<Action<CancellationToken>> actions = new();
-            if (Options.CustomizeEnabled)
+            if (Options.HasCustomizing())
             {
                 actions.Add(Customize);
             }
-            if (Options.RenameEnabled || Options.MoveEnabled)
+            if (Options.HasRenaming() || Options.HasMoving())
             {
                 actions.Add(ApplyFormatting);
             }
-            if (Options.FinalizeEnabled)
+            if (Options.HasFinalizing())
             {
                 if (Options.DeleteEmptyFolders)
                 {
@@ -642,6 +640,7 @@ namespace EasyFileManager
 
         private async void SelectTopFolderButton_ClickAsync(object? sender, EventArgs e)
         {
+            Options.TopFolderPath = GetValidDirectoryPath(Options.TopFolderPath);
             OpenFolderDialog.SelectedPath = Options.TopFolderPath;
             if (OpenFolderDialog.ShowDialog() == DialogResult.OK)
             {

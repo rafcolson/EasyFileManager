@@ -483,4 +483,10 @@
   <data name="StartsWith" xml:space="preserve">
     <value>Begint met</value>
   </data>
+  <data name="BackupFolderDoesNotExist" xml:space="preserve">
+    <value>Back-upmap bestaat niet. Geen wijzigingen aangebracht.</value>
+  </data>
+  <data name="TopFolderDoesNotExist" xml:space="preserve">
+    <value>Bovenste map bestaat niet. Geen wijzigingen aangebracht.</value>
+  </data>
 </root>

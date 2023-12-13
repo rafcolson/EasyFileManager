@@ -151,6 +151,15 @@ namespace EasyFileManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup folder does not exist. No changes made..
+        /// </summary>
+        public static string BackupFolderDoesNotExist {
+            get {
+                return ResourceManager.GetString("BackupFolderDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backup (move).
         /// </summary>
         public static string BackupFolderMove {
@@ -1002,6 +1011,15 @@ namespace EasyFileManager {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top folder does not exist. No changes made..
+        /// </summary>
+        public static string TopFolderDoesNotExist {
+            get {
+                return ResourceManager.GetString("TopFolderDoesNotExist", resourceCulture);
             }
         }
         

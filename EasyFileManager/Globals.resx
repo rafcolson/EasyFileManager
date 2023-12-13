@@ -147,6 +147,9 @@
   <data name="BackupFolderDefault" xml:space="preserve">
     <value>Backup</value>
   </data>
+  <data name="BackupFolderDoesNotExist" xml:space="preserve">
+    <value>Backup folder does not exist. No changes made.</value>
+  </data>
   <data name="BackupFolderMove" xml:space="preserve">
     <value>Backup (move)</value>
   </data>
@@ -431,6 +434,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="TopFolderDoesNotExist" xml:space="preserve">
+    <value>Top folder does not exist. No changes made.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>

@@ -483,4 +483,10 @@
   <data name="StartsWith" xml:space="preserve">
     <value>Commence par</value>
   </data>
+  <data name="BackupFolderDoesNotExist" xml:space="preserve">
+    <value>Le dossier de sauvegarde n'existe pas. Aucune modification n'a été apportée.</value>
+  </data>
+  <data name="TopFolderDoesNotExist" xml:space="preserve">
+    <value>Le dossier supérieur n'existe pas. Aucune modification n'a été apportée.</value>
+  </data>
 </root>

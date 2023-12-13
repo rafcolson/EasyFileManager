@@ -10,6 +10,7 @@ using WinFormsLib;
 
 using static WinFormsLib.Chars;
 using static WinFormsLib.Forms;
+using static WinFormsLib.Utils;
 using static WinFormsLib.Constants;
 using static WinFormsLib.GeoLocator;
 
@@ -370,22 +371,22 @@ namespace EasyFileManager
     {
         None = 0,
         [EasyGlobalStringValue("Text")]
-        [Utils.Value(EasyType.Text)]
+        [Value(EasyType.Text)]
         Text = 1 << 0,
         [EasyGlobalStringValue("Document")]
-        [Utils.Value(EasyType.Document)]
+        [Value(EasyType.Document)]
         Document = 1 << 1,
         [EasyGlobalStringValue("Image")]
-        [Utils.Value(EasyType.Image)]
+        [Value(EasyType.Image)]
         Image = 1 << 2,
         [EasyGlobalStringValue("Video")]
-        [Utils.Value(EasyType.Video)]
+        [Value(EasyType.Video)]
         Video = 1 << 3,
         [EasyGlobalStringValue("Audio")]
-        [Utils.Value(EasyType.Audio)]
+        [Value(EasyType.Audio)]
         Audio = 1 << 4,
         [EasyGlobalStringValue("Compressed")]
-        [Utils.Value(EasyType.Compressed)]
+        [Value(EasyType.Compressed)]
         Compressed = 1 << 5,
         Default = Image | Video,
         All = Text | Document | Image | Video | Audio | Compressed
@@ -433,11 +434,11 @@ namespace EasyFileManager
 
     public enum EasyOrientation
     {
-        [Utils.Value(8)]
+        [Value(8)]
         Rotate270,
-        [Utils.Value(3)]
+        [Value(3)]
         Rotate180,
-        [Utils.Value(6)]
+        [Value(6)]
         Rotate90
     }
 
@@ -551,9 +552,9 @@ namespace EasyFileManager
                 Suffix = eo.Suffix;
                 DateFormat = eo.DateFormat;
                 FilterString = eo.FilterString;
-                BackupFolderPath = Utils.IsValidDirectoryPath(eo.BackupFolderPath) ? eo.BackupFolderPath : STARTUP_DIRECTORY_DEFAULT;
-                TopFolderPath = Utils.IsValidDirectoryPath(eo.TopFolderPath) ? eo.TopFolderPath : STARTUP_DIRECTORY_DEFAULT;
-                DuplicatesFolderPath = Utils.IsValidDirectoryPath(eo.DuplicatesFolderPath) ? eo.DuplicatesFolderPath : STARTUP_DIRECTORY_DEFAULT;
+                BackupFolderPath = GetValidDirectoryPath(eo.BackupFolderPath);
+                TopFolderPath = GetValidDirectoryPath(eo.TopFolderPath);
+                DuplicatesFolderPath = GetValidDirectoryPath(eo.DuplicatesFolderPath);
 
                 CustomizeEnabled = eo.CustomizeEnabled;
                 RenameEnabled = eo.RenameEnabled;
@@ -608,6 +609,14 @@ namespace EasyFileManager
                 Subfolders = eo.Subfolders;
             }
         }
+
+        public bool HasCustomizing() => CustomizeEnabled && (TitleEnabled || SubjectEnabled || CommentEnabled || KeywordsState != CheckState.Unchecked || GeolocationEnabled || DateState != CheckState.Unchecked || EasyMetadataEnabled);
+
+        public bool HasRenaming() => RenameEnabled && (!string.IsNullOrEmpty(Prefix + Suffix) || (ReplaceWithState != CheckState.Unchecked && !string.IsNullOrEmpty(Replace)) || DateFormatEnabled);
+
+        public bool HasMoving(bool apply = true) => MoveEnabled && ((apply && BackupFolderState != CheckState.Unchecked) || TopFolderEnabled || SubfoldersEnabled);
+
+        public bool HasFinalizing() => FinalizeEnabled && (DeleteEmptyFolders || DuplicatesState != CheckState.Unchecked || DuplicatesCompareParameters != EasyCompareParameter.None);
 
         public override string ToString() => JsonSerializer.Serialize(this, JsonSerializerOptions);
     }
@@ -931,15 +940,15 @@ namespace EasyFileManager
         public string Path { get; private set; } = EMPTY_STRING;
         public bool IsDisposed { get; private set; }
 
-        public string Name => Utils.GetFileName(Path);
-        public string NameWithoutExtension => Utils.GetFileNameWithoutExtension(Path);
-        public string PathWithoutExtension => Utils.GetPathWithoutExtension(Path);
-        public string Extension => Utils.GetExtension(Path);
-        public string DirectoryPath => Utils.GetDirectoryPath(Path);
-        public string DirectoryName => Utils.GetFileName(DirectoryPath);
-        public string ParentPath => Utils.GetParentPath(Path);
-        public string RawName => Utils.GetRawName(Path);
-        public string RawPath => Utils.GetRawPath(Path);
+        public string Name => GetFileName(Path);
+        public string NameWithoutExtension => GetFileNameWithoutExtension(Path);
+        public string PathWithoutExtension => GetPathWithoutExtension(Path);
+        public string Extension => GetExtension(Path);
+        public string DirectoryPath => GetDirectoryPath(Path);
+        public string DirectoryName => GetFileName(DirectoryPath);
+        public string ParentPath => GetParentPath(Path);
+        public string RawName => GetRawName(Path);
+        public string RawPath => GetRawPath(Path);
         public bool Exists => IsFolder ? Directory.Exists(Path) : File.Exists(Path);
         public bool IsInvalid => Type == EasyType.Invalid;
         public bool IsFile => EasyType.File.HasFlag(Type);
@@ -956,10 +965,10 @@ namespace EasyFileManager
                 return _size is long l ? l : 0;
             }
         }
-        public Image? SmallThumbnail => Utils.GetThumbnailImage(ShellObject?.Thumbnail.SmallBitmap);
-        public Image? MediumThumbnail => Utils.GetThumbnailImage(ShellObject?.Thumbnail.MediumBitmap);
-        public Image? LargeThumbnail => Utils.GetThumbnailImage(ShellObject?.Thumbnail.LargeBitmap);
-        public Image? ExtraLargeThumbnail => Utils.GetThumbnailImage(ShellObject?.Thumbnail.ExtraLargeBitmap);
+        public Image? SmallThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.SmallBitmap);
+        public Image? MediumThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.MediumBitmap);
+        public Image? LargeThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.LargeBitmap);
+        public Image? ExtraLargeThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.ExtraLargeBitmap);
         public FileInfo FileInfo => new(Path);
 
         public DateTime? DateModified
@@ -1048,7 +1057,7 @@ namespace EasyFileManager
                 Debug.WriteLine($"EasyPath is empty.");
                 return;
             }
-            if (path == Utils.GetParentPath(path))
+            if (path == GetParentPath(path))
             {
                 Debug.WriteLine($"EasyPath is root.");
                 return;
@@ -1061,12 +1070,12 @@ namespace EasyFileManager
                 {
                     if (IsFolder)
                     {
-                        if (Utils.GetTargetDirectory(path) is string td)
+                        if (GetTargetDirectory(path) is string td)
                         {
                             Initialize(td);
                         }
                     }
-                    else if (Utils.GetTargetFile(path) is string tf)
+                    else if (GetTargetFile(path) is string tf)
                     {
                         Initialize(tf);
                     }
@@ -1099,9 +1108,7 @@ namespace EasyFileManager
             {
                 DateTime? dtc = preserveDateCreated ? DateCreated : null;
                 DateTime? dtm = preserveDateModified ? DateModified : null;
-                result = copy
-                    ? IsFolder ? Utils.CopyDirectory(Path, path) : Utils.CopyFile(Path, path)
-                    : IsFolder ? Utils.MoveDirectory(Path, path) : Utils.MoveFile(Path, path);
+                result = copy ? IsFolder ? CopyDirectory(Path, path) : CopyFile(Path, path) : IsFolder ? MoveDirectory(Path, path) : MoveFile(Path, path);
                 if (result)
                 {
                     if (preserveDateCreated || preserveDateModified) { Initialize(path); }
@@ -1142,7 +1149,7 @@ namespace EasyFileManager
                 if (IsFolder)
                 {
                     CancellationTokenSource cts = new();
-                    Task t = Utils.RunCancellableTask(() =>
+                    Task t = RunCancellableTask(() =>
                     {
                         try
                         {
@@ -1191,7 +1198,7 @@ namespace EasyFileManager
             {
                 return false;
             }
-            bool result = IsFolder ? Utils.DeleteDirectory(Path) : Utils.DeleteFile(Path);
+            bool result = IsFolder ? DeleteDirectory(Path) : DeleteFile(Path);
             if (result) { Dispose(); }
             return result;
         }
@@ -1307,9 +1314,9 @@ namespace EasyFileManager
             }
         }
 
-        public string FormattedName => Utils.GetFileName(FormattedPath);
-        public string FormattedParentPath => Utils.GetParentPath(FormattedPath);
-        public string FormattedNameWithoutExtension => Utils.GetFileNameWithoutExtension(FormattedPath);
+        public string FormattedName => GetFileName(FormattedPath);
+        public string FormattedParentPath => GetParentPath(FormattedPath);
+        public string FormattedNameWithoutExtension => GetFileNameWithoutExtension(FormattedPath);
 
         public string Title
         {
@@ -1647,7 +1654,7 @@ namespace EasyFileManager
                 n = WinFormsLib.Globals.FileNameDefault;
             }
             string p = System.IO.Path.Join(pp, $"{n}{ext}");
-            FormattedPath = Utils.GetPathDuplicate(p, excludedPaths ?? Utils.GetAllPaths(pp));
+            FormattedPath = GetPathDuplicate(p, excludedPaths ?? GetAllPaths(pp));
             return p != Path;
         }
 

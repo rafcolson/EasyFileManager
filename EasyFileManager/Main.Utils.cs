@@ -211,6 +211,10 @@ namespace EasyFileManager
 
         private static bool SetAddRemoveProgramsIcon()
         {
+            if (Debugger.IsAttached)
+            {
+                return false;
+            }
             using RegistryKey? uninstallRegKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall");
             bool result = false;
             if (uninstallRegKey != null)

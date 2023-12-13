@@ -4,6 +4,7 @@ using WinFormsLib;
 
 using static WinFormsLib.Chars;
 using static WinFormsLib.Forms;
+using static WinFormsLib.Utils;
 using static WinFormsLib.Buttons;
 using static WinFormsLib.Constants;
 using static WinFormsLib.GeoLocator;
@@ -28,19 +29,9 @@ namespace EasyFileManager
 
         private bool Update(string path, bool forceRefresh = false)
         {
-            if (!Utils.IsValidDirectoryPath(path) || !Directory.Exists(path))
-            {
-                path = Folder.Path;
-                while (!string.IsNullOrEmpty(path) && !Directory.Exists(path))
-                {
-                    path = Utils.GetDirectoryPath(path);
-                }
-                if (string.IsNullOrEmpty(path))
-                {
-                    path = STARTUP_DIRECTORY_DEFAULT;
-                }
-            }
             EasyMetadata.Options.Reset();
+
+            path = GetValidDirectoryPath(path);
             if (forceRefresh || path != Folder.Path)
             {
                 using EasyPath ep = new(path);
@@ -51,8 +42,8 @@ namespace EasyFileManager
                         FolderWatcher.EnableRaisingEvents = false;
                         FolderContentsWatcher.EnableRaisingEvents = false;
                         FolderContentsWatcher.Path = path;
-                        FolderWatcher.Filter = Utils.GetDirectoryName(path);
-                        FolderWatcher.Path = Utils.GetParentPath(path);
+                        FolderWatcher.Filter = GetDirectoryName(path);
+                        FolderWatcher.Path = GetParentPath(path);
                         FolderWatcher.EnableRaisingEvents = true;
                         FolderContentsWatcher.EnableRaisingEvents = true;
 
@@ -202,7 +193,7 @@ namespace EasyFileManager
             {
                 return;
             }
-            Utils.DelayAsync(UpdateFormattingAsync);
+            DelayAsync(UpdateFormattingAsync);
         }
 
         private void UpdateReplaceWithControls()
@@ -411,19 +402,11 @@ namespace EasyFileManager
             bool copyInsteadOfMove = false;
             bool filterEnabled = Options.MoveEnabled && Options.FilterEnabled;
 
-            DataGridViewRowCollection rows = ExplorerDataGridView.Rows;
-
             if (!apply)
             {
                 if (!GetSelectedFilePaths().Any())
                 {
-                    foreach (DataGridViewRow row in rows)
-                    {
-                        if (row.Tag is EasyFile)
-                        {
-                            row.Cells[0].Value = EMPTY_STRING;
-                        }
-                    }
+                    ClearFormatting();
                     return;
                 }
             }
@@ -431,10 +414,19 @@ namespace EasyFileManager
             {
                 string startupFolderPath = Properties.Settings.Default.StartupDirectory;
                 string backupFolderPath = Options.BackupFolderState == CheckState.Indeterminate ? startupFolderPath : Options.BackupFolderPath;
-                if (!Utils.IsValidDirectoryPath(Options.BackupFolderPath))
+
+                if (!IsValidDirectoryPath(Options.BackupFolderPath))
                 {
-                    Options.BackupFolderPath = STARTUP_DIRECTORY_DEFAULT;
+                    using MessageDialog md = new(Globals.BackupFolderDoesNotExist);
+                    md.ShowDialog();
+
+                    if (Options.LogApplicationEvents)
+                    {
+                        Logger.Write($"Aborted: Backup folder does not exist.");
+                    }
+                    return;
                 }
+
                 if (backupFolderPath == startupFolderPath)
                 {
                     copyInsteadOfMove = true;
@@ -454,10 +446,9 @@ namespace EasyFileManager
                     for (int i = 0; i < numValues; i++)
                     {
                         string path = paths[i];
-                        EasyPath ep = new(path);
-                        string bp = Utils.GetPathDuplicate(Path.Join(backupPath, ep.Name));
+                        using EasyPath ep = new(path);
+                        string bp = GetPathDuplicate(Path.Join(backupPath, ep.Name));
                         ep.Copy(bp, Options.PreserveDateCreated, Options.PreserveDateModified);
-                        ep.Dispose();
 
                         Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{path} -> {bp}");
                     }
@@ -470,14 +461,23 @@ namespace EasyFileManager
                 }
             }
 
+            if (Options.MoveEnabled && Options.TopFolderEnabled && !IsValidDirectoryPath(Options.TopFolderPath))
+            {
+                using MessageDialog md = new(Globals.TopFolderDoesNotExist);
+                md.ShowDialog();
+
+                if (Options.LogApplicationEvents)
+                {
+                    Logger.Write($"Aborted: Top folder does not exist.");
+                }
+                return;
+            }
+
             cancellationToken.ThrowIfCancellationRequested();
 
-            string dp = Options.TopFolderPath;
-            if (string.IsNullOrEmpty(dp))
-            {
-                Options.TopFolderPath = Folder.Path;
-            }
-            OrderedMap<string, string> om = new(Utils.GetAllPaths(Options.TopFolderPath, true).ToDictionary(s => s));
+            string dp = Options.MoveEnabled && Options.TopFolderEnabled ? Options.TopFolderPath : Folder.Path;
+            OrderedMap<string, string> om = new(GetAllPaths(dp, true).ToDictionary(s => s));
+            DataGridViewRowCollection rows = ExplorerDataGridView.Rows;
 
             EasyFiles viewFiles = new();
             foreach (DataGridViewRow row in rows)
@@ -487,7 +487,6 @@ namespace EasyFileManager
                     viewFiles.Add(ef);
                 }
             }
-
             EasyFiles selectedFiles = new();
             foreach (DataGridViewRow row in ExplorerDataGridView.SelectedRows)
             {
@@ -520,28 +519,31 @@ namespace EasyFileManager
                 ef.UpdateFormatting(Options, om.GetValues());
                 string fp = ef.FormattedPath;
                 om.Put(p, fp);
-                if (apply)
+                if (p != fp)
                 {
-                    if (copyInsteadOfMove)
+                    if (apply)
                     {
-                        ef.Copy(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
-                        if (Options.LogApplicationEvents)
+                        if (copyInsteadOfMove)
                         {
-                            Logger.Write($"Copied {p} -> {fp}");
+                            ef.Copy(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
+                            if (Options.LogApplicationEvents)
+                            {
+                                Logger.Write($"Copied {p} -> {fp}");
+                            }
+                        }
+                        else
+                        {
+                            ef.Move(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
+                            if (Options.LogApplicationEvents)
+                            {
+                                Logger.Write($"Moved {p} -> {fp}");
+                            }
                         }
                     }
-                    else
+                    else if (Options.LogApplicationEvents)
                     {
-                        ef.Move(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
-                        if (Options.LogApplicationEvents)
-                        {
-                            Logger.Write($"Moved {p} -> {fp}");
-                        }
+                        Logger.Write($"Formatted {p} -> {fp}");
                     }
-                }
-                else if (Options.LogApplicationEvents)
-                {
-                    Logger.Write($"Formatted {p} -> {fp}");
                 }
                 if (viewFiles.Contains(ef))
                 {
@@ -551,7 +553,6 @@ namespace EasyFileManager
                 {
                     ef.Dispose();
                 }
-
                 Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{p} -> {fp}");
             }
 
@@ -581,16 +582,18 @@ namespace EasyFileManager
                         row.Cells[0].Value = fp;
                     }
                 }
-
                 Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), string.Empty);
             }
-            Options.TopFolderPath = dp;
-
             Progress.Report(maxValue);
         }
 
         private void UpdateFormatting(CancellationToken cancellationToken)
         {
+            if (!Options.HasRenaming() && !Options.HasMoving(false))
+            {
+                ClearFormatting();
+                return;
+            }
             Debug.WriteLine("Updating formatting...");
 
             Progress.Reset();
@@ -598,6 +601,17 @@ namespace EasyFileManager
             UpdateFormatting(false, cancellationToken);
 
             Debug.WriteLine("Formatted.");
+        }
+
+        private void ClearFormatting()
+        {
+            foreach (DataGridViewRow row in ExplorerDataGridView.Rows)
+            {
+                if (row.Tag is EasyFile)
+                {
+                    row.Cells[0].Value = EMPTY_STRING;
+                }
+            }
         }
 
         private void ApplyFormatting(CancellationToken cancellationToken)
@@ -613,10 +627,10 @@ namespace EasyFileManager
         {
             Debug.WriteLine("Customizing...");
 
+            cancellationToken.ThrowIfCancellationRequested();
+
             int maxValue = 100;
             int numSubSteps = 2;
-
-            cancellationToken.ThrowIfCancellationRequested();
 
             Progress.Report(EasyProgress.GetValue(1, maxValue, 0, numSubSteps));
 
@@ -677,7 +691,7 @@ namespace EasyFileManager
             }
             if (i > 0)
             {
-                Utils.Delay(() => { Debug.WriteLine($"Total empty folders deleted: {i}."); });
+                Delay(() => { Debug.WriteLine($"Total empty folders deleted: {i}."); });
             }
             else
             {
@@ -700,7 +714,7 @@ namespace EasyFileManager
             Progress.Report(EasyProgress.GetValue(0, maxValue, 0, numSubSteps));
 
             string info;
-            if (Utils.IsValidDirectoryPath(Options.DuplicatesFolderPath))
+            if (IsValidDirectoryPath(Options.DuplicatesFolderPath))
             {
                 string[] filePaths = Options.MoveEnabled && Options.TopFolderEnabled && !string.IsNullOrEmpty(Options.TopFolderPath)
                     ? new EasyFolder(Options.TopFolderPath).GetFilePaths(true)
@@ -743,7 +757,7 @@ namespace EasyFileManager
                                     {
                                         if (Options.DuplicatesState == CheckState.Checked)
                                         {
-                                            string filePath = Utils.GetPathDuplicate(Path.Join(duplicatesPath, ep.Name));
+                                            string filePath = GetPathDuplicate(Path.Join(duplicatesPath, ep.Name));
                                             ep.Move(filePath, Options.PreserveDateCreated, Options.PreserveDateModified);
                                         }
                                         ep.Dispose();
@@ -793,7 +807,7 @@ namespace EasyFileManager
                 using MessageDialog md = new(Globals.DuplicatesFolderDoesNotExist);
                 md.ShowDialog();
 
-                info = $"{deletOrStor}ing duplicates aborted.";
+                info = $"{deletOrStor}ing duplicates aborted. Duplicates folder does not exist.";
             }
             Progress.Report(EasyProgress.GetValue(100, maxValue, 1, numSubSteps));
 
@@ -882,7 +896,7 @@ namespace EasyFileManager
                 Debug.WriteLine($"Updating size async");
 
                 bool aborted = false;
-                Task t = Utils.RunCancellableTask(() =>
+                Task t = RunCancellableTask(() =>
                 {
                     Progress.Report(99, ep.Path);
                     try
