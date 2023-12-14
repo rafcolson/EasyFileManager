@@ -441,15 +441,6 @@
   <data name="StoreAllDuplicates" xml:space="preserve">
     <value>Alle duplicaten worden opgeslagen in doelmap. Voortzetten?</value>
   </data>
-  <data name="BackupFolderCopy" xml:space="preserve">
-    <value>Back-up (kopiëren)</value>
-  </data>
-  <data name="BackupFolderDefault" xml:space="preserve">
-    <value>Back-up</value>
-  </data>
-  <data name="BackupFolderMove" xml:space="preserve">
-    <value>Back-up (verplaatsen)</value>
-  </data>
   <data name="Explore" xml:space="preserve">
     <value>Verkennen...</value>
   </data>
@@ -488,5 +479,14 @@
   </data>
   <data name="TopFolderDoesNotExist" xml:space="preserve">
     <value>Bovenste map bestaat niet. Geen wijzigingen aangebracht.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Kopiëren | Verplaatsen</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Verplaatsen</value>
   </data>
 </root>

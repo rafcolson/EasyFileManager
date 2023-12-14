@@ -441,15 +441,6 @@
   <data name="StoreAllDuplicates" xml:space="preserve">
     <value>Tutti i duplicati verranno archiviati nella cartella di destinazione. Continuare?</value>
   </data>
-  <data name="BackupFolderCopy" xml:space="preserve">
-    <value>Backup (copiare)</value>
-  </data>
-  <data name="BackupFolderDefault" xml:space="preserve">
-    <value>Backup</value>
-  </data>
-  <data name="BackupFolderMove" xml:space="preserve">
-    <value>Backup (sposta)</value>
-  </data>
   <data name="Explore" xml:space="preserve">
     <value>Esplorare...</value>
   </data>
@@ -488,5 +479,14 @@
   </data>
   <data name="TopFolderDoesNotExist" xml:space="preserve">
     <value>Cartella principale non esiste. Nessuna modifica apportata.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copiare</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Copiare | Spostare</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Spostare</value>
   </data>
 </root>

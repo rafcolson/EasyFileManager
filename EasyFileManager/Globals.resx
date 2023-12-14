@@ -141,17 +141,8 @@
   <data name="Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
-  <data name="BackupFolderCopy" xml:space="preserve">
-    <value>Backup (copy)</value>
-  </data>
-  <data name="BackupFolderDefault" xml:space="preserve">
-    <value>Backup</value>
-  </data>
   <data name="BackupFolderDoesNotExist" xml:space="preserve">
     <value>Backup folder does not exist. No changes made.</value>
-  </data>
-  <data name="BackupFolderMove" xml:space="preserve">
-    <value>Backup (move)</value>
   </data>
   <data name="CameraManufacturer" xml:space="preserve">
     <value>Camera manufacturer</value>
@@ -176,6 +167,12 @@
   </data>
   <data name="Coordinates" xml:space="preserve">
     <value>Coordinates</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Copy | Move</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Custom</value>
@@ -356,6 +353,9 @@
   </data>
   <data name="MonthTakenOrEncoded" xml:space="preserve">
     <value>Month taken or encoded</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Move</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

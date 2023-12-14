@@ -28,7 +28,7 @@ namespace EasyFileManager
 
         private static int _customizeSplitContainerHeight;
         private static int _renameSplitContainerHeight;
-        private static int _moveSplitContainerHeight;
+        private static int _copyMoveSplitContainerHeight;
         private static int _finalizeSplitContainerHeight;
 
         private static bool _isClosing;
@@ -96,7 +96,7 @@ namespace EasyFileManager
         {
             _customizeSplitContainerHeight = CustomizeSplitContainer.Height;
             _renameSplitContainerHeight = RenameSplitContainer.Height;
-            _moveSplitContainerHeight = MoveSplitContainer.Height;
+            _copyMoveSplitContainerHeight = CopyMoveSplitContainer.Height;
             _finalizeSplitContainerHeight = FinalizeSplitContainer.Height;
 
             _editTextBoxContextMenuStrip = new(Font);
@@ -201,9 +201,10 @@ namespace EasyFileManager
             SuffixTextBox.Text = Options.Suffix;
             SuffixTextBox.ContextMenuStrip = _editTextBoxContextMenuStrip;
 
-            MoveCheckBox.Checked = Options.MoveEnabled;
+            CopyMoveCheckBox.CheckState = Options.CopyMoveState;
+            UpdateCopyMoveCheckBox();
 
-            BackupFolderCheckBox.CheckState = Options.BackupFolderState;
+            BackupFolderCheckBox.Checked = Options.BackupFolderEnabled;
             BackupFolderTextBox.Text = Options.BackupFolderPath;
             UpdateBackupControls();
 
@@ -231,7 +232,7 @@ namespace EasyFileManager
 
             UpdateCustomizePanel();
             UpdateRenamePanel();
-            UpdateMovePanel();
+            UpdateCopyMovePanel();
             UpdateFinalizePanel();
 
             UpdateEditPanel(true, true, true);
@@ -327,7 +328,7 @@ namespace EasyFileManager
 
             CustomizeCheckBox.CheckedChanged += CustomizeCheckBox_CheckedChanged;
             RenameCheckBox.CheckedChanged += RenameCheckBox_CheckedChangedAsync;
-            MoveCheckBox.CheckedChanged += MoveCheckBox_CheckedChangedAsync;
+            CopyMoveCheckBox.CheckStateChanged += CopyMoveCheckBox_CheckStateChangedAsync;
             FinalizeCheckBox.CheckedChanged += FinalizeCheckBox_CheckedChangedAsync;
 
             TitleCheckBox.CheckedChanged += TitleCheckBox_CheckedChanged;
@@ -370,7 +371,7 @@ namespace EasyFileManager
             DateFormatCheckBox.CheckedChanged += DateFormatCheckBox_CheckedChangedAsync;
             DateFormatComboBox.SelectedIndexChanged += DateFormatComboBox_SelectedIndexChangedAsync;
 
-            BackupFolderCheckBox.CheckStateChanged += BackupFolderCheckBox_CheckStateChanged;
+            BackupFolderCheckBox.CheckedChanged += BackupFolderCheckBox_CheckedChanged;
             TopFolderCheckBox.CheckedChanged += TopFolderCheckBox_CheckedChangedAsync;
             SubfoldersCheckBox.CheckedChanged += SubfoldersCheckBox_CheckedChangedAsync;
             FilterCheckBox.CheckedChanged += FilterCheckBox_CheckedChangedAsync;
@@ -591,7 +592,7 @@ namespace EasyFileManager
 
             CustomizeCheckBox.CheckedChanged -= CustomizeCheckBox_CheckedChanged;
             RenameCheckBox.CheckedChanged -= RenameCheckBox_CheckedChangedAsync;
-            MoveCheckBox.CheckedChanged -= MoveCheckBox_CheckedChangedAsync;
+            CopyMoveCheckBox.CheckStateChanged -= CopyMoveCheckBox_CheckStateChangedAsync;
             FinalizeCheckBox.CheckedChanged -= FinalizeCheckBox_CheckedChangedAsync;
 
             TitleCheckBox.CheckedChanged -= TitleCheckBox_CheckedChanged;
@@ -634,7 +635,7 @@ namespace EasyFileManager
             DateFormatCheckBox.CheckedChanged -= DateFormatCheckBox_CheckedChangedAsync;
             DateFormatComboBox.SelectedIndexChanged -= DateFormatComboBox_SelectedIndexChangedAsync;
 
-            BackupFolderCheckBox.CheckStateChanged -= BackupFolderCheckBox_CheckStateChanged;
+            BackupFolderCheckBox.CheckedChanged -= BackupFolderCheckBox_CheckedChanged;
             TopFolderCheckBox.CheckedChanged -= TopFolderCheckBox_CheckedChangedAsync;
             SubfoldersCheckBox.CheckedChanged -= SubfoldersCheckBox_CheckedChangedAsync;
             FilterCheckBox.CheckedChanged -= FilterCheckBox_CheckedChangedAsync;

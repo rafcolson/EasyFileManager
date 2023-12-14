@@ -100,27 +100,27 @@ namespace EasyFileManager
 
         private void UpdateOneLevelUpButton() => OneLevelUpButton.Enabled = !string.IsNullOrEmpty(Folder.DirectoryPath);
 
-        private void UpdateEditPanel(bool customize = false, bool rename = false, bool move = false, bool finalize = false)
+        private void UpdateEditPanel(bool customize = false, bool rename = false, bool copyMove = false, bool finalize = false)
         {
             SplitContainer esc = ExplorerEditSplitContainer;
             SplitContainer csc = CustomizeSplitContainer;
             SplitContainer rsc = RenameSplitContainer;
-            SplitContainer msc = MoveSplitContainer;
+            SplitContainer cmsc = CopyMoveSplitContainer;
             SplitContainer fsc = FinalizeSplitContainer;
 
             int ch = csc.Panel2Collapsed ? csc.SplitterDistance : _customizeSplitContainerHeight;
             int rh = rsc.Panel2Collapsed ? rsc.SplitterDistance : _renameSplitContainerHeight;
-            int mh = msc.Panel2Collapsed ? msc.SplitterDistance : _moveSplitContainerHeight;
+            int cmh = cmsc.Panel2Collapsed ? cmsc.SplitterDistance : _copyMoveSplitContainerHeight;
             int fh = fsc.Panel2Collapsed ? fsc.SplitterDistance : _finalizeSplitContainerHeight;
-            int sw = csc.SplitterWidth + rsc.SplitterWidth + msc.SplitterWidth + fsc.SplitterWidth;
-            int mb = csc.Margin.Bottom + rsc.Margin.Bottom + msc.Margin.Bottom + fsc.Margin.Bottom;
-            int mt = csc.Margin.Top + rsc.Margin.Top + msc.Margin.Top + fsc.Margin.Top;
-            int sd = esc.Height - ch - rh - mh - fh - sw - mb - mt;
+            int sw = csc.SplitterWidth + rsc.SplitterWidth + cmsc.SplitterWidth + fsc.SplitterWidth;
+            int mb = csc.Margin.Bottom + rsc.Margin.Bottom + cmsc.Margin.Bottom + fsc.Margin.Bottom;
+            int mt = csc.Margin.Top + rsc.Margin.Top + cmsc.Margin.Top + fsc.Margin.Top;
+            int sd = esc.Height - ch - rh - cmh - fh - sw - mb - mt;
 
             esc.SuspendDrawing();
             if (customize) { csc.Height = ch; }
             if (rename) { rsc.Height = rh; }
-            if (move) { msc.Height = mh; }
+            if (copyMove) { cmsc.Height = cmh; }
             if (finalize) { fsc.Height = fh; }
             esc.SplitterDistance = sd;
             esc.ResumeDrawing();
@@ -130,9 +130,19 @@ namespace EasyFileManager
 
         private void UpdateRenamePanel() => RenameSplitContainer.Panel2Collapsed = !RenameCheckBox.Checked;
 
-        private void UpdateMovePanel() => MoveSplitContainer.Panel2Collapsed = !MoveCheckBox.Checked;
+        private void UpdateCopyMovePanel() => CopyMoveSplitContainer.Panel2Collapsed = !CopyMoveCheckBox.Checked;
 
         private void UpdateFinalizePanel() => FinalizeSplitContainer.Panel2Collapsed = !FinalizeCheckBox.Checked;
+
+        private void UpdateCopyMoveCheckBox()
+        {
+            CopyMoveCheckBox.Text = CopyMoveCheckBox.CheckState switch
+            {
+                CheckState.Checked => Globals.Move,
+                CheckState.Indeterminate => Globals.Copy,
+                _ => Globals.CopyMove,
+            };
+        }
 
         private void UpdateExplorerView()
         {
@@ -322,15 +332,8 @@ namespace EasyFileManager
 
         private void UpdateBackupControls()
         {
-            BackupFolderGroupBox.Text = Options.BackupFolderState switch
-            {
-                CheckState.Checked => Globals.BackupFolderMove,
-                CheckState.Indeterminate => Globals.BackupFolderCopy,
-                _ => Globals.BackupFolderDefault,
-            };
-            SelectBackupFolderButton.Enabled = Options.BackupFolderState == CheckState.Checked;
-            BackupFolderTextBox.BackColor = Options.BackupFolderState != CheckState.Unchecked ? SystemColors.ControlLightLight : SystemColors.Control;
-            BackupFolderTextBox.Text = Options.BackupFolderState == CheckState.Indeterminate ? Properties.Settings.Default.StartupDirectory : Options.BackupFolderPath;
+            SelectBackupFolderButton.Enabled = Options.BackupFolderEnabled;
+            BackupFolderTextBox.BackColor = Options.BackupFolderEnabled ? SystemColors.ControlLightLight : SystemColors.Control;
         }
 
         private void UpdateFolderControlsA()
@@ -399,8 +402,7 @@ namespace EasyFileManager
             int subStepIndex = 0;
             int numValues;
 
-            bool copyInsteadOfMove = false;
-            bool filterEnabled = Options.MoveEnabled && Options.FilterEnabled;
+            bool filterEnabled = (Options.CopyMoveState != CheckState.Unchecked) && Options.FilterEnabled;
 
             if (!apply)
             {
@@ -410,10 +412,9 @@ namespace EasyFileManager
                     return;
                 }
             }
-            else if (Options.MoveEnabled && Options.BackupFolderState != CheckState.Unchecked)
+            else if ((Options.CopyMoveState != CheckState.Unchecked) && Options.BackupFolderEnabled)
             {
                 string startupFolderPath = Properties.Settings.Default.StartupDirectory;
-                string backupFolderPath = Options.BackupFolderState == CheckState.Indeterminate ? startupFolderPath : Options.BackupFolderPath;
 
                 if (!IsValidDirectoryPath(Options.BackupFolderPath))
                 {
@@ -426,42 +427,34 @@ namespace EasyFileManager
                     }
                     return;
                 }
+                numSubSteps += 1;
 
-                if (backupFolderPath == startupFolderPath)
+                string backupName = $"{BACKUP_PREFIX}{DateTime.Now.ToDateSecondString()}";
+                string backupPath = Path.Join(Options.BackupFolderPath, backupName);
+                string[] paths = GetSelectedFilePaths(true);
+                if (filterEnabled)
                 {
-                    copyInsteadOfMove = true;
+                    paths = GetFilteredFilePaths(paths, Options.TypeFilter, Options.NameFilter, Options.FilterString);
                 }
-                else
+                numValues = paths.Length;
+                for (int i = 0; i < numValues; i++)
                 {
-                    numSubSteps += 1;
+                    string path = paths[i];
+                    using EasyPath ep = new(path);
+                    string bp = GetPathDuplicate(Path.Join(backupPath, ep.Name));
+                    ep.Copy(bp, Options.PreserveDateCreated, Options.PreserveDateModified);
 
-                    string backupName = $"{BACKUP_PREFIX}{DateTime.Now.ToDateSecondString()}";
-                    string backupPath = Path.Join(Options.BackupFolderPath, backupName);
-                    string[] paths = GetSelectedFilePaths(true);
-                    if (filterEnabled)
-                    {
-                        paths = GetFilteredFilePaths(paths, Options.TypeFilter, Options.NameFilter, Options.FilterString);
-                    }
-                    numValues = paths.Length;
-                    for (int i = 0; i < numValues; i++)
-                    {
-                        string path = paths[i];
-                        using EasyPath ep = new(path);
-                        string bp = GetPathDuplicate(Path.Join(backupPath, ep.Name));
-                        ep.Copy(bp, Options.PreserveDateCreated, Options.PreserveDateModified);
+                    Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{path} -> {bp}");
+                }
+                subStepIndex += 1;
 
-                        Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{path} -> {bp}");
-                    }
-                    subStepIndex += 1;
-
-                    if (Options.LogApplicationEvents)
-                    {
-                        Logger.Write($"Backup copied in: {backupFolderPath}");
-                    }
+                if (Options.LogApplicationEvents)
+                {
+                    Logger.Write($"Backup copied in: {Options.BackupFolderPath}");
                 }
             }
 
-            if (Options.MoveEnabled && Options.TopFolderEnabled && !IsValidDirectoryPath(Options.TopFolderPath))
+            if ((Options.CopyMoveState != CheckState.Unchecked) && Options.TopFolderEnabled && !IsValidDirectoryPath(Options.TopFolderPath))
             {
                 using MessageDialog md = new(Globals.TopFolderDoesNotExist);
                 md.ShowDialog();
@@ -475,7 +468,7 @@ namespace EasyFileManager
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            string dp = Options.MoveEnabled && Options.TopFolderEnabled ? Options.TopFolderPath : Folder.Path;
+            string dp = (Options.CopyMoveState != CheckState.Unchecked) && Options.TopFolderEnabled ? Options.TopFolderPath : Folder.Path;
             OrderedMap<string, string> om = new(GetAllPaths(dp, true).ToDictionary(s => s));
             DataGridViewRowCollection rows = ExplorerDataGridView.Rows;
 
@@ -523,7 +516,7 @@ namespace EasyFileManager
                 {
                     if (apply)
                     {
-                        if (copyInsteadOfMove)
+                        if (Options.CopyMoveState == CheckState.Indeterminate)
                         {
                             ef.Copy(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
                             if (Options.LogApplicationEvents)
@@ -589,7 +582,7 @@ namespace EasyFileManager
 
         private void UpdateFormatting(CancellationToken cancellationToken)
         {
-            if (!Options.HasRenaming() && !Options.HasMoving(false))
+            if (!Options.HasRenaming() && !Options.HasCopyingMoving(false))
             {
                 ClearFormatting();
                 return;
@@ -701,8 +694,8 @@ namespace EasyFileManager
 
         private void DeleteOrStoreDuplicates(CancellationToken cancellationToken)
         {
-            bool delete = Options.DuplicatesState == CheckState.Indeterminate;
-            string deletOrStor = delete ? "Delet" : "Stor";
+            bool deleteInsteadOfStore = Options.DuplicatesState == CheckState.Indeterminate;
+            string deletOrStor = deleteInsteadOfStore ? "Delet" : "Stor";
 
             Debug.WriteLine($"{deletOrStor}ing duplicates...");
 
@@ -716,7 +709,7 @@ namespace EasyFileManager
             string info;
             if (IsValidDirectoryPath(Options.DuplicatesFolderPath))
             {
-                string[] filePaths = Options.MoveEnabled && Options.TopFolderEnabled && !string.IsNullOrEmpty(Options.TopFolderPath)
+                string[] filePaths = (Options.CopyMoveState != CheckState.Unchecked) && Options.TopFolderEnabled
                     ? new EasyFolder(Options.TopFolderPath).GetFilePaths(true)
                     : GetSelectedFilePaths(true);
 
@@ -728,7 +721,7 @@ namespace EasyFileManager
 
                 if (Options.ShowDuplicatesCompareDialog)
                 {
-                    string deleteOrStore = delete ? Globals.DeleteDuplicates : Globals.StoreDuplicates;
+                    string deleteOrStore = deleteInsteadOfStore ? Globals.DeleteDuplicates : Globals.StoreDuplicates;
                     string duplicatesName = $"{DUPLICATES_PREFIX}{DateTime.Now.ToDateSecondString()}";
                     string duplicatesPath = Path.Join(Options.DuplicatesFolderPath, duplicatesName);
                     foreach (string[][] nsa in duplicates.Values)
@@ -749,7 +742,7 @@ namespace EasyFileManager
                                 easyPaths.RemoveAt(itd.SelectedIndex);
                                 foreach (EasyPath ep in easyPaths)
                                 {
-                                    if (delete)
+                                    if (deleteInsteadOfStore)
                                     {
                                         ep.Delete();
                                     }
@@ -769,7 +762,7 @@ namespace EasyFileManager
                 }
                 else if (duplicates.Any())
                 {
-                    string deleteOrStoreAll = delete ? Globals.DeleteAllDuplicates : Globals.StoreAllDuplicates;
+                    string deleteOrStoreAll = deleteInsteadOfStore ? Globals.DeleteAllDuplicates : Globals.StoreAllDuplicates;
                     using MessageDialog md = new(deleteOrStoreAll, buttons: DialogResultFlags.YesNo);
                     if (md.ShowDialog() == DialogResult.Yes)
                     {
@@ -782,7 +775,7 @@ namespace EasyFileManager
                                 foreach (string s in l)
                                 {
                                     EasyPath ep = new(s);
-                                    if (delete)
+                                    if (deleteInsteadOfStore)
                                     {
                                         ep.Delete();
                                     }
@@ -1059,6 +1052,6 @@ namespace EasyFileManager
             return false;
         }
 
-        private async Task<bool> UpdateFormattingAsync() => (Options.RenameEnabled || Options.MoveEnabled) && await UpdateAsync(UpdateFormatting);
+        private async Task<bool> UpdateFormattingAsync() => (Options.RenameEnabled || (Options.CopyMoveState != CheckState.Unchecked)) && await UpdateAsync(UpdateFormatting);
     }
 }

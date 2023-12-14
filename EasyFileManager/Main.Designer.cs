@@ -95,9 +95,9 @@
             GeolocationCheckBox = new CheckBox();
             GPSEditButton = new Button();
             GPSComboBox = new ComboBox();
-            MoveSplitContainer = new SplitContainer();
-            MoveCheckBox = new CheckBox();
-            MoveTableLayoutPanel = new TableLayoutPanel();
+            CopyMoveSplitContainer = new SplitContainer();
+            CopyMoveCheckBox = new CheckBox();
+            CopyMoveTableLayoutPanel = new TableLayoutPanel();
             FilterGroupBox = new GroupBox();
             FilterTableLayoutPanel = new TableLayoutPanel();
             FilterStringTextBox = new TextBox();
@@ -224,11 +224,11 @@
             DateTableLayoutPanel.SuspendLayout();
             GeolocationGroupBox.SuspendLayout();
             GeolocationTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MoveSplitContainer).BeginInit();
-            MoveSplitContainer.Panel1.SuspendLayout();
-            MoveSplitContainer.Panel2.SuspendLayout();
-            MoveSplitContainer.SuspendLayout();
-            MoveTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)CopyMoveSplitContainer).BeginInit();
+            CopyMoveSplitContainer.Panel1.SuspendLayout();
+            CopyMoveSplitContainer.Panel2.SuspendLayout();
+            CopyMoveSplitContainer.SuspendLayout();
+            CopyMoveTableLayoutPanel.SuspendLayout();
             FilterGroupBox.SuspendLayout();
             FilterTableLayoutPanel.SuspendLayout();
             BackupFolderGroupBox.SuspendLayout();
@@ -475,7 +475,7 @@
             // 
             resources.ApplyResources(EditTableLayoutPanel, "EditTableLayoutPanel");
             EditTableLayoutPanel.Controls.Add(CustomizeSplitContainer, 0, 0);
-            EditTableLayoutPanel.Controls.Add(MoveSplitContainer, 0, 1);
+            EditTableLayoutPanel.Controls.Add(CopyMoveSplitContainer, 0, 1);
             EditTableLayoutPanel.Controls.Add(RenameSplitContainer, 0, 1);
             EditTableLayoutPanel.Controls.Add(FinalizeSplitContainer, 0, 3);
             EditTableLayoutPanel.Name = "EditTableLayoutPanel";
@@ -497,8 +497,13 @@
             // CustomizeCheckBox
             // 
             resources.ApplyResources(CustomizeCheckBox, "CustomizeCheckBox");
+            CustomizeCheckBox.BackColor = SystemColors.ControlLight;
             CustomizeCheckBox.Checked = true;
             CustomizeCheckBox.CheckState = CheckState.Checked;
+            CustomizeCheckBox.FlatAppearance.BorderColor = SystemColors.ActiveBorder;
+            CustomizeCheckBox.FlatAppearance.CheckedBackColor = Color.FromArgb(204, 228, 247);
+            CustomizeCheckBox.FlatAppearance.MouseDownBackColor = Color.FromArgb(188, 212, 239);
+            CustomizeCheckBox.FlatAppearance.MouseOverBackColor = Color.FromArgb(220, 244, 255);
             CustomizeCheckBox.Name = "CustomizeCheckBox";
             CustomizeCheckBox.UseVisualStyleBackColor = false;
             // 
@@ -816,36 +821,42 @@
             GPSComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             GPSComboBox.Name = "GPSComboBox";
             // 
-            // MoveSplitContainer
+            // CopyMoveSplitContainer
             // 
-            resources.ApplyResources(MoveSplitContainer, "MoveSplitContainer");
-            MoveSplitContainer.FixedPanel = FixedPanel.Panel1;
-            MoveSplitContainer.Name = "MoveSplitContainer";
+            resources.ApplyResources(CopyMoveSplitContainer, "CopyMoveSplitContainer");
+            CopyMoveSplitContainer.FixedPanel = FixedPanel.Panel1;
+            CopyMoveSplitContainer.Name = "CopyMoveSplitContainer";
             // 
-            // MoveSplitContainer.Panel1
+            // CopyMoveSplitContainer.Panel1
             // 
-            MoveSplitContainer.Panel1.Controls.Add(MoveCheckBox);
+            CopyMoveSplitContainer.Panel1.Controls.Add(CopyMoveCheckBox);
             // 
-            // MoveSplitContainer.Panel2
+            // CopyMoveSplitContainer.Panel2
             // 
-            MoveSplitContainer.Panel2.Controls.Add(MoveTableLayoutPanel);
+            CopyMoveSplitContainer.Panel2.Controls.Add(CopyMoveTableLayoutPanel);
             // 
-            // MoveCheckBox
+            // CopyMoveCheckBox
             // 
-            resources.ApplyResources(MoveCheckBox, "MoveCheckBox");
-            MoveCheckBox.Checked = true;
-            MoveCheckBox.CheckState = CheckState.Checked;
-            MoveCheckBox.Name = "MoveCheckBox";
-            MoveCheckBox.UseVisualStyleBackColor = false;
+            resources.ApplyResources(CopyMoveCheckBox, "CopyMoveCheckBox");
+            CopyMoveCheckBox.BackColor = SystemColors.ControlLight;
+            CopyMoveCheckBox.Checked = true;
+            CopyMoveCheckBox.CheckState = CheckState.Checked;
+            CopyMoveCheckBox.FlatAppearance.BorderColor = SystemColors.ActiveBorder;
+            CopyMoveCheckBox.FlatAppearance.CheckedBackColor = Color.FromArgb(204, 228, 247);
+            CopyMoveCheckBox.FlatAppearance.MouseDownBackColor = Color.FromArgb(188, 212, 239);
+            CopyMoveCheckBox.FlatAppearance.MouseOverBackColor = Color.FromArgb(220, 244, 255);
+            CopyMoveCheckBox.Name = "CopyMoveCheckBox";
+            CopyMoveCheckBox.ThreeState = true;
+            CopyMoveCheckBox.UseVisualStyleBackColor = false;
             // 
-            // MoveTableLayoutPanel
+            // CopyMoveTableLayoutPanel
             // 
-            resources.ApplyResources(MoveTableLayoutPanel, "MoveTableLayoutPanel");
-            MoveTableLayoutPanel.Controls.Add(FilterGroupBox, 3, 0);
-            MoveTableLayoutPanel.Controls.Add(BackupFolderGroupBox, 0, 0);
-            MoveTableLayoutPanel.Controls.Add(SubfoldersGroupBox, 2, 0);
-            MoveTableLayoutPanel.Controls.Add(TopFolderGroupBox, 1, 0);
-            MoveTableLayoutPanel.Name = "MoveTableLayoutPanel";
+            resources.ApplyResources(CopyMoveTableLayoutPanel, "CopyMoveTableLayoutPanel");
+            CopyMoveTableLayoutPanel.Controls.Add(FilterGroupBox, 3, 0);
+            CopyMoveTableLayoutPanel.Controls.Add(BackupFolderGroupBox, 0, 0);
+            CopyMoveTableLayoutPanel.Controls.Add(SubfoldersGroupBox, 2, 0);
+            CopyMoveTableLayoutPanel.Controls.Add(TopFolderGroupBox, 1, 0);
+            CopyMoveTableLayoutPanel.Name = "CopyMoveTableLayoutPanel";
             // 
             // FilterGroupBox
             // 
@@ -913,7 +924,6 @@
             // 
             resources.ApplyResources(BackupFolderCheckBox, "BackupFolderCheckBox");
             BackupFolderCheckBox.Name = "BackupFolderCheckBox";
-            BackupFolderCheckBox.ThreeState = true;
             BackupFolderCheckBox.UseVisualStyleBackColor = true;
             // 
             // SelectBackupFolderButton
@@ -1014,8 +1024,13 @@
             // RenameCheckBox
             // 
             resources.ApplyResources(RenameCheckBox, "RenameCheckBox");
+            RenameCheckBox.BackColor = SystemColors.ControlLight;
             RenameCheckBox.Checked = true;
             RenameCheckBox.CheckState = CheckState.Checked;
+            RenameCheckBox.FlatAppearance.BorderColor = SystemColors.ActiveBorder;
+            RenameCheckBox.FlatAppearance.CheckedBackColor = Color.FromArgb(204, 228, 247);
+            RenameCheckBox.FlatAppearance.MouseDownBackColor = Color.FromArgb(188, 212, 239);
+            RenameCheckBox.FlatAppearance.MouseOverBackColor = Color.FromArgb(220, 244, 255);
             RenameCheckBox.Name = "RenameCheckBox";
             RenameCheckBox.UseVisualStyleBackColor = false;
             // 
@@ -1135,8 +1150,13 @@
             // FinalizeCheckBox
             // 
             resources.ApplyResources(FinalizeCheckBox, "FinalizeCheckBox");
+            FinalizeCheckBox.BackColor = SystemColors.ControlLight;
             FinalizeCheckBox.Checked = true;
             FinalizeCheckBox.CheckState = CheckState.Checked;
+            FinalizeCheckBox.FlatAppearance.BorderColor = SystemColors.ActiveBorder;
+            FinalizeCheckBox.FlatAppearance.CheckedBackColor = Color.FromArgb(204, 228, 247);
+            FinalizeCheckBox.FlatAppearance.MouseDownBackColor = Color.FromArgb(188, 212, 239);
+            FinalizeCheckBox.FlatAppearance.MouseOverBackColor = Color.FromArgb(220, 244, 255);
             FinalizeCheckBox.Name = "FinalizeCheckBox";
             FinalizeCheckBox.UseVisualStyleBackColor = false;
             // 
@@ -1459,14 +1479,14 @@
             GeolocationGroupBox.PerformLayout();
             GeolocationTableLayoutPanel.ResumeLayout(false);
             GeolocationTableLayoutPanel.PerformLayout();
-            MoveSplitContainer.Panel1.ResumeLayout(false);
-            MoveSplitContainer.Panel1.PerformLayout();
-            MoveSplitContainer.Panel2.ResumeLayout(false);
-            MoveSplitContainer.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)MoveSplitContainer).EndInit();
-            MoveSplitContainer.ResumeLayout(false);
-            MoveTableLayoutPanel.ResumeLayout(false);
-            MoveTableLayoutPanel.PerformLayout();
+            CopyMoveSplitContainer.Panel1.ResumeLayout(false);
+            CopyMoveSplitContainer.Panel1.PerformLayout();
+            CopyMoveSplitContainer.Panel2.ResumeLayout(false);
+            CopyMoveSplitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)CopyMoveSplitContainer).EndInit();
+            CopyMoveSplitContainer.ResumeLayout(false);
+            CopyMoveTableLayoutPanel.ResumeLayout(false);
+            CopyMoveTableLayoutPanel.PerformLayout();
             FilterGroupBox.ResumeLayout(false);
             FilterGroupBox.PerformLayout();
             FilterTableLayoutPanel.ResumeLayout(false);
@@ -1552,9 +1572,9 @@
         private ComboBox DateFormatComboBox;
         private GroupBox WithGroupBox;
         private TextBox WithTextBox;
-        private SplitContainer MoveSplitContainer;
-        private CheckBox MoveCheckBox;
-        private TableLayoutPanel MoveTableLayoutPanel;
+        private SplitContainer CopyMoveSplitContainer;
+        private CheckBox CopyMoveCheckBox;
+        private TableLayoutPanel CopyMoveTableLayoutPanel;
         private GroupBox TopFolderGroupBox;
         private GroupBox SubfoldersGroupBox;
         private TableLayoutPanel SubfoldersTableLayoutPanel;

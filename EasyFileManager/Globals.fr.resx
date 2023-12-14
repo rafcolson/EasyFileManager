@@ -441,15 +441,6 @@
   <data name="StoreAllDuplicates" xml:space="preserve">
     <value>Tous les doublons seront stockés dans le dossier de destination. Continuer?</value>
   </data>
-  <data name="BackupFolderCopy" xml:space="preserve">
-    <value>Sauvegarde (copier)</value>
-  </data>
-  <data name="BackupFolderDefault" xml:space="preserve">
-    <value>Sauvegarde</value>
-  </data>
-  <data name="BackupFolderMove" xml:space="preserve">
-    <value>Sauvegarde (déplacer)</value>
-  </data>
   <data name="Explore" xml:space="preserve">
     <value>Explorer...</value>
   </data>
@@ -488,5 +479,14 @@
   </data>
   <data name="TopFolderDoesNotExist" xml:space="preserve">
     <value>Le dossier supérieur n'existe pas. Aucune modification n'a été apportée.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copier</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Copier | Déplacer</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Déplacer</value>
   </data>
 </root>

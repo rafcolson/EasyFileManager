@@ -124,7 +124,7 @@ namespace EasyFileManager
                 {
                     foreach (object o in kvp.Value.GetKeys())
                     {
-                        EasyFiles l = kvp.Value[o];
+                        List<EasyFile> l = kvp.Value[o].Cast<EasyFile>().ToList();
                         lib = new();
                         switch (ecp)
                         {
@@ -487,7 +487,6 @@ namespace EasyFileManager
 
         public bool CustomizeEnabled { get; set; }
         public bool RenameEnabled { get; set; }
-        public bool MoveEnabled { get; set; }
         public bool FinalizeEnabled { get; set; }
         public bool TitleEnabled { get; set; }
         public bool SubjectEnabled { get; set; }
@@ -502,6 +501,7 @@ namespace EasyFileManager
         public bool WriteDateCamera { get; set; }
         public bool WriteDateModified { get; set; }
         public bool WriteDateEasyMetadata { get; set; }
+        public bool BackupFolderEnabled { get; set; }
         public bool TopFolderEnabled { get; set; }
         public bool SubfoldersEnabled { get; set; }
         public bool FilterEnabled { get; set; }
@@ -521,10 +521,10 @@ namespace EasyFileManager
         public int DateSourceIndex { get; set; } = 4;
         public int DateCustomIndex { get; set; } = -1;
 
+        public CheckState CopyMoveState { get; set; } = CheckState.Unchecked;
         public CheckState KeywordsState { get; set; } = CheckState.Unchecked;
         public CheckState DateState { get; set; } = CheckState.Unchecked;
         public CheckState ReplaceWithState { get; set; } = CheckState.Unchecked;
-        public CheckState BackupFolderState { get; set; } = CheckState.Unchecked;
         public CheckState DuplicatesState { get; set; } = CheckState.Unchecked;
 
         public EasyTypeFilter TypeFilter { get; set; } = EasyTypeFilter.Default;
@@ -558,7 +558,6 @@ namespace EasyFileManager
 
                 CustomizeEnabled = eo.CustomizeEnabled;
                 RenameEnabled = eo.RenameEnabled;
-                MoveEnabled = eo.MoveEnabled;
                 FinalizeEnabled = eo.FinalizeEnabled;
                 TitleEnabled = eo.TitleEnabled;
                 SubjectEnabled = eo.SubjectEnabled;
@@ -572,6 +571,7 @@ namespace EasyFileManager
                 WriteDateCreated = eo.WriteDateCreated;
                 WriteDateCamera = eo.WriteDateCamera;
                 WriteDateModified = eo.WriteDateModified;
+                BackupFolderEnabled = eo.BackupFolderEnabled;
                 TopFolderEnabled = eo.TopFolderEnabled;
                 SubfoldersEnabled = eo.SubfoldersEnabled;
                 FilterEnabled = eo.FilterEnabled;
@@ -592,10 +592,10 @@ namespace EasyFileManager
                 DateCustomIndex = eo.DateCustomIndex;
                 EasyMetadataIndex = eo.EasyMetadataIndex;
 
+                CopyMoveState = eo.CopyMoveState;
                 KeywordsState = eo.KeywordsState;
                 DateState = eo.DateState;
                 ReplaceWithState = eo.ReplaceWithState;
-                BackupFolderState = eo.BackupFolderState;
                 DuplicatesState = eo.DuplicatesState;
 
                 TypeFilter = eo.TypeFilter;
@@ -614,7 +614,7 @@ namespace EasyFileManager
 
         public bool HasRenaming() => RenameEnabled && (!string.IsNullOrEmpty(Prefix + Suffix) || (ReplaceWithState != CheckState.Unchecked && !string.IsNullOrEmpty(Replace)) || DateFormatEnabled);
 
-        public bool HasMoving(bool apply = true) => MoveEnabled && ((apply && BackupFolderState != CheckState.Unchecked) || TopFolderEnabled || SubfoldersEnabled);
+        public bool HasCopyingMoving(bool apply = true) => CopyMoveState != CheckState.Unchecked && ((apply && BackupFolderEnabled) || TopFolderEnabled || SubfoldersEnabled);
 
         public bool HasFinalizing() => FinalizeEnabled && (DeleteEmptyFolders || DuplicatesState != CheckState.Unchecked || DuplicatesCompareParameters != EasyCompareParameter.None);
 
@@ -1542,9 +1542,9 @@ namespace EasyFileManager
             string pp = ParentPath;
             string ext = Extension;
             DateTime? dte = DateEarliest;
-            if (options != null && (options.RenameEnabled is bool r | options.MoveEnabled is bool m))
+            if (options != null && (options.RenameEnabled is bool r | (options.CopyMoveState != CheckState.Unchecked) is bool cm))
             {
-                if (m)
+                if (cm)
                 {
                     if (options.TopFolderEnabled && !string.IsNullOrEmpty(options.TopFolderPath))
                     {

@@ -441,15 +441,6 @@
   <data name="StoreAllDuplicates" xml:space="preserve">
     <value>Alle Duplikate werden im Zielordner gespeichert. Fortsetzen?</value>
   </data>
-  <data name="BackupFolderCopy" xml:space="preserve">
-    <value>Sichern (kopieren)</value>
-  </data>
-  <data name="BackupFolderDefault" xml:space="preserve">
-    <value>Sichern</value>
-  </data>
-  <data name="BackupFolderMove" xml:space="preserve">
-    <value>Sichern (verschieben)</value>
-  </data>
   <data name="Explore" xml:space="preserve">
     <value>Erforschen...</value>
   </data>
@@ -488,5 +479,14 @@
   </data>
   <data name="TopFolderDoesNotExist" xml:space="preserve">
     <value>Oberster Ordner ist nicht vorhanden. Es wurden keine Änderungen vorgenommen.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Kopieren | Verschieben</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Verschieben</value>
   </data>
 </root>

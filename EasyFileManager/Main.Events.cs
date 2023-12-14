@@ -596,7 +596,7 @@ namespace EasyFileManager
             {
                 actions.Add(Customize);
             }
-            if (Options.HasRenaming() || Options.HasMoving())
+            if (Options.HasRenaming() || Options.HasCopyingMoving())
             {
                 actions.Add(ApplyFormatting);
             }
@@ -911,9 +911,9 @@ namespace EasyFileManager
             UpdateEasyMetadataControlsB();
         }
 
-        private void BackupFolderCheckBox_CheckStateChanged(object? sender, EventArgs e)
+        private void BackupFolderCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
-            Options.BackupFolderState = BackupFolderCheckBox.CheckState;
+            Options.BackupFolderEnabled = BackupFolderCheckBox.Checked;
             UpdateBackupControls();
         }
 
@@ -945,11 +945,12 @@ namespace EasyFileManager
             }
         }
 
-        private async void MoveCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private async void CopyMoveCheckBox_CheckStateChangedAsync(object? sender, EventArgs e)
         {
-            Options.MoveEnabled = MoveCheckBox.Checked;
-            UpdateMovePanel();
-            UpdateEditPanel(move: true);
+            Options.CopyMoveState = CopyMoveCheckBox.CheckState;
+            UpdateCopyMoveCheckBox();
+            UpdateCopyMovePanel();
+            UpdateEditPanel(copyMove: true);
             if (!await UpdateFormattingAsync())
             {
                 UpdateExplorerView();

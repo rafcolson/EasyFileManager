@@ -860,7 +860,7 @@
     <value>Fill</value>
   </data>
   <data name="CustomizeCheckBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>System</value>
+    <value>Flat</value>
   </data>
   <data name="CustomizeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -2542,91 +2542,94 @@
   <data name="&gt;&gt;CustomizeSplitContainer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="MoveSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="CopyMoveSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="MoveSplitContainer.IsSplitterFixed" type="System.Boolean, mscorlib">
+  <data name="CopyMoveSplitContainer.IsSplitterFixed" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="MoveSplitContainer.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CopyMoveSplitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 323</value>
   </data>
-  <data name="MoveSplitContainer.MaximumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyMoveSplitContainer.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>0, 114</value>
   </data>
-  <data name="MoveSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+  <data name="CopyMoveSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="MoveCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+  <data name="CopyMoveCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
-  <data name="MoveCheckBox.AutoSize" type="System.Boolean, mscorlib">
+  <data name="CopyMoveCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="MoveCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="CopyMoveCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="MoveCheckBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>System</value>
+  <data name="CopyMoveCheckBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
-  <data name="MoveCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CopyMoveCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CopyMoveCheckBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="MoveCheckBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyMoveCheckBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>0, 32</value>
   </data>
-  <data name="MoveCheckBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyMoveCheckBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>0, 32</value>
   </data>
-  <data name="MoveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyMoveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>990, 32</value>
   </data>
-  <data name="MoveCheckBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="CopyMoveCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="MoveCheckBox.Text" xml:space="preserve">
-    <value>Move</value>
+  <data name="CopyMoveCheckBox.Text" xml:space="preserve">
+    <value>Copy | Move</value>
   </data>
-  <data name="MoveCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="CopyMoveCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;MoveCheckBox.Name" xml:space="preserve">
-    <value>MoveCheckBox</value>
+  <data name="&gt;&gt;CopyMoveCheckBox.Name" xml:space="preserve">
+    <value>CopyMoveCheckBox</value>
   </data>
-  <data name="&gt;&gt;MoveCheckBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveCheckBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MoveCheckBox.Parent" xml:space="preserve">
-    <value>MoveSplitContainer.Panel1</value>
+  <data name="&gt;&gt;CopyMoveCheckBox.Parent" xml:space="preserve">
+    <value>CopyMoveSplitContainer.Panel1</value>
   </data>
-  <data name="&gt;&gt;MoveCheckBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel1.Name" xml:space="preserve">
-    <value>MoveSplitContainer.Panel1</value>
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel1.Name" xml:space="preserve">
+    <value>CopyMoveSplitContainer.Panel1</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel1.Type" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel1.Parent" xml:space="preserve">
-    <value>MoveSplitContainer</value>
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel1.Parent" xml:space="preserve">
+    <value>CopyMoveSplitContainer</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="MoveSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
+  <data name="CopyMoveSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>32</value>
   </data>
-  <metadata name="MoveTableLayoutPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CopyMoveTableLayoutPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="MoveTableLayoutPanel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="CopyMoveTableLayoutPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="MoveTableLayoutPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+  <data name="CopyMoveTableLayoutPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="MoveTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+  <data name="CopyMoveTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="FilterGroupBox.AutoSize" type="System.Boolean, mscorlib">
@@ -2864,7 +2867,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;FilterGroupBox.Parent" xml:space="preserve">
-    <value>MoveTableLayoutPanel</value>
+    <value>CopyMoveTableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;FilterGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -3044,7 +3047,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;BackupFolderGroupBox.Parent" xml:space="preserve">
-    <value>MoveTableLayoutPanel</value>
+    <value>CopyMoveTableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;BackupFolderGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -3218,7 +3221,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;SubfoldersGroupBox.Parent" xml:space="preserve">
-    <value>MoveTableLayoutPanel</value>
+    <value>CopyMoveTableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;SubfoldersGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -3392,81 +3395,81 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TopFolderGroupBox.Parent" xml:space="preserve">
-    <value>MoveTableLayoutPanel</value>
+    <value>CopyMoveTableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;TopFolderGroupBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="MoveTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="CopyMoveTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="MoveTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CopyMoveTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="MoveTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="CopyMoveTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="MoveTableLayoutPanel.RowCount" type="System.Int32, mscorlib">
+  <data name="CopyMoveTableLayoutPanel.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="MoveTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyMoveTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>990, 80</value>
   </data>
-  <data name="MoveTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="CopyMoveTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;MoveTableLayoutPanel.Name" xml:space="preserve">
-    <value>MoveTableLayoutPanel</value>
+  <data name="&gt;&gt;CopyMoveTableLayoutPanel.Name" xml:space="preserve">
+    <value>CopyMoveTableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;MoveTableLayoutPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveTableLayoutPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MoveTableLayoutPanel.Parent" xml:space="preserve">
-    <value>MoveSplitContainer.Panel2</value>
+  <data name="&gt;&gt;CopyMoveTableLayoutPanel.Parent" xml:space="preserve">
+    <value>CopyMoveSplitContainer.Panel2</value>
   </data>
-  <data name="&gt;&gt;MoveTableLayoutPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveTableLayoutPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="MoveTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+  <data name="CopyMoveTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="FilterGroupBox" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="BackupFolderGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="SubfoldersGroupBox" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="TopFolderGroupBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,20,Percent,20,Percent,20,Percent,40" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel2.Name" xml:space="preserve">
-    <value>MoveSplitContainer.Panel2</value>
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel2.Name" xml:space="preserve">
+    <value>CopyMoveSplitContainer.Panel2</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel2.Type" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel2.Parent" xml:space="preserve">
-    <value>MoveSplitContainer</value>
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel2.Parent" xml:space="preserve">
+    <value>CopyMoveSplitContainer</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Panel2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="MoveSplitContainer.Panel2MinSize" type="System.Int32, mscorlib">
+  <data name="CopyMoveSplitContainer.Panel2MinSize" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="MoveSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CopyMoveSplitContainer.Size" type="System.Drawing.Size, System.Drawing">
     <value>990, 114</value>
   </data>
-  <data name="MoveSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
+  <data name="CopyMoveSplitContainer.SplitterDistance" type="System.Int32, mscorlib">
     <value>32</value>
   </data>
-  <data name="MoveSplitContainer.SplitterWidth" type="System.Int32, mscorlib">
+  <data name="CopyMoveSplitContainer.SplitterWidth" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="MoveSplitContainer.TabIndex" type="System.Int32, mscorlib">
+  <data name="CopyMoveSplitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Name" xml:space="preserve">
-    <value>MoveSplitContainer</value>
+  <data name="&gt;&gt;CopyMoveSplitContainer.Name" xml:space="preserve">
+    <value>CopyMoveSplitContainer</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Type" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.Parent" xml:space="preserve">
     <value>EditTableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;MoveSplitContainer.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CopyMoveSplitContainer.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="RenameSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -3494,7 +3497,7 @@
     <value>Fill</value>
   </data>
   <data name="RenameCheckBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>System</value>
+    <value>Flat</value>
   </data>
   <data name="RenameCheckBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -4115,7 +4118,7 @@
     <value>Fill</value>
   </data>
   <data name="FinalizeCheckBox.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>System</value>
+    <value>Flat</value>
   </data>
   <data name="FinalizeCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -4691,7 +4694,7 @@
     <value>0</value>
   </data>
   <data name="EditTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="CustomizeSplitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="MoveSplitContainer" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RenameSplitContainer" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FinalizeSplitContainer" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="CustomizeSplitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="CopyMoveSplitContainer" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RenameSplitContainer" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FinalizeSplitContainer" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;ExplorerEditSplitContainer.Panel2.Name" xml:space="preserve">
     <value>ExplorerEditSplitContainer.Panel2</value>
@@ -5000,7 +5003,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>39</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>9, 21</value>

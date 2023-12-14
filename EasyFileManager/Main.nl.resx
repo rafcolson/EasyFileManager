@@ -154,8 +154,8 @@
   <data name="GeolocationGroupBox.Text" xml:space="preserve">
     <value>Geolocatie</value>
   </data>
-  <data name="MoveCheckBox.Text" xml:space="preserve">
-    <value>Verplaatsen</value>
+  <data name="CopyMoveCheckBox.Text" xml:space="preserve">
+    <value>Kopiëren | Verplaatsen</value>
   </data>
   <data name="FilterGroupBox.Text" xml:space="preserve">
     <value>Filteren</value>

@@ -133,38 +133,11 @@ namespace EasyFileManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backup (copy).
-        /// </summary>
-        public static string BackupFolderCopy {
-            get {
-                return ResourceManager.GetString("BackupFolderCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Backup.
-        /// </summary>
-        public static string BackupFolderDefault {
-            get {
-                return ResourceManager.GetString("BackupFolderDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Backup folder does not exist. No changes made..
         /// </summary>
         public static string BackupFolderDoesNotExist {
             get {
                 return ResourceManager.GetString("BackupFolderDoesNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Backup (move).
-        /// </summary>
-        public static string BackupFolderMove {
-            get {
-                return ResourceManager.GetString("BackupFolderMove", resourceCulture);
             }
         }
         
@@ -237,6 +210,24 @@ namespace EasyFileManager {
         public static string Coordinates {
             get {
                 return ResourceManager.GetString("Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy | Move.
+        /// </summary>
+        public static string CopyMove {
+            get {
+                return ResourceManager.GetString("CopyMove", resourceCulture);
             }
         }
         
@@ -777,6 +768,15 @@ namespace EasyFileManager {
         public static string MonthTakenOrEncoded {
             get {
                 return ResourceManager.GetString("MonthTakenOrEncoded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        public static string Move {
+            get {
+                return ResourceManager.GetString("Move", resourceCulture);
             }
         }
         
