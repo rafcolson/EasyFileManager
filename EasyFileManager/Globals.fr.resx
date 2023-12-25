@@ -486,4 +486,13 @@
   <data name="Move" xml:space="preserve">
     <value>Déplacer</value>
   </data>
+  <data name="DoesNotContain" xml:space="preserve">
+    <value>Ne contient pas</value>
+  </data>
+  <data name="DoesNotEndWith" xml:space="preserve">
+    <value>Ne se termine pas par</value>
+  </data>
+  <data name="DoesNotStartWith" xml:space="preserve">
+    <value>Ne commence pas par</value>
+  </data>
 </root>

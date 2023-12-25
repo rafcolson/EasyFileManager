@@ -399,7 +399,13 @@ namespace EasyFileManager
         [EasyGlobalStringValue("EndsWith")]
         EndsWith,
         [EasyGlobalStringValue("Contains")]
-        Contains
+        Contains,
+        [EasyGlobalStringValue("DoesNotStartWith")]
+        DoesNotStartWith,
+        [EasyGlobalStringValue("DoesNotEndWith")]
+        DoesNotEndWith,
+        [EasyGlobalStringValue("DoesNotContain")]
+        DoesNotContain
     }
 
     [Flags]

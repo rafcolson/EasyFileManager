@@ -421,6 +421,33 @@ namespace EasyFileManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Does not contain.
+        /// </summary>
+        public static string DoesNotContain {
+            get {
+                return ResourceManager.GetString("DoesNotContain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Does not end with.
+        /// </summary>
+        public static string DoesNotEndWith {
+            get {
+                return ResourceManager.GetString("DoesNotEndWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Does not start with.
+        /// </summary>
+        public static string DoesNotStartWith {
+            get {
+                return ResourceManager.GetString("DoesNotStartWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicates.
         /// </summary>
         public static string DuplicatesDefault {
