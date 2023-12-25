@@ -196,9 +196,6 @@
   <data name="CleanUpGroupBox.Text" xml:space="preserve">
     <value>Limpiar</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Text" xml:space="preserve">
-    <value>Eliminar carpetas vacías</value>
-  </data>
   <data name="FileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
   </data>

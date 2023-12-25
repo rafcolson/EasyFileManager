@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using Microsoft.Win32;
 
 using WinFormsLib;
 
@@ -112,14 +111,14 @@ namespace EasyFileManager
             editItem ??= new KeyValuePair<string, GeoCoordinates?>(string.Empty, null);
             KeyValuePair<string, GeoCoordinates?> kvp = (KeyValuePair<string, GeoCoordinates?>)editItem;
             string query = kvp.Value != null ? kvp.Value.ToShortString() : string.Empty;
-            Map<string, object?> m = new() { { Globals.AreaInfo, kvp.Key }, { Globals.Geocoords, query } };
+            Map<string, object?> m = new() { { Globals.AreaInfo, kvp.Key }, { Globals.GPSCoordinates, query } };
             using InputDialog id = new(ref m, font: Font);
             if (id.ShowDialog() == DialogResult.Cancel)
             {
                 return null;
             }
             string n = (string)m[Globals.AreaInfo]!;
-            string q = (string)m[Globals.Geocoords]!;
+            string q = (string)m[Globals.GPSCoordinates]!;
             if (string.IsNullOrEmpty(q) && !string.IsNullOrEmpty(n))
             {
                 q = n;
@@ -209,36 +208,36 @@ namespace EasyFileManager
             return paths.Where(path => NameFilteredPathExists(path, nameFilter, filterString) && TypeFilteredPathExists(path, typeFilter)).ToArray();
         }
 
-        private static bool SetAddRemoveProgramsIcon()
-        {
-            if (Debugger.IsAttached)
-            {
-                return false;
-            }
-            using RegistryKey? uninstallRegKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall");
-            bool result = false;
-            if (uninstallRegKey != null)
-            {
-                string appName = GetAssemblyName();
-                string iconPath = Path.Join(Application.StartupPath, @"Resources\Icons\ApplicationIcon.ico");
+        //private static bool SetAddRemoveProgramsIcon()
+        //{
+        //    if (Debugger.IsAttached)
+        //    {
+        //        return false;
+        //    }
+        //    using RegistryKey? uninstallRegKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall");
+        //    bool result = false;
+        //    if (uninstallRegKey != null)
+        //    {
+        //        string appName = GetAssemblyName();
+        //        string iconPath = Path.Join(Application.StartupPath, @"Resources\Icons\ApplicationIcon.ico");
 
-                string[] subKeyNames = uninstallRegKey.GetSubKeyNames();
-                for (int i = 0; i < subKeyNames.Length; i++)
-                {
-                    using RegistryKey? regKey = uninstallRegKey.OpenSubKey(subKeyNames[i], true);
-                    if (regKey != null && regKey.GetValue("DisplayName") as string == appName)
-                    {
-                        if (regKey.GetValue("DisplayIcon") as string != iconPath)
-                        {
-                            regKey.SetValue("DisplayIcon", iconPath);
-                            result = true;
-                        }
-                        break;
-                    }
-                }
-            }
-            return result;
-        }
+        //        string[] subKeyNames = uninstallRegKey.GetSubKeyNames();
+        //        for (int i = 0; i < subKeyNames.Length; i++)
+        //        {
+        //            using RegistryKey? regKey = uninstallRegKey.OpenSubKey(subKeyNames[i], true);
+        //            if (regKey != null && regKey.GetValue("DisplayName") as string == appName)
+        //            {
+        //                if (regKey.GetValue("DisplayIcon") as string != iconPath)
+        //                {
+        //                    regKey.SetValue("DisplayIcon", iconPath);
+        //                    result = true;
+        //                }
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    return result;
+        //}
 
         public static Main? GetMainForm() => Application.OpenForms.Count == 0 ? null : Application.OpenForms[0] as Main;
 

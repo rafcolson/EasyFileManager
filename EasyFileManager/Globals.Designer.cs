@@ -205,15 +205,6 @@ namespace EasyFileManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coordinates.
-        /// </summary>
-        public static string Coordinates {
-            get {
-                return ResourceManager.GetString("Coordinates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy {
@@ -421,15 +412,6 @@ namespace EasyFileManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete empty folders.
-        /// </summary>
-        public static string DeleteEmptyFolders {
-            get {
-                return ResourceManager.GetString("DeleteEmptyFolders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Document.
         /// </summary>
         public static string Document {
@@ -547,6 +529,15 @@ namespace EasyFileManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty folders.
+        /// </summary>
+        public static string EmptyFolders {
+            get {
+                return ResourceManager.GetString("EmptyFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ends with.
         /// </summary>
         public static string EndsWith {
@@ -655,11 +646,11 @@ namespace EasyFileManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coordinates.
+        ///   Looks up a localized string similar to GPS coordinates.
         /// </summary>
-        public static string Geocoords {
+        public static string GPSCoordinates {
             get {
-                return ResourceManager.GetString("Geocoords", resourceCulture);
+                return ResourceManager.GetString("GPSCoordinates", resourceCulture);
             }
         }
         
@@ -682,20 +673,20 @@ namespace EasyFileManager {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keywords.
+        /// </summary>
+        public static string Keywords {
+            get {
+                return ResourceManager.GetString("Keywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keywords (add).
         /// </summary>
         public static string KeywordsAdd {
             get {
                 return ResourceManager.GetString("KeywordsAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Keywords.
-        /// </summary>
-        public static string KeywordsDefault {
-            get {
-                return ResourceManager.GetString("KeywordsDefault", resourceCulture);
             }
         }
         
@@ -846,9 +837,9 @@ namespace EasyFileManager {
         /// <summary>
         ///   Looks up a localized string similar to Replace.
         /// </summary>
-        public static string ReplaceNormal {
+        public static string Replace {
             get {
-                return ResourceManager.GetString("ReplaceNormal", resourceCulture);
+                return ResourceManager.GetString("Replace", resourceCulture);
             }
         }
         

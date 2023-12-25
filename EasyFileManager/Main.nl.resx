@@ -196,9 +196,6 @@
   <data name="CleanUpGroupBox.Text" xml:space="preserve">
     <value>Opschonen</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Text" xml:space="preserve">
-    <value>Lege mappen verwijderen</value>
-  </data>
   <data name="FileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 25</value>
   </data>

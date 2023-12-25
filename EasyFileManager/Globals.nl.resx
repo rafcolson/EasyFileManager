@@ -144,9 +144,6 @@
   <data name="Contents" xml:space="preserve">
     <value>Inhoud</value>
   </data>
-  <data name="Coordinates" xml:space="preserve">
-    <value>Coördinaten</value>
-  </data>
   <data name="Custom" xml:space="preserve">
     <value>Aangepast</value>
   </data>
@@ -228,8 +225,8 @@
   <data name="GameMedia" xml:space="preserve">
     <value>Spelmedia</value>
   </data>
-  <data name="Geocoords" xml:space="preserve">
-    <value>Coördinaten</value>
+  <data name="GPSCoordinates" xml:space="preserve">
+    <value>GPS coördinaten</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Afbeelding</value>
@@ -237,7 +234,7 @@
   <data name="KeywordsAdd" xml:space="preserve">
     <value>Trefwoorden (toevoegen)</value>
   </data>
-  <data name="KeywordsDefault" xml:space="preserve">
+  <data name="Keywords" xml:space="preserve">
     <value>Trefwoorden</value>
   </data>
   <data name="KeywordsReplace" xml:space="preserve">
@@ -264,7 +261,7 @@
   <data name="OverwriteEasyMetadata" xml:space="preserve">
     <value>Easy-metagegevens worden overschreven. Voortzetten?</value>
   </data>
-  <data name="ReplaceNormal" xml:space="preserve">
+  <data name="Replace" xml:space="preserve">
     <value>Vervangen</value>
   </data>
   <data name="ReplaceRegex" xml:space="preserve">
@@ -378,8 +375,8 @@
   <data name="DateFromFolderName" xml:space="preserve">
     <value>Datum uit mapnaam</value>
   </data>
-  <data name="DeleteEmptyFolders" xml:space="preserve">
-    <value>Lege mappen verwijderen</value>
+  <data name="EmptyFolders" xml:space="preserve">
+    <value>Lege mappen</value>
   </data>
   <data name="SmallThumbnail" xml:space="preserve">
     <value>Kleine miniatuur</value>

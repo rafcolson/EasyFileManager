@@ -193,9 +193,6 @@
   <data name="CleanUpGroupBox.Text" xml:space="preserve">
     <value>Aufräumen</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Text" xml:space="preserve">
-    <value>Leere Ordner löschen</value>
-  </data>
   <data name="FileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 25</value>
   </data>

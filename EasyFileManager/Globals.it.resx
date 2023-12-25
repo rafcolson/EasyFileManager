@@ -144,9 +144,6 @@
   <data name="Contents" xml:space="preserve">
     <value>Contenuto</value>
   </data>
-  <data name="Coordinates" xml:space="preserve">
-    <value>Coordinate</value>
-  </data>
   <data name="Custom" xml:space="preserve">
     <value>Costume</value>
   </data>
@@ -228,8 +225,8 @@
   <data name="GameMedia" xml:space="preserve">
     <value>Media di gioco</value>
   </data>
-  <data name="Geocoords" xml:space="preserve">
-    <value>Coordinate</value>
+  <data name="GPSCoordinates" xml:space="preserve">
+    <value>GPS coordinate</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Immagine</value>
@@ -237,7 +234,7 @@
   <data name="KeywordsAdd" xml:space="preserve">
     <value>Parole chiavi (aggiungi)</value>
   </data>
-  <data name="KeywordsDefault" xml:space="preserve">
+  <data name="Keywords" xml:space="preserve">
     <value>Parole chiavi</value>
   </data>
   <data name="KeywordsReplace" xml:space="preserve">
@@ -264,7 +261,7 @@
   <data name="OverwriteEasyMetadata" xml:space="preserve">
     <value>Easy metadati verranno sovrascritti. Continuare?</value>
   </data>
-  <data name="ReplaceNormal" xml:space="preserve">
+  <data name="Replace" xml:space="preserve">
     <value>Sostituire</value>
   </data>
   <data name="ReplaceRegex" xml:space="preserve">
@@ -378,8 +375,8 @@
   <data name="DateFromFolderName" xml:space="preserve">
     <value>Data dal nome della cartella</value>
   </data>
-  <data name="DeleteEmptyFolders" xml:space="preserve">
-    <value>Eliminare cartelle vuote</value>
+  <data name="EmptyFolders" xml:space="preserve">
+    <value>Cartelle vuote</value>
   </data>
   <data name="SmallThumbnail" xml:space="preserve">
     <value>Miniatura piccola</value>

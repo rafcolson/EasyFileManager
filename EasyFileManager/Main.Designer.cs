@@ -149,8 +149,10 @@
             DuplicatesCompareTextBox = new TextBox();
             DuplicatesCompareEditButton = new Button();
             CleanUpGroupBox = new GroupBox();
-            DeleteTableLayoutPanel = new TableLayoutPanel();
-            DeleteEmptyFoldersCheckBox = new CheckBox();
+            CleanUpTableLayoutPanel = new TableLayoutPanel();
+            CleanUpEditButton = new Button();
+            CleanUpTextBox = new TextBox();
+            CleanUpCheckBox = new CheckBox();
             MainMenuStrip = new MenuStrip();
             FileToolStripMenuItem = new ToolStripMenuItem();
             ImportToolStripMenuItem = new ToolStripMenuItem();
@@ -257,7 +259,7 @@
             DuplicatesGroupBox.SuspendLayout();
             DuplicatesTableLayoutPanel.SuspendLayout();
             CleanUpGroupBox.SuspendLayout();
-            DeleteTableLayoutPanel.SuspendLayout();
+            CleanUpTableLayoutPanel.SuspendLayout();
             MainMenuStrip.SuspendLayout();
             MainStatusStrip.SuspendLayout();
             SuspendLayout();
@@ -1230,21 +1232,36 @@
             // CleanUpGroupBox
             // 
             resources.ApplyResources(CleanUpGroupBox, "CleanUpGroupBox");
-            CleanUpGroupBox.Controls.Add(DeleteTableLayoutPanel);
+            CleanUpGroupBox.Controls.Add(CleanUpTableLayoutPanel);
             CleanUpGroupBox.Name = "CleanUpGroupBox";
             CleanUpGroupBox.TabStop = false;
             // 
-            // DeleteTableLayoutPanel
+            // CleanUpTableLayoutPanel
             // 
-            resources.ApplyResources(DeleteTableLayoutPanel, "DeleteTableLayoutPanel");
-            DeleteTableLayoutPanel.Controls.Add(DeleteEmptyFoldersCheckBox, 0, 0);
-            DeleteTableLayoutPanel.Name = "DeleteTableLayoutPanel";
+            resources.ApplyResources(CleanUpTableLayoutPanel, "CleanUpTableLayoutPanel");
+            CleanUpTableLayoutPanel.Controls.Add(CleanUpEditButton, 2, 0);
+            CleanUpTableLayoutPanel.Controls.Add(CleanUpTextBox, 1, 0);
+            CleanUpTableLayoutPanel.Controls.Add(CleanUpCheckBox, 0, 0);
+            CleanUpTableLayoutPanel.Name = "CleanUpTableLayoutPanel";
             // 
-            // DeleteEmptyFoldersCheckBox
+            // CleanUpEditButton
             // 
-            resources.ApplyResources(DeleteEmptyFoldersCheckBox, "DeleteEmptyFoldersCheckBox");
-            DeleteEmptyFoldersCheckBox.Name = "DeleteEmptyFoldersCheckBox";
-            DeleteEmptyFoldersCheckBox.UseVisualStyleBackColor = true;
+            resources.ApplyResources(CleanUpEditButton, "CleanUpEditButton");
+            CleanUpEditButton.BackgroundImage = Properties.Resources.Edit;
+            CleanUpEditButton.Name = "CleanUpEditButton";
+            CleanUpEditButton.UseVisualStyleBackColor = true;
+            // 
+            // CleanUpTextBox
+            // 
+            resources.ApplyResources(CleanUpTextBox, "CleanUpTextBox");
+            CleanUpTextBox.Name = "CleanUpTextBox";
+            CleanUpTextBox.ReadOnly = true;
+            // 
+            // CleanUpCheckBox
+            // 
+            resources.ApplyResources(CleanUpCheckBox, "CleanUpCheckBox");
+            CleanUpCheckBox.Name = "CleanUpCheckBox";
+            CleanUpCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainMenuStrip
             // 
@@ -1533,8 +1550,8 @@
             DuplicatesTableLayoutPanel.ResumeLayout(false);
             DuplicatesTableLayoutPanel.PerformLayout();
             CleanUpGroupBox.ResumeLayout(false);
-            DeleteTableLayoutPanel.ResumeLayout(false);
-            DeleteTableLayoutPanel.PerformLayout();
+            CleanUpTableLayoutPanel.ResumeLayout(false);
+            CleanUpTableLayoutPanel.PerformLayout();
             MainMenuStrip.ResumeLayout(false);
             MainMenuStrip.PerformLayout();
             MainStatusStrip.ResumeLayout(false);
@@ -1679,8 +1696,8 @@
         private TextBox BackupFolderTextBox;
         private Button SelectDuplicatesFolderButton;
         private CheckBox ShowDuplicatesCompareDialogCheckBox;
-        private TableLayoutPanel DeleteTableLayoutPanel;
-        private CheckBox DeleteEmptyFoldersCheckBox;
+        private TableLayoutPanel CleanUpTableLayoutPanel;
+        private CheckBox CleanUpCheckBox;
         private ToolStripMenuItem LogApplicationEventsToolStripMenuItem;
         private ToolStripMenuItem ShutDownUponCompletionToolStripMenuItem;
         private SplitContainer ThumbnailPropsSplitContainer;
@@ -1697,5 +1714,7 @@
         private Button FilterEditButton;
         private ComboBox FilterNameComboBox;
         private TextBox FilterStringTextBox;
+        private TextBox CleanUpTextBox;
+        private Button CleanUpEditButton;
     }
 }

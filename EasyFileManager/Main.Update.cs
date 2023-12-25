@@ -210,7 +210,7 @@ namespace EasyFileManager
         {
             ReplaceTextBox.Enabled = ReplaceWithCheckBox.Checked;
             WithTextBox.Enabled = ReplaceWithCheckBox.Checked;
-            ReplaceGroupBox.Text = Options.ReplaceWithState == CheckState.Indeterminate ? Globals.ReplaceRegex : Globals.ReplaceNormal;
+            ReplaceGroupBox.Text = Options.ReplaceWithState == CheckState.Indeterminate ? Globals.ReplaceRegex : Globals.Replace;
         }
 
         private void UpdateKeywordsControlsA()
@@ -230,7 +230,7 @@ namespace EasyFileManager
             {
                 CheckState.Checked => Globals.KeywordsReplace,
                 CheckState.Indeterminate => Globals.KeywordsAdd,
-                _ => Globals.KeywordsDefault,
+                _ => Globals.Keywords,
             };
         }
 
@@ -368,6 +368,20 @@ namespace EasyFileManager
         }
 
         private void UpdateFilterControlsC() => FilterNameComboBox.Enabled = Options.FilterEnabled && !string.IsNullOrEmpty(FilterStringTextBox.Text);
+
+        private void UpdateCleanUpControlsA()
+        {
+            bool enabled = Options.CleanUpEnabled;
+            CleanUpTextBox.BackColor = enabled ? SystemColors.ControlLightLight : SystemColors.Control;
+            CleanUpEditButton.Enabled = enabled;
+            UpdateCleanUpControlsB();
+        }
+
+        private void UpdateCleanUpControlsB()
+        {
+            string[] sa = Options.CleanUpParameters.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            CleanUpTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
+        }
 
         private void UpdateDuplicatesControlsA()
         {
@@ -648,10 +662,11 @@ namespace EasyFileManager
                 string p = l[i];
                 using EasyFile ef = new(p);
                 ef.CustomizeAsync(Options).Wait(cancellationToken);
-                Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 1, numSubSteps), p);
+                string info = $"Customized {p}";
+                Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 1, numSubSteps), info);
                 if (Options.LogApplicationEvents)
                 {
-                    Logger.Write($"Customized {p}");
+                    Logger.Write(info);
                 }
             }
             l.Clear();
@@ -661,35 +676,69 @@ namespace EasyFileManager
             Debug.WriteLine("Customized.");
         }
 
-        private void DeleteEmptyFolders(CancellationToken cancellationToken)
+        private void CleanUp(CancellationToken cancellationToken)
         {
-            Debug.WriteLine("Deleting empty folders, if any...");
+            Debug.WriteLine("Cleaning up...");
 
-            int i = 0;
-            foreach (string p in GetSelectedFolderPaths(true))
+            int maxValue = 100;
+            int numSubSteps = 1;
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            EasyFileProperty propertyFlags = EasyFileProperty.None;
+            foreach (EasyCleanUpParameter ecup in Options.CleanUpParameters.GetContainingFlags())
             {
-                using EasyFolder ed = new(p);
-                if (!ed.GetAllPaths().Any())
+                EasyFileProperty v = ecup.GetValue<EasyFileProperty>();
+                if (v != EasyFileProperty.None)
                 {
-                    if (ed.Delete())
+                    propertyFlags |= v;
+                    continue;
+                }
+                numSubSteps += 1;
+
+                string[] fpa = GetSelectedFolderPaths(true);
+                int n = fpa.Length;
+                for (int i = 0; i < n; i++)
+                {
+                    string p = fpa[i];
+                    using EasyFolder ed = new(p);
+                    if (!ed.GetAllPaths().Any())
                     {
-                        if (Options.LogApplicationEvents)
+                        Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 0, numSubSteps), $"Deleting empty folder: {p}");
+                        if (ed.Delete() && Options.LogApplicationEvents)
                         {
-                            Logger.Write($"Deleted {ed.Path}");
+                            Logger.Write($"Deleted empty folder: {p}");
                         }
-                        i += 1;
                     }
                 }
-                ed.Dispose();
             }
-            if (i > 0)
+            if (propertyFlags != EasyFileProperty.None)
             {
-                Delay(() => { Debug.WriteLine($"Total empty folders deleted: {i}."); });
+                cancellationToken.ThrowIfCancellationRequested();
+
+                EasyFiles files = new(GetSelectedFilePaths(true).Select(x => new EasyFile(x)));
+                EasyFileProperty[] efpa = propertyFlags.GetContainingFlags();
+                int n = efpa.Length;
+                for (int i = 0; i < n; i++)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    EasyFileProperty efp = efpa[i];
+                    string? s = Enum.GetName(efp);
+                    foreach (EasyFile ef in files)
+                    {
+                        Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 1, numSubSteps), $"Deleting '{s}' property of {ef.Path}");
+                        if (ef.RemoveProperty(efp) && Options.LogApplicationEvents)
+                        {
+                            Logger.Write($"Deleted '{s}' property of {ef.Path}");
+                        }
+                    }
+                }
+                files.Clear();
             }
-            else
-            {
-                Debug.WriteLine($"No empty folders have been deleted.");
-            }
+            Progress.Report(maxValue);
+
+            Debug.WriteLine("Cleaned up.");
         }
 
         private void DeleteOrStoreDuplicates(CancellationToken cancellationToken)
@@ -969,10 +1018,10 @@ namespace EasyFileManager
                     await ef.ExtractExifGeoAreaAsync(Options.UseEasyMetadataWithVideo);
                 }
 
-                PropsDataGridView.AddRow(Globals.KeywordsDefault, string.Join(COMMA, ef.Keywords));
+                PropsDataGridView.AddRow(Globals.Keywords, string.Join(COMMA, ef.Keywords));
                 if (ef.GeoCoordinates != null && ef.GeoCoordinates.IsValid)
                 {
-                    PropsDataGridView.AddRow(Globals.Coordinates, ef.GeoCoordinates.ToString());
+                    PropsDataGridView.AddRow(Globals.GPSCoordinates, ef.GeoCoordinates.ToString());
                 }
                 string ai = ef.AreaInfo;
                 if (!string.IsNullOrEmpty(ai))

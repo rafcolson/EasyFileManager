@@ -144,9 +144,6 @@
   <data name="Contents" xml:space="preserve">
     <value>Content</value>
   </data>
-  <data name="Coordinates" xml:space="preserve">
-    <value>Coordinates</value>
-  </data>
   <data name="Custom" xml:space="preserve">
     <value>Custom</value>
   </data>
@@ -228,8 +225,8 @@
   <data name="GameMedia" xml:space="preserve">
     <value>Game media</value>
   </data>
-  <data name="Geocoords" xml:space="preserve">
-    <value>Coordinates</value>
+  <data name="GPSCoordinates" xml:space="preserve">
+    <value>GPS Coordinates</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Image</value>
@@ -237,7 +234,7 @@
   <data name="KeywordsAdd" xml:space="preserve">
     <value>Keywords (add)</value>
   </data>
-  <data name="KeywordsDefault" xml:space="preserve">
+  <data name="Keywords" xml:space="preserve">
     <value>Keywords</value>
   </data>
   <data name="KeywordsReplace" xml:space="preserve">
@@ -264,7 +261,7 @@
   <data name="OverwriteEasyMetadata" xml:space="preserve">
     <value>Easy metadata will be overwritten. Continue?</value>
   </data>
-  <data name="ReplaceNormal" xml:space="preserve">
+  <data name="Replace" xml:space="preserve">
     <value>Replace</value>
   </data>
   <data name="ReplaceRegex" xml:space="preserve">
@@ -378,8 +375,8 @@
   <data name="DateFromFolderName" xml:space="preserve">
     <value>Date from parent folder name</value>
   </data>
-  <data name="DeleteEmptyFolders" xml:space="preserve">
-    <value>Delete empty folders</value>
+  <data name="EmptyFolders" xml:space="preserve">
+    <value>Empty folders</value>
   </data>
   <data name="SmallThumbnail" xml:space="preserve">
     <value>Small thumbnail</value>

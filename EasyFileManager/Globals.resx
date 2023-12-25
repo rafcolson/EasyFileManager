@@ -165,9 +165,6 @@
   <data name="Contents" xml:space="preserve">
     <value>Content</value>
   </data>
-  <data name="Coordinates" xml:space="preserve">
-    <value>Coordinates</value>
-  </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
@@ -237,9 +234,6 @@
   <data name="DeleteEasyMetadata" xml:space="preserve">
     <value>Easy metadata will be deleted. Continue?</value>
   </data>
-  <data name="DeleteEmptyFolders" xml:space="preserve">
-    <value>Delete empty folders</value>
-  </data>
   <data name="Document" xml:space="preserve">
     <value>Document</value>
   </data>
@@ -279,6 +273,9 @@
   <data name="EditSubfolders" xml:space="preserve">
     <value>Edit subfolders</value>
   </data>
+  <data name="EmptyFolders" xml:space="preserve">
+    <value>Empty folders</value>
+  </data>
   <data name="EndsWith" xml:space="preserve">
     <value>Ends with</value>
   </data>
@@ -315,8 +312,8 @@
   <data name="GameMedia" xml:space="preserve">
     <value>Game media</value>
   </data>
-  <data name="Geocoords" xml:space="preserve">
-    <value>Coordinates</value>
+  <data name="GPSCoordinates" xml:space="preserve">
+    <value>GPS coordinates</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Image</value>
@@ -324,11 +321,11 @@
   <data name="Invalid" xml:space="preserve">
     <value>Invalid</value>
   </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
   <data name="KeywordsAdd" xml:space="preserve">
     <value>Keywords (add)</value>
-  </data>
-  <data name="KeywordsDefault" xml:space="preserve">
-    <value>Keywords</value>
   </data>
   <data name="KeywordsReplace" xml:space="preserve">
     <value>Keywords (replace)</value>
@@ -378,7 +375,7 @@
   <data name="RawName" xml:space="preserve">
     <value>Raw name</value>
   </data>
-  <data name="ReplaceNormal" xml:space="preserve">
+  <data name="Replace" xml:space="preserve">
     <value>Replace</value>
   </data>
   <data name="ReplaceRegex" xml:space="preserve">

@@ -196,9 +196,6 @@
   <data name="CleanUpGroupBox.Text" xml:space="preserve">
     <value>Pulire</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Text" xml:space="preserve">
-    <value>Eliminare cartelle vuote</value>
-  </data>
   <data name="ImportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 26</value>
   </data>

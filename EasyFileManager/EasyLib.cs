@@ -403,6 +403,59 @@ namespace EasyFileManager
     }
 
     [Flags]
+    public enum EasyFileProperty
+    {
+        None = 0,
+        [EasyGlobalStringValue("Title")]
+        Title = 1 << 0,
+        [EasyGlobalStringValue("Subject")]
+        Subject = 1 << 1,
+        [EasyGlobalStringValue("Comment")]
+        Comment = 1 << 2,
+        [EasyGlobalStringValue("Keywords")]
+        Keywords = 1 << 3,
+        [EasyGlobalStringValue("GPSCoordinates")]
+        GPSCoordinates = 1 << 4,
+        [EasyGlobalStringValue("AreaInfo")]
+        AreaInfo = 1 << 5,
+        [EasyGlobalStringValue("EasyMetadata")]
+        EasyMetadata = 1 << 6,
+        All = Title | Subject | Comment | Keywords | GPSCoordinates | AreaInfo | EasyMetadata
+    }
+
+    [Flags]
+    public enum EasyCleanUpParameter
+    {
+        None = 0,
+        [EasyGlobalStringValue("Title")]
+        [Value(EasyFileProperty.Title)]
+        Title = 1 << 0,
+        [EasyGlobalStringValue("Subject")]
+        [Value(EasyFileProperty.Subject)]
+        Subject = 1 << 1,
+        [EasyGlobalStringValue("Comment")]
+        [Value(EasyFileProperty.Comment)]
+        Comment = 1 << 2,
+        [EasyGlobalStringValue("Keywords")]
+        [Value(EasyFileProperty.Keywords)]
+        Keywords = 1 << 3,
+        [EasyGlobalStringValue("GPSCoordinates")]
+        [Value(EasyFileProperty.GPSCoordinates)]
+        GPSCoordinates = 1 << 4,
+        [EasyGlobalStringValue("AreaInfo")]
+        [Value(EasyFileProperty.AreaInfo)]
+        AreaInfo = 1 << 5,
+        [EasyGlobalStringValue("EasyMetadata")]
+        [Value(EasyFileProperty.EasyMetadata)]
+        EasyMetadata = 1 << 6,
+        [EasyGlobalStringValue("EmptyFolders")]
+        [Value(EasyFileProperty.None)]
+        EmptyFolders = 1 << 7,
+        Default = EmptyFolders,
+        All = EasyFileProperty.All | EmptyFolders
+    }
+
+    [Flags]
     public enum EasyCompareParameter
     {
         None = 0,
@@ -510,7 +563,7 @@ namespace EasyFileManager
         public bool PreserveDateCreated { get; set; }
         public bool LogApplicationEvents { get; set; }
         public bool ShutdownUponCompletion { get; set; }
-        public bool DeleteEmptyFolders { get; set; }
+        public bool CleanUpEnabled { get; set; }
         public bool ShowDuplicatesCompareDialog { get; set; }
 
         public int KeywordsIndex { get; set; } = -1;
@@ -529,6 +582,7 @@ namespace EasyFileManager
 
         public EasyTypeFilter TypeFilter { get; set; } = EasyTypeFilter.Default;
         public EasyNameFilter NameFilter { get; set; } = EasyNameFilter.Contains;
+        public EasyCleanUpParameter CleanUpParameters { get; set; } = EasyCleanUpParameter.Default;
         public EasyCompareParameter DuplicatesCompareParameters { get; set; } = EasyCompareParameter.Default;
 
         public List<EasyList<string>> Keywords { get; set; } = new();
@@ -581,7 +635,7 @@ namespace EasyFileManager
                 PreserveDateCreated = eo.PreserveDateCreated;
                 LogApplicationEvents = eo.LogApplicationEvents;
                 ShutdownUponCompletion = eo.ShutdownUponCompletion;
-                DeleteEmptyFolders = eo.DeleteEmptyFolders;
+                CleanUpEnabled = eo.CleanUpEnabled;
                 ShowDuplicatesCompareDialog = eo.ShowDuplicatesCompareDialog;
 
                 KeywordsIndex = eo.KeywordsIndex;
@@ -600,6 +654,7 @@ namespace EasyFileManager
 
                 TypeFilter = eo.TypeFilter;
                 NameFilter = eo.NameFilter;
+                CleanUpParameters = eo.CleanUpParameters;
                 DuplicatesCompareParameters = eo.DuplicatesCompareParameters;
 
                 Keywords = eo.Keywords;
@@ -616,7 +671,10 @@ namespace EasyFileManager
 
         public bool HasCopyingMoving(bool apply = true) => CopyMoveState != CheckState.Unchecked && ((apply && BackupFolderEnabled) || TopFolderEnabled || SubfoldersEnabled);
 
-        public bool HasFinalizing() => FinalizeEnabled && (DeleteEmptyFolders || DuplicatesState != CheckState.Unchecked || DuplicatesCompareParameters != EasyCompareParameter.None);
+        public bool HasFinalizing()
+        {
+            return FinalizeEnabled && ((CleanUpEnabled && CleanUpParameters != EasyCleanUpParameter.None) || (DuplicatesState != CheckState.Unchecked && DuplicatesCompareParameters != EasyCompareParameter.None));
+        }
 
         public override string ToString() => JsonSerializer.Serialize(this, JsonSerializerOptions);
     }
@@ -1396,7 +1454,7 @@ namespace EasyFileManager
             }
         }
 
-        private void ReadGeoCoordinates()
+        private bool ReadGeoCoordinates()
         {
             if (ShellObject != null)
             {
@@ -1407,8 +1465,10 @@ namespace EasyFileManager
                 if (lat != null && lon != null && !string.IsNullOrEmpty(latRef) & !string.IsNullOrEmpty(lonRef))
                 {
                     GeoCoordinates = new(lat, lon, latRef, lonRef);
+                    return true;
                 }
             }
+            return false;
         }
 
         private bool WriteGeoCoordinates(double[] latCoords, double[] lonCoords, string latRef, string lonRef)
@@ -1437,15 +1497,13 @@ namespace EasyFileManager
             return false;
         }
 
-        private bool WriteGeoCoordinates(GeoCoordinates geoCoordinates) => WriteGeoCoordinates
-        (
-            geoCoordinates.LatitudeCoordinates,
-            geoCoordinates.LongitudeCoordinates,
-            geoCoordinates.LatitudeWindDirection,
-            geoCoordinates.LongitudeWindDirection
-        );
+        private bool WriteGeoCoordinates(GeoCoordinates? geoCoords)
+        {
+            geoCoords ??= new();
+            return WriteGeoCoordinates(geoCoords.LatitudeCoordinates, geoCoords.LongitudeCoordinates, geoCoords.LatitudeWindDirection, geoCoords.LongitudeWindDirection );
+        }
 
-        private void ReadEasyMetadata()
+        private bool ReadEasyMetadata()
         {
             string delimiter = $"{nameof(EasyMetadata)}{EQUALS_SIGN}";
             foreach (string kw in Keywords)
@@ -1453,9 +1511,10 @@ namespace EasyFileManager
                 if (kw.SplitLast(delimiter) is string[] sa)
                 {
                     EasyMetadata = new(sa.Last());
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
 
         private void DeleteOrOverwriteEasyMetaData(bool overwrite = false)
@@ -1530,6 +1589,21 @@ namespace EasyFileManager
                 return true;
             }
             return false;
+        }
+
+        public bool RemoveProperty(EasyFileProperty property)
+        {
+            bool result = false;
+            switch (property)
+            {
+                case EasyFileProperty.Title: if (!string.IsNullOrEmpty(Title)) { Title = string.Empty; result = true; }; break;
+                case EasyFileProperty.Comment: if (!string.IsNullOrEmpty(Comment)) { Comment = string.Empty; result = true; }; break;
+                case EasyFileProperty.Keywords: if (Keywords.Any()) { Keywords = Array.Empty<string>(); result = true; }; break;
+                case EasyFileProperty.GPSCoordinates: if (GeoCoordinates != null || ReadGeoCoordinates()) { WriteGeoCoordinates(null); result = true; } break;
+                case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { AreaInfo = string.Empty; result = true; }; break;
+                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { DeleteOrOverwriteEasyMetaData(); result = true; } break;
+            }
+            return result;
         }
 
         public bool UpdateFormatting(EasyOptions? options = null, string[]? excludedPaths = null)

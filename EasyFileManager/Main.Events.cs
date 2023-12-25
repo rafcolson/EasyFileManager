@@ -552,6 +552,36 @@ namespace EasyFileManager
             DuplicatesGroupBox.Focus();
         }
 
+        private void CleanUpEditButton_Click(object? sender, EventArgs e)
+        {
+            List<object> items = Options.CleanUpParameters.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
+            using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
+            object[] oa = EasyCleanUpParameter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            eld.OnAddItem = () =>
+            {
+                using DropDownListDialog ddld = new(oa, 0, font: Font);
+                while (ddld.ShowDialog() == DialogResult.OK)
+                {
+                    if (!eld.Items.Contains(ddld.SelectedItem))
+                    {
+                        eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
+                        break;
+                    }
+                }
+                return Task.CompletedTask;
+            };
+            if (eld.ShowDialog() == DialogResult.OK)
+            {
+                Options.CleanUpParameters = EasyCleanUpParameter.None;
+                foreach (string s in items.Cast<string>())
+                {
+                    Options.CleanUpParameters |= s.AsEasyEnumFromGlobal<EasyCleanUpParameter>();
+                }
+                UpdateCleanUpControlsB();
+            }
+            CleanUpGroupBox.Focus();
+        }
+
         private void DuplicatesCompareEditButton_Click(object? sender, EventArgs e)
         {
             List<object> items = Options.DuplicatesCompareParameters.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
@@ -602,9 +632,9 @@ namespace EasyFileManager
             }
             if (Options.HasFinalizing())
             {
-                if (Options.DeleteEmptyFolders)
+                if (Options.CleanUpEnabled)
                 {
-                    actions.Add(DeleteEmptyFolders);
+                    actions.Add(CleanUp);
                 }
                 if (Options.DuplicatesState != CheckState.Unchecked)
                 {
@@ -917,9 +947,10 @@ namespace EasyFileManager
             UpdateBackupControls();
         }
 
-        private void DeleteEmptyFoldersCheckBox_CheckedChanged(object? sender, EventArgs e)
+        private void CleanUpCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
-            Options.DeleteEmptyFolders = DeleteEmptyFoldersCheckBox.Checked;
+            Options.CleanUpEnabled = CleanUpCheckBox.Checked;
+            UpdateCleanUpControlsA();
         }
 
         private void DuplicatesCheckBox_CheckStateChanged(object? sender, EventArgs e)

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="MainSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MainSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -138,6 +141,9 @@
   <data name="PathTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <metadata name="ApplyButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ApplyButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -181,6 +187,9 @@
   <data name="&gt;&gt;ApplyButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="NextFolderButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="NextFolderButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -220,6 +229,9 @@
   <data name="&gt;&gt;NextFolderButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="PreviousFolderButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="PreviousFolderButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -259,6 +271,9 @@
   <data name="&gt;&gt;PreviousFolderButton.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="SelectFolderButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SelectFolderButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -298,6 +313,9 @@
   <data name="&gt;&gt;SelectFolderButton.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="PathTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="PathTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -325,6 +343,9 @@
   <data name="&gt;&gt;PathTextBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="OneLevelUpButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="OneLevelUpButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -415,6 +436,9 @@
   <data name="MainSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
+  <metadata name="ExplorerEditSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ExplorerEditSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -427,12 +451,18 @@
   <data name="ExplorerEditSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <metadata name="ExplorerThumbnailPropsSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ExplorerThumbnailPropsSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="ExplorerThumbnailPropsSplitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <metadata name="ExplorerDataGridView.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="ExplorerDataGridViewColumnValues.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -478,6 +508,9 @@
   <data name="ExplorerThumbnailPropsSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>288</value>
   </data>
+  <metadata name="ThumbnailPropsSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ThumbnailPropsSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -505,6 +538,9 @@
   <data name="RotateTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="Rotate270Button.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="Rotate270Button.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -547,6 +583,9 @@
   <data name="&gt;&gt;Rotate270Button.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="Rotate180Button.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="Rotate180Button.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -589,6 +628,9 @@
   <data name="&gt;&gt;Rotate180Button.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="Rotate90Button.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="Rotate90Button.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -661,6 +703,9 @@
   <data name="RotateTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="Rotate270Button" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Rotate180Button" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Rotate90Button" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
+  <metadata name="ThumbnailPictureBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ThumbnailPictureBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -703,6 +748,9 @@
   <data name="ThumbnailPropsSplitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>35</value>
   </data>
+  <metadata name="PropsDataGridView.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="PropsDataGridViewColumnValues.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -835,6 +883,9 @@
   <data name="EditTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <metadata name="CustomizeSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CustomizeSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -850,6 +901,9 @@
   <data name="CustomizeSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <metadata name="CustomizeCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CustomizeCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -934,6 +988,9 @@
   <data name="CustomizeTopTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <metadata name="KeywordsGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="KeywordsGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -952,6 +1009,9 @@
   <data name="KeywordsTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="KeywordsCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="KeywordsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -982,6 +1042,9 @@
   <data name="&gt;&gt;KeywordsCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="KeywordsEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="KeywordsEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1021,6 +1084,9 @@
   <data name="&gt;&gt;KeywordsEditButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="KeywordsComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="KeywordsComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1111,6 +1177,9 @@
   <data name="&gt;&gt;KeywordsGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="CommentGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CommentGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1126,6 +1195,9 @@
   <data name="CommentTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <metadata name="CommentCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CommentCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1156,6 +1228,9 @@
   <data name="&gt;&gt;CommentCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="CommentTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CommentTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1246,6 +1321,9 @@
   <data name="&gt;&gt;CommentGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="SubjectGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubjectGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1261,6 +1339,9 @@
   <data name="SubjectTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <metadata name="SubjectCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubjectCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1291,6 +1372,9 @@
   <data name="&gt;&gt;SubjectCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="SubjectTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubjectTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1381,6 +1465,9 @@
   <data name="&gt;&gt;SubjectGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="TitleGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="TitleGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1396,6 +1483,9 @@
   <data name="TitleTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <metadata name="TitleCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="TitleCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1426,6 +1516,9 @@
   <data name="&gt;&gt;TitleCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="TitleTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="TitleTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1564,6 +1657,9 @@
   <data name="CustomizeBottomTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="EasyMetadataGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="EasyMetadataGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1582,6 +1678,9 @@
   <data name="EasyMetadataTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="EasyMetadataCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="EasyMetadataCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1612,6 +1711,9 @@
   <data name="&gt;&gt;EasyMetadataCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="EasyMetadataEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="EasyMetadataEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1651,6 +1753,9 @@
   <data name="&gt;&gt;EasyMetadataEditButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="EasyMetadataComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="EasyMetadataComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1741,6 +1846,9 @@
   <data name="&gt;&gt;EasyMetadataGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="DateGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1759,6 +1867,9 @@
   <data name="DateTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
+  <metadata name="WriteDateTakenOrEncodedCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteDateTakenOrEncodedCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -1804,6 +1915,9 @@
   <data name="&gt;&gt;WriteDateTakenOrEncodedCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="WriteDateCreatedCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteDateCreatedCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -1849,6 +1963,9 @@
   <data name="&gt;&gt;WriteDateCreatedCheckBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="WriteDateModifiedCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteDateModifiedCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -1894,6 +2011,9 @@
   <data name="&gt;&gt;WriteDateModifiedCheckBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="WriteDateEasyMetadataCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteDateEasyMetadataCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -1939,6 +2059,9 @@
   <data name="&gt;&gt;WriteDateEasyMetadataCheckBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="DateCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1969,6 +2092,9 @@
   <data name="&gt;&gt;DateCheckBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="DateEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2008,6 +2134,9 @@
   <data name="&gt;&gt;DateEditButton.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="DateComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2098,6 +2227,9 @@
   <data name="&gt;&gt;DateGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="GeolocationGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GeolocationGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2116,6 +2248,9 @@
   <data name="GeolocationTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
+  <metadata name="WriteGPSEasyMetadataCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteGPSEasyMetadataCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2161,6 +2296,9 @@
   <data name="&gt;&gt;WriteGPSEasyMetadataCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="WriteGPSAreaInfoCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteGPSAreaInfoCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2206,6 +2344,9 @@
   <data name="&gt;&gt;WriteGPSAreaInfoCheckBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="GPSSourceComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GPSSourceComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2233,6 +2374,9 @@
   <data name="&gt;&gt;GPSSourceComboBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="WriteGPSCoordsCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WriteGPSCoordsCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2278,6 +2422,9 @@
   <data name="&gt;&gt;WriteGPSCoordsCheckBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="GeolocationCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GeolocationCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2308,6 +2455,9 @@
   <data name="&gt;&gt;GeolocationCheckBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="GPSEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GPSEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2347,6 +2497,9 @@
   <data name="&gt;&gt;GPSEditButton.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="GPSComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="GPSComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2542,6 +2695,9 @@
   <data name="&gt;&gt;CustomizeSplitContainer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="CopyMoveSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CopyMoveSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2557,6 +2713,9 @@
   <data name="CopyMoveSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <metadata name="CopyMoveCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CopyMoveCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2632,6 +2791,9 @@
   <data name="CopyMoveTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <metadata name="FilterGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FilterGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2650,6 +2812,9 @@
   <data name="FilterTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <metadata name="FilterStringTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FilterStringTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2677,6 +2842,9 @@
   <data name="&gt;&gt;FilterStringTextBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="FilterNameComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FilterNameComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2704,6 +2872,9 @@
   <data name="&gt;&gt;FilterNameComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="FilterCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2737,6 +2908,9 @@
   <data name="&gt;&gt;FilterCheckBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="FilterTypeTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FilterTypeTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2767,6 +2941,9 @@
   <data name="&gt;&gt;FilterTypeTextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="FilterEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FilterEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2872,6 +3049,9 @@
   <data name="&gt;&gt;FilterGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="BackupFolderGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="BackupFolderGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2884,6 +3064,9 @@
   <data name="BackupFolderTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="BackupFolderCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="BackupFolderCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2917,6 +3100,9 @@
   <data name="&gt;&gt;BackupFolderCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="SelectBackupFolderButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SelectBackupFolderButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2959,6 +3145,9 @@
   <data name="&gt;&gt;SelectBackupFolderButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="BackupFolderTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="BackupFolderTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3052,6 +3241,9 @@
   <data name="&gt;&gt;BackupFolderGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="SubfoldersGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubfoldersGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3064,6 +3256,9 @@
   <data name="SubfoldersTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="SubfoldersCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubfoldersCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3094,6 +3289,9 @@
   <data name="&gt;&gt;SubfoldersCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="SubfoldersTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubfoldersTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3124,6 +3322,9 @@
   <data name="&gt;&gt;SubfoldersTextBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="SubfoldersEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SubfoldersEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3226,6 +3427,9 @@
   <data name="&gt;&gt;SubfoldersGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="TopFolderGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="TopFolderGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3238,6 +3442,9 @@
   <data name="TopFolderTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="TopFolderCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="TopFolderCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3268,6 +3475,9 @@
   <data name="&gt;&gt;TopFolderCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="SelectTopFolderButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SelectTopFolderButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3307,6 +3517,9 @@
   <data name="&gt;&gt;SelectTopFolderButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="TopFolderTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="TopFolderTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3472,6 +3685,9 @@
   <data name="&gt;&gt;CopyMoveSplitContainer.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="RenameSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="RenameSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3487,6 +3703,9 @@
   <data name="RenameSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <metadata name="RenameCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="RenameCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -3559,6 +3778,9 @@
   <data name="RenameTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <metadata name="DateFormatGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateFormatGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3577,6 +3799,9 @@
   <data name="DatePatternTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <metadata name="DateFormatCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateFormatCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3607,6 +3832,9 @@
   <data name="&gt;&gt;DateFormatCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="DateFormatComboBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DateFormatComboBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3697,12 +3925,18 @@
   <data name="&gt;&gt;DateFormatGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="WithGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WithGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="WithGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <metadata name="WithTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="WithTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3760,6 +3994,9 @@
   <data name="&gt;&gt;WithGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="ReplaceGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ReplaceGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3775,6 +4012,9 @@
   <data name="ReplaceTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <metadata name="ReplaceWithCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ReplaceWithCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3805,6 +4045,9 @@
   <data name="&gt;&gt;ReplaceWithCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="ReplaceTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ReplaceTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3895,12 +4138,18 @@
   <data name="&gt;&gt;ReplaceGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="SuffixGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SuffixGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="SuffixGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <metadata name="SuffixTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SuffixTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -3958,12 +4207,18 @@
   <data name="&gt;&gt;SuffixGroupBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="PrefixGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="PrefixGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="PrefixGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <metadata name="PrefixTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="PrefixTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -4093,6 +4348,9 @@
   <data name="&gt;&gt;RenameSplitContainer.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="FinalizeSplitContainer.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FinalizeSplitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -4108,6 +4366,9 @@
   <data name="FinalizeSplitContainer.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
+  <metadata name="FinalizeCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="FinalizeCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -4183,6 +4444,9 @@
   <data name="FinalizeTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <metadata name="DuplicatesGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DuplicatesGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -4195,6 +4459,9 @@
   <data name="DuplicatesTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <metadata name="ShowDuplicatesCompareDialogCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ShowDuplicatesCompareDialogCheckBox.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -4243,6 +4510,9 @@
   <data name="&gt;&gt;ShowDuplicatesCompareDialogCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="SelectDuplicatesFolderButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="SelectDuplicatesFolderButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -4285,6 +4555,9 @@
   <data name="&gt;&gt;SelectDuplicatesFolderButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="DuplicatesFolderTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DuplicatesFolderTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -4315,6 +4588,9 @@
   <data name="&gt;&gt;DuplicatesFolderTextBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="DuplicatesCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DuplicatesCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -4348,6 +4624,9 @@
   <data name="&gt;&gt;DuplicatesCheckBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="DuplicatesCompareTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DuplicatesCompareTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -4378,6 +4657,9 @@
   <data name="&gt;&gt;DuplicatesCompareTextBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="DuplicatesCompareEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DuplicatesCompareEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -4483,83 +4765,164 @@
   <data name="&gt;&gt;DuplicatesGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="CleanUpGroupBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CleanUpGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="CleanUpGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <metadata name="DeleteTableLayoutPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CleanUpTableLayoutPanel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="DeleteTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="CleanUpTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="CleanUpEditButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="CleanUpEditButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="CleanUpEditButton.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="CleanUpEditButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="CleanUpEditButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="CleanUpEditButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="CleanUpEditButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>267, 0</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 6, 0</value>
+  <data name="CleanUpEditButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 31</value>
+  <data name="CleanUpEditButton.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>31, 31</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+  <data name="CleanUpEditButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 31</value>
   </data>
-  <data name="DeleteEmptyFoldersCheckBox.Text" xml:space="preserve">
-    <value>Delete empty folders</value>
+  <data name="CleanUpEditButton.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
-  <data name="&gt;&gt;DeleteEmptyFoldersCheckBox.Name" xml:space="preserve">
-    <value>DeleteEmptyFoldersCheckBox</value>
+  <data name="&gt;&gt;CleanUpEditButton.Name" xml:space="preserve">
+    <value>CleanUpEditButton</value>
   </data>
-  <data name="&gt;&gt;DeleteEmptyFoldersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;CleanUpEditButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DeleteEmptyFoldersCheckBox.Parent" xml:space="preserve">
-    <value>DeleteTableLayoutPanel</value>
+  <data name="&gt;&gt;CleanUpEditButton.Parent" xml:space="preserve">
+    <value>CleanUpTableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;DeleteEmptyFoldersCheckBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CleanUpEditButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="DeleteTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <metadata name="CleanUpTextBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="CleanUpTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="DeleteTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="CleanUpTextBox.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="CleanUpTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 1</value>
+  </data>
+  <data name="CleanUpTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
+  </data>
+  <data name="CleanUpTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 29</value>
+  </data>
+  <data name="CleanUpTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;CleanUpTextBox.Name" xml:space="preserve">
+    <value>CleanUpTextBox</value>
+  </data>
+  <data name="&gt;&gt;CleanUpTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CleanUpTextBox.Parent" xml:space="preserve">
+    <value>CleanUpTableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;CleanUpTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="CleanUpCheckBox.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="CleanUpCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CleanUpCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="CleanUpCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CleanUpCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="CleanUpCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 6, 0</value>
+  </data>
+  <data name="CleanUpCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 31</value>
+  </data>
+  <data name="CleanUpCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;CleanUpCheckBox.Name" xml:space="preserve">
+    <value>CleanUpCheckBox</value>
+  </data>
+  <data name="&gt;&gt;CleanUpCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CleanUpCheckBox.Parent" xml:space="preserve">
+    <value>CleanUpTableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;CleanUpCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="CleanUpTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="CleanUpTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 29</value>
   </data>
-  <data name="DeleteTableLayoutPanel.RowCount" type="System.Int32, mscorlib">
+  <data name="CleanUpTableLayoutPanel.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="DeleteTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CleanUpTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 31</value>
   </data>
-  <data name="DeleteTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="CleanUpTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;DeleteTableLayoutPanel.Name" xml:space="preserve">
-    <value>DeleteTableLayoutPanel</value>
+  <data name="&gt;&gt;CleanUpTableLayoutPanel.Name" xml:space="preserve">
+    <value>CleanUpTableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;DeleteTableLayoutPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;CleanUpTableLayoutPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DeleteTableLayoutPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CleanUpTableLayoutPanel.Parent" xml:space="preserve">
     <value>CleanUpGroupBox</value>
   </data>
-  <data name="&gt;&gt;DeleteTableLayoutPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;CleanUpTableLayoutPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="DeleteTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="DeleteEmptyFoldersCheckBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,20" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="CleanUpTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="CleanUpEditButton" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="CleanUpTextBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="CleanUpCheckBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="CleanUpGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -4777,6 +5140,9 @@
   <metadata name="MainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="MainMenuStrip.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="MainMenuStrip.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 12pt</value>
   </data>
@@ -4942,6 +5308,9 @@
   <metadata name="MainStatusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>153, 17</value>
   </metadata>
+  <metadata name="MainStatusStrip.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="MainStatusStrip.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -5000,6 +5369,9 @@
     <value>EFM files|*.efm|All files|*.*</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

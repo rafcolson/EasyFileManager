@@ -224,7 +224,9 @@ namespace EasyFileManager
             UpdateFilterControlsA();
 
             FinalizeCheckBox.Checked = Options.FinalizeEnabled;
-            DeleteEmptyFoldersCheckBox.Checked = Options.DeleteEmptyFolders;
+            CleanUpCheckBox.Checked = Options.CleanUpEnabled;
+            UpdateCleanUpControlsA();
+
             DuplicatesCheckBox.CheckState = Options.DuplicatesState;
             DuplicatesFolderTextBox.Text = Options.DuplicatesFolderPath;
             ShowDuplicatesCompareDialogCheckBox.Checked = Options.ShowDuplicatesCompareDialog;
@@ -384,10 +386,11 @@ namespace EasyFileManager
             FilterNameComboBox.SelectedIndexChanged += FilterNameComboBox_SelectedIndexChangedAsync;
             FilterStringTextBox.Leave += FilterStringTextBox_LeaveAsync;
 
-            DeleteEmptyFoldersCheckBox.CheckedChanged += DeleteEmptyFoldersCheckBox_CheckedChanged;
+            CleanUpCheckBox.CheckedChanged += CleanUpCheckBox_CheckedChanged;
             DuplicatesCheckBox.CheckStateChanged += DuplicatesCheckBox_CheckStateChanged;
             ShowDuplicatesCompareDialogCheckBox.CheckedChanged += ShowDuplicatesCompareDialogCheckBox_CheckedChanged;
 
+            CleanUpEditButton.Click += CleanUpEditButton_Click;
             SelectDuplicatesFolderButton.Click += SelectDuplicatesFolderButton_Click;
             DuplicatesCompareEditButton.Click += DuplicatesCompareEditButton_Click;
         }
@@ -648,10 +651,11 @@ namespace EasyFileManager
             SubfoldersEditButton.Click -= SubfoldersEditButton_ClickAsync;
             FilterEditButton.Click -= FilterEditButton_ClickAsync;
 
-            DeleteEmptyFoldersCheckBox.CheckedChanged -= DeleteEmptyFoldersCheckBox_CheckedChanged;
+            CleanUpCheckBox.CheckedChanged -= CleanUpCheckBox_CheckedChanged;
             DuplicatesCheckBox.CheckStateChanged -= DuplicatesCheckBox_CheckStateChanged;
             ShowDuplicatesCompareDialogCheckBox.CheckedChanged -= ShowDuplicatesCompareDialogCheckBox_CheckedChanged;
 
+            CleanUpEditButton.Click -= CleanUpEditButton_Click;
             SelectDuplicatesFolderButton.Click -= SelectDuplicatesFolderButton_Click;
             DuplicatesCompareEditButton.Click -= DuplicatesCompareEditButton_Click;
         }
