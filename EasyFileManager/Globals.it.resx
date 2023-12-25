@@ -466,7 +466,7 @@
     <value>Contiene</value>
   </data>
   <data name="EndsWith" xml:space="preserve">
-    <value>Termina con</value>
+    <value>Finisce con</value>
   </data>
   <data name="StartsWith" xml:space="preserve">
     <value>Inizia con</value>
@@ -485,5 +485,14 @@
   </data>
   <data name="Move" xml:space="preserve">
     <value>Spostare</value>
+  </data>
+  <data name="DoesNotContain" xml:space="preserve">
+    <value>Non contiene</value>
+  </data>
+  <data name="DoesNotEndWith" xml:space="preserve">
+    <value>Non finisce con</value>
+  </data>
+  <data name="DoesNotStartWith" xml:space="preserve">
+    <value>Non inizia con</value>
   </data>
 </root>

@@ -237,6 +237,15 @@
   <data name="Document" xml:space="preserve">
     <value>Document</value>
   </data>
+  <data name="DoesNotContain" xml:space="preserve">
+    <value>Does not contain</value>
+  </data>
+  <data name="DoesNotEndWith" xml:space="preserve">
+    <value>Does not end with</value>
+  </data>
+  <data name="DoesNotStartWith" xml:space="preserve">
+    <value>Does not start with</value>
+  </data>
   <data name="DuplicatesDefault" xml:space="preserve">
     <value>Duplicates</value>
   </data>

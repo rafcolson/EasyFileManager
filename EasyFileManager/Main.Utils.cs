@@ -185,16 +185,17 @@ namespace EasyFileManager
                 EasyNameFilter.StartsWith => n.StartsWith(filterString),
                 EasyNameFilter.EndsWith => n.EndsWith(filterString),
                 EasyNameFilter.Contains => n.Contains(filterString),
+                EasyNameFilter.DoesNotStartWith => !n.StartsWith(filterString),
+                EasyNameFilter.DoesNotEndWith => !n.EndsWith(filterString),
+                EasyNameFilter.DoesNotContain => !n.Contains(filterString),
                 _ => n.StartsWith(filterString),
             });
         }
 
         private static bool TypeFilteredPathExists(string path, EasyTypeFilter typeFilter)
         {
-            EasyPath ep = new(path);
-            bool result = TypeFilteredPathExists(ep, typeFilter);
-            ep.Dispose();
-            return result;
+            using EasyPath ep = new(path);
+            return TypeFilteredPathExists(ep, typeFilter);
         }
 
         private static bool TypeFilteredPathExists(EasyPath easyPath, EasyTypeFilter typeFilter)
