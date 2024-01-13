@@ -15,19 +15,9 @@ namespace EasyFileManager
     {
         #region FileSystemWatcher
 
-        private void FolderWatcher_RenamedOrDeleted(object? sender, FileSystemEventArgs e)
-        {
-            FolderWatcher.EnableRaisingEvents = false;
-            Update(e.ChangeType == WatcherChangeTypes.Renamed ? e.FullPath : string.Empty, true);
-            FolderWatcher.EnableRaisingEvents = true;
-        }
+        private void FolderWatcher_RenamedOrDeleted(object? sender, FileSystemEventArgs e) => Update(e.FullPath, true);
 
-        private void FolderContentsWatcher_ChangedRenamedDeletedOrCreated(object? sender, FileSystemEventArgs e)
-        {
-            FolderContentsWatcher.EnableRaisingEvents = false;
-            Update(Folder.Path, true);
-            FolderContentsWatcher.EnableRaisingEvents = true;
-        }
+        private void FolderContentsWatcher_ChangedRenamedDeletedOrCreated(object? sender, FileSystemEventArgs e) => Update(Folder.Path, true);
 
         #endregion
 
