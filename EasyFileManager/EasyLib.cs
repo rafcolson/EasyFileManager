@@ -995,62 +995,38 @@ namespace EasyFileManager
                 writer.WriteStringValue(easyPath.ToString());
             }
         }
+
+        private bool _isDisposed;
+        private FileAttributes _fileAttributes;
+
+        private long? _size;
+
+        protected string _path = EMPTY_STRING;
+        protected DateTime? _dateCreated;
+        protected DateTime? _dateModified;
+        protected ShellObject? _shellObject;
+
         public static JsonConverter JsonConverter => new EasyPathJsonConverter();
 
-        private long? _size = null;
+        public long Size => UpdateSize() && _size is long l ? l : 0;
+        public string Path => _path;
+        public DateTime? DateCreated => _dateCreated;
+        public DateTime? DateModified => _dateModified;
 
-        public FileAttributes FileAttributes { get; private set; }
-        public ShellObject? ShellObject { get; private set; } = null;
-        public string Path { get; private set; } = EMPTY_STRING;
-        public bool IsDisposed { get; private set; }
-
-        public string Name => GetFileName(Path);
-        public string NameWithoutExtension => GetFileNameWithoutExtension(Path);
-        public string PathWithoutExtension => GetPathWithoutExtension(Path);
-        public string Extension => GetExtension(Path);
-        public string DirectoryPath => GetDirectoryPath(Path);
-        public string DirectoryName => GetFileName(DirectoryPath);
-        public string ParentPath => GetParentPath(Path);
-        public string RawName => GetRawName(Path);
-        public string RawPath => GetRawPath(Path);
-        public bool Exists => IsFolder ? Directory.Exists(Path) : File.Exists(Path);
+        public bool Exists => IsFolder ? Directory.Exists(_path) : File.Exists(_path);
         public bool IsInvalid => Type == EasyType.Invalid;
         public bool IsFile => EasyType.File.HasFlag(Type);
-        public bool IsFolder => FileAttributes.HasFlag(FileAttributes.Directory);
-        public bool IsSystem => FileAttributes.HasFlag(FileAttributes.System);
-        public bool IsHidden => FileAttributes.HasFlag(FileAttributes.Hidden) || Path.StartsWith(PERIOD);
-        public bool IsReadOnly => FileAttributes.HasFlag(FileAttributes.ReadOnly);
-        public bool IsSymbolicLink => FileAttributes.HasFlag(FileAttributes.ReparsePoint);
-        public long Size
-        {
-            get
-            {
-                UpdateSize();
-                return _size is long l ? l : 0;
-            }
-        }
-        public Image? SmallThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.SmallBitmap);
-        public Image? MediumThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.MediumBitmap);
-        public Image? LargeThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.LargeBitmap);
-        public Image? ExtraLargeThumbnail => GetThumbnailImage(ShellObject?.Thumbnail.ExtraLargeBitmap);
-        public FileInfo FileInfo => new(Path);
-
-        public DateTime? DateModified
-        {
-            get => ShellObject != null && ShellObject.Properties.System.DateModified.Value is DateTime dt ? dt : File.GetLastWriteTime(Path);
-            set { if (value is DateTime dt) { File.SetLastWriteTime(Path, dt); } }
-        }
-        public DateTime? DateCreated
-        {
-            get => ShellObject != null && ShellObject.Properties.System.DateCreated.Value is DateTime dt ? dt : File.GetCreationTime(Path);
-            set { if (value is DateTime dt) { File.SetCreationTime(Path, dt); } }
-        }
+        public bool IsFolder => _fileAttributes.HasFlag(FileAttributes.Directory);
+        public bool IsSystem => _fileAttributes.HasFlag(FileAttributes.System);
+        public bool IsHidden => _fileAttributes.HasFlag(FileAttributes.Hidden) || _path.StartsWith(PERIOD);
+        public bool IsReadOnly => _fileAttributes.HasFlag(FileAttributes.ReadOnly);
+        public bool IsSymbolicLink => _fileAttributes.HasFlag(FileAttributes.ReparsePoint);
         public EasyType Type
         {
             get
             {
                 EasyType et = EasyType.None;
-                if (ShellObject is ShellObject so)
+                if (_shellObject is ShellObject so)
                 {
                     if (IsSymbolicLink)
                     {
@@ -1097,10 +1073,10 @@ namespace EasyFileManager
         {
             get
             {
-                if (ShellObject != null)
+                if (_shellObject is ShellObject so)
                 {
-                    string t = $"{ShellObject.Properties.System.ItemTypeText.Value}";
-                    if (ShellObject.Properties.System.ItemType.Value is string it)
+                    string t = $"{so.Properties.System.ItemTypeText.Value}";
+                    if (so.Properties.System.ItemType.Value is string it)
                     {
                         t += $" ({it})";
                     }
@@ -1109,13 +1085,125 @@ namespace EasyFileManager
                 return EMPTY_STRING;
             }
         }
+        public string Name => GetFileName(_path);
+        public string NameWithoutExtension => GetFileNameWithoutExtension(_path);
+        public string PathWithoutExtension => GetPathWithoutExtension(_path);
+        public string Extension => GetExtension(_path);
+        public string DirectoryPath => GetDirectoryPath(_path);
+        public string DirectoryName => GetFileName(DirectoryPath);
+        public string ParentPath => GetParentPath(_path);
+        public string RawName => GetRawName(_path);
+        public string RawPath => GetRawPath(_path);
+        public FileInfo FileInfo => new(_path);
+        public Image? SmallThumbnail => GetThumbnailImage(_shellObject?.Thumbnail.SmallBitmap);
+        public Image? MediumThumbnail => GetThumbnailImage(_shellObject?.Thumbnail.MediumBitmap);
+        public Image? LargeThumbnail => GetThumbnailImage(_shellObject?.Thumbnail.LargeBitmap);
+        public Image? ExtraLargeThumbnail => GetThumbnailImage(_shellObject?.Thumbnail.ExtraLargeBitmap);
+
+        private bool MoveOrCopy(bool copy, string path, bool preserveDateCreated = true, bool preserveDateModified = true)
+        {
+            bool result = false;
+            if (!IsInvalid && (copy || !IsReadOnly))
+            {
+                DateTime? dtc = preserveDateCreated ? DateCreated : null;
+                DateTime? dtm = preserveDateModified ? DateModified : null;
+                result = copy ? IsFolder ? CopyDirectory(_path, path) : CopyFile(_path, path) : IsFolder ? MoveDirectory(_path, path) : MoveFile(_path, path);
+                if (result)
+                {
+                    if (preserveDateCreated || preserveDateModified) { Initialize(path); }
+                    if (preserveDateCreated) { _dateCreated = dtc; WriteDateCreated(); }
+                    if (preserveDateModified) { _dateModified = dtm; WriteDateModified(); }
+                }
+            }
+            return result;
+        }
+        private bool ReadShellObject()
+        {
+            try
+            {
+                _shellObject = ShellObject.FromParsingName(_path);
+                return true;
+            }
+            catch { return false; }
+        }
+        private bool ReadFileAttributes()
+        {
+            try
+            {
+                if (_shellObject is ShellObject so)
+                {
+                    try
+                    {
+                        uint i = (uint)so.Properties.DefaultPropertyCollection["System.FileAttributes"].ValueAsObject;
+                        _fileAttributes = (FileAttributes)Enum.ToObject(typeof(FileAttributes), i);
+                    }
+                    catch (IndexOutOfRangeException) { }
+                }
+                _fileAttributes = File.GetAttributes(_path);
+                return true;
+            }
+            catch { return false; }
+        }
+        private bool ReadDateModified()
+        {
+            if (_shellObject is ShellObject so)
+            {
+                _dateModified = so.Properties.System.DateModified.Value is DateTime dt ? dt : File.GetLastWriteTime(_path);
+                return true;
+            }
+            return false;
+        }
+        private bool ReadDateCreated()
+        {
+            if (_shellObject is ShellObject so)
+            {
+                _dateCreated = so.Properties.System.DateCreated.Value is DateTime dt ? dt : File.GetCreationTime(_path);
+                return true;
+            }
+            return false;
+        }
+
+        protected bool WriteDateModified()
+        {
+            if (DateModified is DateTime dt)
+            {
+                File.SetLastWriteTime(_path, dt);
+                return true;
+            }
+            return false;
+        }
+        protected bool WriteDateCreated()
+        {
+            if (DateCreated is DateTime dt)
+            {
+                File.SetCreationTime(_path, dt);
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _shellObject?.Dispose();
+                _shellObject = null;
+            }
+        }
 
         public EasyPath(string path = EMPTY_STRING) => Initialize(path);
 
-        public virtual void Initialize(string path)
+        public virtual void Initialize(string path = EMPTY_STRING)
         {
-            Path = path;
-            ShellObject?.Dispose();
+            if (string.IsNullOrEmpty(path))
+            {
+                path = _path;
+            }
+            else
+            {
+                _path = path;
+            }
+            _shellObject?.Dispose();
             if (string.IsNullOrEmpty(path))
             {
                 Debug.WriteLine($"EasyPath is empty.");
@@ -1128,8 +1216,10 @@ namespace EasyFileManager
             }
             try
             {
-                ShellObject = ShellObject.FromParsingName(path);
-                FileAttributes = GetFileAttributes();
+                ReadShellObject();
+                ReadFileAttributes();
+                ReadDateModified();
+                ReadDateCreated();
                 if (IsSymbolicLink)
                 {
                     if (IsFolder)
@@ -1151,57 +1241,15 @@ namespace EasyFileManager
             }
         }
 
-        private FileAttributes GetFileAttributes()
-        {
-            if (ShellObject != null)
-            {
-                try
-                {
-                    uint i = (uint)ShellObject.Properties.DefaultPropertyCollection["System.FileAttributes"].ValueAsObject;
-                    return (FileAttributes)Enum.ToObject(typeof(FileAttributes), i);
-                }
-                catch (IndexOutOfRangeException) { }
-            }
-            return File.GetAttributes(Path);
-        }
-
-        private bool MoveOrCopy(bool copy, string path, bool preserveDateCreated = true, bool preserveDateModified = true)
-        {
-            bool result = false;
-            if (!IsInvalid && (copy || !IsReadOnly))
-            {
-                DateTime? dtc = preserveDateCreated ? DateCreated : null;
-                DateTime? dtm = preserveDateModified ? DateModified : null;
-                result = copy ? IsFolder ? CopyDirectory(Path, path) : CopyFile(Path, path) : IsFolder ? MoveDirectory(Path, path) : MoveFile(Path, path);
-                if (result)
-                {
-                    if (preserveDateCreated || preserveDateModified) { Initialize(path); }
-                    if (preserveDateCreated) { DateCreated = dtc; }
-                    if (preserveDateModified) { DateModified = dtm; }
-                }
-            }
-            return result;
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                ShellObject?.Dispose();
-                ShellObject = null;
-            }
-        }
-
         public void Dispose()
         {
-            if (!IsDisposed)
+            if (!_isDisposed)
             {
                 Dispose(true);
                 GC.SuppressFinalize(this);
-                IsDisposed = true;
+                _isDisposed = true;
             }
         }
-
         public bool UpdateSize(long? size = null)
         {
             if (size is long l)
@@ -1218,7 +1266,7 @@ namespace EasyFileManager
                         try
                         {
                             long l = 0;
-                            foreach (FileInfo fi in new DirectoryInfo(Path).EnumerateFiles("*", SearchOption.AllDirectories))
+                            foreach (FileInfo fi in new DirectoryInfo(_path).EnumerateFiles("*", SearchOption.AllDirectories))
                             {
                                 cts.Token.ThrowIfCancellationRequested();
                                 l += fi.Length;
@@ -1234,63 +1282,47 @@ namespace EasyFileManager
                         return false;
                     }
                 }
-                else if (IsFile && ShellObject != null && ShellObject.Properties.System.FileAllocationSize.Value is ulong ul)
+                else if (IsFile && _shellObject is ShellObject so && so.Properties.System.FileAllocationSize.Value is ulong ul)
                 {
                     _size = Convert.ToInt64(ul);
                 }
                 else if (!IsInvalid)
                 {
-                    try { _size = new FileInfo(Path).Length; } catch { }
+                    try { _size = FileInfo.Length; } catch { }
                 }
             }
             return true;
         }
-
         public bool Move(string path, bool preserveDateCreated = true, bool preserveDateModified = true)
         {
             return MoveOrCopy(false, path, preserveDateCreated, preserveDateModified);
         }
-
         public bool Copy(string path, bool preserveDateCreated = true, bool preserveDateModified = true)
         {
             return MoveOrCopy(true, path, preserveDateCreated, preserveDateModified);
         }
-
         public bool Delete()
         {
             if (IsInvalid || IsReadOnly)
             {
                 return false;
             }
-            bool result = IsFolder ? DeleteDirectory(Path) : DeleteFile(Path);
+            bool result = IsFolder ? DeleteDirectory(_path) : DeleteFile(_path);
             if (result) { Dispose(); }
             return result;
         }
-
-        public int CompareTo(EasyPath? other) => other != null ? Path.CompareTo(other.Path) : throw new ArgumentNullException(nameof(other));
-
-        public bool Equals(EasyPath? other)
-        {
-            return other != null && ((ShellObject == null
-                && other.ShellObject == null) || (ShellObject != null && ShellObject.Equals(other.ShellObject)));
-        }
+        public int CompareTo(EasyPath? other) => other != null ? _path.CompareTo(other._path) : throw new ArgumentNullException(nameof(other));
+        public bool Equals(EasyPath? other) => _shellObject is ShellObject so && other is EasyPath ep && ep._shellObject is ShellObject so2 && so.Equals(so2);
 
         public override bool Equals(object? obj) => Equals(obj as EasyPath);
-
-        public override int GetHashCode() => HashCode.Combine(Path);
-
-        public override string ToString() => Path;
+        public override int GetHashCode() => HashCode.Combine(_path);
+        public override string ToString() => _path;
 
         public static bool operator ==(EasyPath? left, EasyPath? right) => EqualityComparer<EasyPath>.Default.Equals(left, right);
-
         public static bool operator !=(EasyPath? left, EasyPath? right) => !(left == right);
-
         public static bool operator <(EasyPath left, EasyPath right) => left.CompareTo(right) < 0;
-
         public static bool operator <=(EasyPath left, EasyPath right) => left.CompareTo(right) <= 0;
-
         public static bool operator >(EasyPath left, EasyPath right) => left.CompareTo(right) > 0;
-
         public static bool operator >=(EasyPath left, EasyPath right) => left.CompareTo(right) >= 0;
     }
 
@@ -1310,47 +1342,48 @@ namespace EasyFileManager
 
         public EasyFolder(string path = EMPTY_STRING) : base(path) { }
 
-        public string[] GetFilePaths(bool recursive = false) => Utils.GetFilePaths(Path, recursive);
+        public string[] GetFilePaths(bool recursive = false) => Utils.GetFilePaths(_path, recursive);
 
-        public string[] GetDirectoryPaths(bool recursive = false) => Utils.GetDirectoryPaths(Path, recursive);
+        public string[] GetDirectoryPaths(bool recursive = false) => Utils.GetDirectoryPaths(_path, recursive);
 
-        public string[] GetAllPaths(bool recursive = false) => Utils.GetAllPaths(Path, recursive);
+        public string[] GetAllPaths(bool recursive = false) => Utils.GetAllPaths(_path, recursive);
 
         public string[] GetRawPaths(bool recursive = false) => Utils.GetRawPaths(GetAllPaths(recursive));
     }
 
     public class EasyFile : EasyPath
     {
-        public string FormattedPath { get; private set; } = EMPTY_STRING;
-        public EasyMetadata? EasyMetadata { get; private set; } = null;
-        public GeoCoordinates? GeoCoordinates { get; private set; } = null;
-        public GeoObject? GeoObject { get; private set; } = null;
+        private string _formattedPath = EMPTY_STRING;
+        private string _areaInfo = EMPTY_STRING;
+        private DateTime? _dateTaken;
+        private DateTime? _dateEncoded;
+        private EasyMetadata? _easyMetadata;
+        private GeoCoordinates? _geoCoordinates;
+        private GeoObject? _geoObject;
 
-        public DateTime? DateTaken
-        {
-            get => Type == EasyType.Image && ShellObject is ShellObject so && so.Properties.System.Photo.DateTaken.Value is DateTime dt ? dt : null;
-            set { if (Type == EasyType.Image && ShellObject is ShellObject so) { so.Properties.System.Photo.DateTaken.Value = value; } }
-        }
-        public DateTime? DateEncoded
-        {
-            get => Type == EasyType.Video && ShellObject is ShellObject so && so.Properties.System.Media.DateEncoded.Value is DateTime dt ? dt : null;
-            set { if (Type == EasyType.Video && ShellObject is ShellObject so) { so.Properties.System.Media.DateEncoded.Value = value; } }
-        }
+        public string FormattedPath => _formattedPath;
+        public string AreaInfo => _areaInfo;
+        public DateTime? DateTaken => _dateTaken;
+        public DateTime? DateEncoded => _dateEncoded;
+        public EasyMetadata? EasyMetadata => _easyMetadata;
+        public GeoCoordinates? GeoCoordinates => _geoCoordinates;
+        public GeoObject? GeoObject => _geoObject;
+
         public DateTime? DateTakenOrEncoded => Type == EasyType.Image ? DateTaken : Type == EasyType.Video ? DateEncoded : null;
         public DateTime? DateFromEasyMetadata
         {
-            get => EasyMetadata is EasyMetadata emd && emd.Date is string s ? s.AsDateTime() : null;
+            get => _easyMetadata is EasyMetadata emd && emd.Date is string s ? s.AsDateTime() : null;
             set
             {
-                if (EasyMetadata == null)
+                if (_easyMetadata == null)
                 {
                     if (value == null)
                     {
                         return;
                     }
-                    EasyMetadata = new();
+                    _easyMetadata = new();
                 }
-                EasyMetadata.Date = value?.ToDateTimeString();
+                _easyMetadata.Date = value?.ToDateTimeString();
             }
         }
         public DateTime? DateEarliest
@@ -1384,147 +1417,142 @@ namespace EasyFileManager
 
         public string Title
         {
-            get => ShellObject != null ? ShellObject.Properties.System.Title.Value : EMPTY_STRING;
-            set { if (ShellObject != null) { ShellObject.Properties.System.Title.Value = value; } }
+            get => _shellObject is ShellObject so ? so.Properties.System.Title.Value : EMPTY_STRING;
+            set { if (_shellObject is ShellObject so) { so.Properties.System.Title.Value = value; } }
         }
         public string Subject
         {
-            get => ShellObject != null ? ShellObject.Properties.System.Subject.Value : EMPTY_STRING;
-            set { if (ShellObject != null) { ShellObject.Properties.System.Subject.Value = value; } }
+            get => _shellObject is ShellObject so ? so.Properties.System.Subject.Value : EMPTY_STRING;
+            set { if (_shellObject is ShellObject so) { so.Properties.System.Subject.Value = value; } }
         }
         public string Comment
         {
-            get => ShellObject != null ? ShellObject.Properties.System.Comment.Value : EMPTY_STRING;
-            set { if (ShellObject != null) { ShellObject.Properties.System.Comment.Value = value; } }
+            get => _shellObject is ShellObject so ? so.Properties.System.Comment.Value : EMPTY_STRING;
+            set { if (_shellObject is ShellObject so) { so.Properties.System.Comment.Value = value; } }
         }
         public string[] Keywords
         {
-            get => ShellObject != null && ShellObject.Properties.System.Keywords.Value is string[] kw ? kw : Array.Empty<string>();
-            set { if (ShellObject != null) { ShellObject.Properties.System.Keywords.Value = value; } }
-        }
-        public string AreaInfo
-        {
-            get => ShellObject != null ? ShellObject.Properties.System.GPS.AreaInformation.Value : EMPTY_STRING;
-            set
-            {
-                if (ShellObject is ShellObject so && (EasyType.Image | EasyType.Video).HasFlag(Type))
-                {
-                    so.Properties.System.GPS.AreaInformation.Value = value;
-                }
-            }
+            get => _shellObject is ShellObject so && so.Properties.System.Keywords.Value is string[] kw ? kw : Array.Empty<string>();
+            set { if (_shellObject is ShellObject so) { so.Properties.System.Keywords.Value = value; } }
         }
         public string? AreaInfoFromEasyMetadata
         {
-            get => EasyMetadata is EasyMetadata emd && emd.GeoArea is GeoArea ga && !string.IsNullOrEmpty(ga.AreaInfo) ? ga.AreaInfo : null;
+            get => _easyMetadata is EasyMetadata emd && emd.GeoArea is GeoArea ga && !string.IsNullOrEmpty(ga.AreaInfo) ? ga.AreaInfo : null;
             set
             {
-                if (EasyMetadata == null) { if (value == null) { return; } EasyMetadata = new(); }
-                if (EasyMetadata.GeoArea == null) { if (value == null) { return; } EasyMetadata.GeoArea = new(); }
-                EasyMetadata.GeoArea.AreaInfo = value;
+                if (_easyMetadata == null) { if (value == null) { return; } _easyMetadata = new(); }
+                if (_easyMetadata.GeoArea == null) { if (value == null) { return; } _easyMetadata.GeoArea = new(); }
+                _easyMetadata.GeoArea.AreaInfo = value;
             }
         }
         public string? CameraManufacturer
         {
-            get => ShellObject is ShellObject so && Type == EasyType.Image ? so.Properties.System.Photo.CameraManufacturer.Value : null;
-            set
-            {
-                if (ShellObject is ShellObject so && value is string s && Type == EasyType.Image)
-                {
-                    so.Properties.System.Photo.CameraManufacturer.Value = s;
-                }
-            }
+            get => _shellObject is ShellObject so && Type == EasyType.Image ? so.Properties.System.Photo.CameraManufacturer.Value : null;
+            set { if (_shellObject is ShellObject so && value is string s && Type == EasyType.Image) { so.Properties.System.Photo.CameraManufacturer.Value = s; } }
         }
         public string? CameraModel
         {
-            get => ShellObject is ShellObject so && Type == EasyType.Image ? so.Properties.System.Photo.CameraModel.Value : null;
-            set
-            {
-                if (ShellObject is ShellObject so && value is string s && Type == EasyType.Image)
-                {
-                    so.Properties.System.Photo.CameraModel.Value = s;
-                }
-            }
+            get => _shellObject is ShellObject so && Type == EasyType.Image ? so.Properties.System.Photo.CameraModel.Value : null;
+            set { if (_shellObject is ShellObject so && value is string s && Type == EasyType.Image) { so.Properties.System.Photo.CameraModel.Value = s; } }
         }
 
-        public EasyFile(string path) : base(path) { }
-
-        public override void Initialize(string path)
+        private bool ReadDateTaken()
         {
-            base.Initialize(path);
-            FormattedPath = path;
-
-            if (!IsInvalid)
-            {
-                ReadGeoCoordinates();
-                ReadEasyMetadata();
-            }
+            if (_shellObject is ShellObject so && Type == EasyType.Image) { _dateTaken = so.Properties.System.Photo.DateTaken.Value; return true; }
+            return false;
         }
-
+        private bool ReadDateEncoded()
+        {
+            if (_shellObject is ShellObject so && Type == EasyType.Video) { _dateEncoded = so.Properties.System.Media.DateEncoded.Value; return true; }
+            return false;
+        }
+        private bool ReadAreaInfo()
+        {
+            if (_shellObject is ShellObject so) { _areaInfo = so.Properties.System.GPS.AreaInformation.Value; return true; }
+            return false;
+        }
         private bool ReadGeoCoordinates()
         {
-            if (ShellObject != null)
+            if (_shellObject is ShellObject so)
             {
-                double[] lat = ShellObject.Properties.System.GPS.Latitude.Value;
-                double[] lon = ShellObject.Properties.System.GPS.Longitude.Value;
-                string latRef = ShellObject.Properties.System.GPS.LatitudeRef.Value;
-                string lonRef = ShellObject.Properties.System.GPS.LongitudeRef.Value;
+                double[] lat = so.Properties.System.GPS.Latitude.Value;
+                double[] lon = so.Properties.System.GPS.Longitude.Value;
+                string latRef = so.Properties.System.GPS.LatitudeRef.Value;
+                string lonRef = so.Properties.System.GPS.LongitudeRef.Value;
                 if (lat != null && lon != null && !string.IsNullOrEmpty(latRef) & !string.IsNullOrEmpty(lonRef))
                 {
-                    GeoCoordinates = new(lat, lon, latRef, lonRef);
+                    _geoCoordinates = new(lat, lon, latRef, lonRef);
                     return true;
                 }
             }
             return false;
         }
-
+        private bool ReadEasyMetadata()
+        {
+            string delimiter = $"{nameof(_easyMetadata)}{EQUALS_SIGN}";
+            foreach (string kw in Keywords)
+            {
+                if (kw.SplitLast(delimiter) is string[] sa)
+                {
+                    _easyMetadata = new(sa.Last());
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool WriteDateTaken()
+        {
+            if (_shellObject is ShellObject so && Type == EasyType.Image) { so.Properties.System.Photo.DateTaken.Value = DateTaken; return true; }
+            return false;
+        }
+        private bool WriteDateEncoded()
+        {
+            if (_shellObject is ShellObject so && Type == EasyType.Video) { so.Properties.System.Media.DateEncoded.Value = DateEncoded; return true; }
+            return false;
+        }
+        private bool WriteAreaInfo(string? areaInfo = null)
+        {
+            areaInfo ??= AreaInfo;
+            if (_shellObject is ShellObject so && (EasyType.Image | EasyType.Video).HasFlag(Type))
+            {
+                so.Properties.System.GPS.AreaInformation.Value = areaInfo;
+                return true;
+            }
+            return false;
+        }
         private bool WriteGeoCoordinates(double[] latCoords, double[] lonCoords, string latRef, string lonRef)
         {
-            if (ShellObject != null && (EasyType.Image | EasyType.Video).HasFlag(Type))
+            if (_shellObject is ShellObject so && (EasyType.Image | EasyType.Video).HasFlag(Type))
             {
                 uint denominator = 10000;
-                ShellObject.Properties.System.GPS.LatitudeRef.Value = latRef;
-                ShellObject.Properties.System.GPS.LongitudeRef.Value = lonRef;
-                ShellObject.Properties.System.GPS.LatitudeNumerator.Value = new uint[]
+                so.Properties.System.GPS.LatitudeRef.Value = latRef;
+                so.Properties.System.GPS.LongitudeRef.Value = lonRef;
+                so.Properties.System.GPS.LatitudeNumerator.Value = new uint[]
                 {
                     (uint)latCoords[0],
                     (uint)latCoords[1],
                     (uint)(latCoords[2] * denominator)
                 };
-                ShellObject.Properties.System.GPS.LongitudeNumerator.Value = new uint[]
+                so.Properties.System.GPS.LongitudeNumerator.Value = new uint[]
                 {
                     (uint)lonCoords[0],
                     (uint)lonCoords[1],
                     (uint)(lonCoords[2] * denominator)
                 };
-                ShellObject.Properties.System.GPS.LatitudeDenominator.Value = new uint[] { 1, 1, denominator };
-                ShellObject.Properties.System.GPS.LongitudeDenominator.Value = new uint[] { 1, 1, denominator };
+                so.Properties.System.GPS.LatitudeDenominator.Value = new uint[] { 1, 1, denominator };
+                so.Properties.System.GPS.LongitudeDenominator.Value = new uint[] { 1, 1, denominator };
                 return true;
             }
             return false;
         }
-
-        private bool WriteGeoCoordinates(GeoCoordinates? geoCoords)
+        private bool WriteGeoCoordinates(GeoCoordinates? geoCoords = null)
         {
-            geoCoords ??= new();
-            return WriteGeoCoordinates(geoCoords.LatitudeCoordinates, geoCoords.LongitudeCoordinates, geoCoords.LatitudeWindDirection, geoCoords.LongitudeWindDirection );
+            geoCoords ??= GeoCoordinates ?? new();
+            return WriteGeoCoordinates(geoCoords.LatitudeCoordinates, geoCoords.LongitudeCoordinates, geoCoords.LatitudeWindDirection, geoCoords.LongitudeWindDirection);
         }
-
-        private bool ReadEasyMetadata()
+        private bool WriteEasyMetaData(EasyMetadata? easyMetadata = null)
         {
-            string delimiter = $"{nameof(EasyMetadata)}{EQUALS_SIGN}";
-            foreach (string kw in Keywords)
-            {
-                if (kw.SplitLast(delimiter) is string[] sa)
-                {
-                    EasyMetadata = new(sa.Last());
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void DeleteOrOverwriteEasyMetaData(bool overwrite = false)
-        {
+            easyMetadata ??= EasyMetadata;
             string delimiter = $"{nameof(EasyMetadata)}{EQUALS_SIGN}";
             string? keyword = null;
             foreach (string kw in Keywords)
@@ -1536,43 +1564,66 @@ namespace EasyFileManager
                 keyword = kw;
                 break;
             }
-            bool? deleteOrOverwrite = overwrite ? EasyMetadata.Options.Overwrite : EasyMetadata.Options.Delete;
+            bool delete = EasyMetadata == null || !EasyMetadata.IsValid;
+            bool? deleteOrOverwrite = delete ? EasyMetadata.Options.Delete : EasyMetadata.Options.Overwrite;
             if (keyword == null)
             {
-                AddKeyword($"{delimiter}{EasyMetadata}");
-                return;
+                if (easyMetadata == null)
+                {
+                    return false;
+                }
+                return AddKeyword($"{delimiter}{EasyMetadata}");
             }
-            string caption = overwrite ? Globals.OverwriteEasyMetadata : Globals.DeleteEasyMetadata;
+            string caption = easyMetadata == null ? Globals.DeleteEasyMetadata : Globals.OverwriteEasyMetadata;
             if (deleteOrOverwrite == null)
             {
                 using MessageCheckDialog md = new(Globals.MessageCheckDialogText, caption);
                 deleteOrOverwrite = md.ShowDialog() == DialogResult.Yes;
                 if (md.Checked)
                 {
-                    if (overwrite)
+                    if (delete)
                     {
-                        EasyMetadata.Options.Overwrite = deleteOrOverwrite;
+                        EasyMetadata.Options.Delete = deleteOrOverwrite;
                     }
                     else
                     {
-                        EasyMetadata.Options.Delete = deleteOrOverwrite;
+                        EasyMetadata.Options.Overwrite = deleteOrOverwrite;
                     }
                 }
             }
             if (deleteOrOverwrite is bool b && b)
             {
-                if (!string.IsNullOrEmpty(keyword))
+                if (keyword != null)
                 {
                     RemoveKeyword(keyword);
                 }
-                if (overwrite)
+                if (!delete)
                 {
-                    AddKeyword($"{delimiter}{EasyMetadata}");
+                    return AddKeyword($"{delimiter}{easyMetadata}");
                 }
             }
+            return false;
         }
 
-        private void WriteEasyMetaData() => DeleteOrOverwriteEasyMetaData(!(EasyMetadata == null || !EasyMetadata.IsValid));
+        public EasyFile(string path) : base(path) { }
+
+        public override void Initialize(string path = EMPTY_STRING)
+        {
+            base.Initialize(path);
+            _formattedPath = path;
+            _easyMetadata = null;
+            _geoCoordinates = null;
+            _geoObject = null;
+
+            if (!IsInvalid)
+            {
+                ReadDateTaken();
+                ReadDateEncoded();
+                ReadAreaInfo();
+                ReadGeoCoordinates();
+                ReadEasyMetadata();
+            }
+        }
 
         public bool AddKeyword(string keyword)
         {
@@ -1605,9 +1656,9 @@ namespace EasyFileManager
                 case EasyFileProperty.Title: if (!string.IsNullOrEmpty(Title)) { Title = string.Empty; result = true; }; break;
                 case EasyFileProperty.Comment: if (!string.IsNullOrEmpty(Comment)) { Comment = string.Empty; result = true; }; break;
                 case EasyFileProperty.Keywords: if (Keywords.Any()) { Keywords = Array.Empty<string>(); result = true; }; break;
-                case EasyFileProperty.GPSCoordinates: if (GeoCoordinates != null || ReadGeoCoordinates()) { WriteGeoCoordinates(null); result = true; } break;
-                case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { AreaInfo = string.Empty; result = true; }; break;
-                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { DeleteOrOverwriteEasyMetaData(); result = true; } break;
+                case EasyFileProperty.GPSCoordinates: if (_geoCoordinates != null || ReadGeoCoordinates()) { _geoCoordinates = null; WriteGeoCoordinates(); result = true; } break;
+                case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { _areaInfo = string.Empty; result = WriteAreaInfo(); }; break;
+                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { WriteEasyMetaData(); result = true; } break;
             }
             return result;
         }
@@ -1617,6 +1668,32 @@ namespace EasyFileManager
             if (IsInvalid || IsReadOnly)
             {
                 return false;
+            }
+            Initialize();
+            if (options != null && options.CustomizeEnabled && options.CopyMoveState != CheckState.Unchecked && options.SubfoldersEnabled)
+            {
+                foreach (EasySubfolder esf in options.Subfolders)
+                {
+                    switch (esf)
+                    {
+                        case EasySubfolder.AreaInfo:
+                        case EasySubfolder.AreaInfoFromEasyMetadata:
+                        case EasySubfolder.YearCreated:
+                        case EasySubfolder.YearTakenOrEncoded:
+                        case EasySubfolder.YearFromEasyMetadata:
+                        case EasySubfolder.YearEarliest:
+                        case EasySubfolder.MonthCreated:
+                        case EasySubfolder.MonthTakenOrEncoded:
+                        case EasySubfolder.MonthFromEasyMetadata:
+                        case EasySubfolder.MonthEarliest:
+                        case EasySubfolder.DayCreated:
+                        case EasySubfolder.DayTakenOrEncoded:
+                        case EasySubfolder.DayFromEasyMetadata:
+                        case EasySubfolder.DayEarliest:
+                            CustomizeAsync(options, false).Wait();
+                            break;
+                    }
+                }
             }
             string n = NameWithoutExtension;
             string pp = ParentPath;
@@ -1734,18 +1811,18 @@ namespace EasyFileManager
                 n = WinFormsLib.Globals.FileNameDefault;
             }
             string p = System.IO.Path.Join(pp, $"{n}{ext}");
-            FormattedPath = GetPathDuplicate(p, excludedPaths ?? GetAllPaths(pp));
-            return p != Path;
+            _formattedPath = GetPathDuplicate(p, excludedPaths ?? GetAllPaths(pp));
+            return p != _path;
         }
 
         public bool Rotate(EasyOrientation orientation, bool preserveDateModified = false)
         {
-            if (ShellObject != null && Type == EasyType.Image)
+            if (_shellObject is ShellObject so && Type == EasyType.Image)
             {
                 DateTime? dtm = preserveDateModified ? DateModified : null;
 
                 int i = orientation.GetValue<int>();
-                if (ShellObject.Properties.System.Photo.Orientation.Value is ushort us)
+                if (so.Properties.System.Photo.Orientation.Value is ushort us)
                 {
                     switch (us)
                     {
@@ -1760,26 +1837,27 @@ namespace EasyFileManager
                             break;
                     }
                 }
-                ShellObject.Properties.System.Photo.Orientation.Value = (ushort?)i;
+                so.Properties.System.Photo.Orientation.Value = (ushort?)i;
 
-                if (preserveDateModified && dtm is DateTime dt) { DateModified = dt.Similar(); Initialize(Path); }
+                if (preserveDateModified && dtm is DateTime dt) { _dateModified = dt.Similar(); WriteDateModified(); Initialize(_path); }
 
                 return true;
             }
             return false;
         }
 
-        public async Task ExtractExifGeoAreaAsync(bool writeEasyMetadata = true)
+        public async Task ExtractExifGeoAreaAsync(bool useEasyMetadataWithVideo = true)
         {
-            if ((EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
-                || Type != EasyType.Video
-                || GeoCoordinates is GeoCoordinates gc && gc.IsValid
-                || await ExtractExifGPSCoords(Path) is not GeoCoordinates gc0)
+            if (Type != EasyType.Video
+                || (_geoCoordinates is GeoCoordinates gc && gc.IsValid)
+                || (useEasyMetadataWithVideo && EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
+                || await ExtractExifGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
             {
                 return;
             }
-            GeoCoordinates = gc0;
-            if (writeEasyMetadata)
+            _geoCoordinates = gc0;
+            WriteGeoCoordinates();
+            if (useEasyMetadataWithVideo)
             {
                 bool result = true;
                 if (EasyMetadata.Options.VideoMetadata is not bool ov)
@@ -1797,18 +1875,18 @@ namespace EasyFileManager
                 }
                 if (result)
                 {
-                    EasyMetadata ??= new();
-                    EasyMetadata.GeoArea ??= new() { AreaInfo = AreaInfo };
+                    _easyMetadata ??= new();
+                    _easyMetadata.GeoArea ??= new() { AreaInfo = AreaInfo };
                     if (GeoCoordinates is GeoCoordinates gc1)
                     {
-                        EasyMetadata.GeoArea.GeoCoords = gc1;
+                        _easyMetadata.GeoArea.GeoCoords = gc1;
                     }
                     WriteEasyMetaData();
                 }
             }
         }
 
-        public async Task CustomizeAsync(EasyOptions? options = null)
+        public async Task CustomizeAsync(EasyOptions? options = null, bool apply = true)
         {
             if (options != null && options.CustomizeEnabled)
             {
@@ -1859,7 +1937,7 @@ namespace EasyFileManager
                         }
                         if ((allTypes || egds == EasyMetadataSource.VideoMetadata) && Type == EasyType.Video)
                         {
-                            geoCoords = await ExtractExifGPSCoords(Path);
+                            geoCoords = await ExtractExifGPSCoords(_path);
                         }
 
                         if (geoObject == null) // TODO: add option to prioritize area info over gps coordinates
@@ -1899,8 +1977,8 @@ namespace EasyFileManager
                             if (geoObject != null)
                             {
                                 geoCoords ??= geoObject.GetGeoCoordinates();
-                                GeoObject = geoObject;
-                                GeoCoordinates = geoCoords;
+                                _geoObject = geoObject;
+                                _geoCoordinates = geoCoords;
                             }
                         }
                     }
@@ -1923,33 +2001,50 @@ namespace EasyFileManager
                             geoArea ??= new();
                             geoArea.GeoCoords = gc;
                         }
-                        EasyMetadata ??= new();
+                        _easyMetadata ??= new();
                         if (geoArea != null)
                         {
-                            EasyMetadata.GeoArea = geoArea;
-                            WriteEasyMetaData();
+                            _easyMetadata.GeoArea = geoArea;
+                            if (apply)
+                            {
+                                WriteEasyMetaData();
+                            }
                         }
-                        else if (EasyMetadata.GeoArea != null)
+                        else if (_easyMetadata.GeoArea != null)
                         {
-                            EasyMetadata.GeoArea = null;
-                            WriteEasyMetaData();
+                            _easyMetadata.GeoArea = null;
+                            if (apply)
+                            {
+                                WriteEasyMetaData();
+                            }
                         }
                     }
                     if (options.WriteGPSAreaInfo)
                     {
-                        AreaInfo = areaInfo ?? string.Empty;
+                        _areaInfo = areaInfo ?? string.Empty;
+                        if (apply)
+                        {
+                            WriteAreaInfo();
+                        }
                     }
-                    if (options.WriteGPSCoords && !WriteGeoCoordinates(geoCoords ?? new()))
+                    if (options.WriteGPSCoords)
                     {
-                        Debug.WriteLine("Failed writing GPS coordinates.");
+                        _geoCoordinates = geoCoords;
+                        if (apply)
+                        {
+                            WriteGeoCoordinates();
+                        }
                     }
                 }
                 if (options.EasyMetadataEnabled)
                 {
                     if (options.EasyMetadataIndex != -1)
                     {
-                        EasyMetadata = new(options.EasyMetadata[options.EasyMetadataIndex]);
-                        WriteEasyMetaData();
+                        _easyMetadata = new(options.EasyMetadata[options.EasyMetadataIndex]);
+                        if (apply)
+                        {
+                            WriteEasyMetaData();
+                        }
                     }
                 }
                 if (options.DateState != CheckState.Unchecked && (options.WriteDateModified || options.WriteDateCreated || options.WriteDateCamera || options.WriteDateEasyMetadata))
@@ -1981,33 +2076,59 @@ namespace EasyFileManager
                         }
                         if (options.WriteDateEasyMetadata)
                         {
-                            EasyMetadata ??= new();
-                            EasyMetadata.Date = dt?.ToDateTimeString();
-                            WriteEasyMetaData();
+                            _easyMetadata ??= new();
+                            _easyMetadata.Date = dt?.ToDateTimeString();
+                            if (apply)
+                            {
+                                WriteEasyMetaData();
+                            }
                         }
                         if (options.WriteDateCamera)
                         {
                             if (Type == EasyType.Image)
                             {
-                                DateTaken = dt;
+                                _dateTaken = dt;
+                                if (apply)
+                                {
+                                    WriteDateTaken();
+                                }
                             }
                             else if (Type == EasyType.Video)
                             {
-                                DateEncoded = dt;
+                                _dateEncoded = dt;
+                                if (apply)
+                                {
+                                    WriteDateEncoded();
+                                }
                             }
                         }
                         if (options.WriteDateCreated)
                         {
-                            DateCreated = dt;
+                            _dateCreated = dt;
+                            if (apply)
+                            {
+                                WriteDateCreated();
+                            }
                         }
                         if (options.WriteDateModified)
                         {
-                            DateModified = dt;
+                            _dateModified = dt;
+                            if (apply)
+                            {
+                                WriteDateModified();
+                            }
                             dtm = null;
                         }
                     }
                 }
-                if (dtm != null) { DateModified = dtm; }
+                if (dtm != null)
+                {
+                    _dateModified = dtm;
+                    if (apply)
+                    {
+                        WriteDateModified();
+                    }
+                }
             }
         }
     }

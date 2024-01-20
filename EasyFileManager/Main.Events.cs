@@ -253,11 +253,10 @@ namespace EasyFileManager
             md.ShowDialog();
         }
 
-        private async void RestoreDefaultToolStripMenuItem_ClickAsync(object? sender, EventArgs e)
+        private void RestoreDefaultToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             RestoreToDefault();
-
-            await UpdateFormattingAsync();
+            InitializeLayout();
         }
 
         private static void PathToolStripMenuItem_Click(object? sender, EventArgs e)
@@ -334,6 +333,7 @@ namespace EasyFileManager
                 UpdateKeywordsControlsA();
             }
             KeywordsGroupBox.Focus();
+            UpdateExplorerView();
         }
 
         private void GPSEditButton_Click(object? sender, EventArgs e)
@@ -387,6 +387,7 @@ namespace EasyFileManager
                 Options.GPSCustomIndex = GPSComboBox.SelectedIndex;
 
                 UpdateGPSControlsA();
+                UpdateExplorerView();
                 UpdateThumbnailPropsView();
             }
             GeolocationGroupBox.Focus();
@@ -441,6 +442,7 @@ namespace EasyFileManager
                 Options.DateCustomIndex = DateComboBox.SelectedIndex;
 
                 UpdateDateControlsA();
+                UpdateExplorerView();
             }
             DateGroupBox.Focus();
         }
@@ -474,6 +476,7 @@ namespace EasyFileManager
                 Options.EasyMetadataIndex = eld.SelectedIndex;
 
                 UpdateEasyMetadataControlsA();
+                UpdateExplorerView();
             }
             EasyMetadataGroupBox.Focus();
         }
@@ -658,7 +661,7 @@ namespace EasyFileManager
             PathTableLayoutPanel.Focus();
         }
 
-        private async void SelectTopFolderButton_ClickAsync(object? sender, EventArgs e)
+        private void SelectTopFolderButton_Click(object? sender, EventArgs e)
         {
             Options.TopFolderPath = GetValidDirectoryPath(Options.TopFolderPath);
             OpenFolderDialog.SelectedPath = Options.TopFolderPath;
@@ -669,13 +672,13 @@ namespace EasyFileManager
                 {
                     Options.TopFolderPath = p;
                     TopFolderTextBox.Text = p;
-                    await UpdateFormattingAsync();
+                    UpdateExplorerView();
                 }
             }
             TopFolderGroupBox.Focus();
         }
 
-        private async void SubfoldersEditButton_ClickAsync(object? sender, EventArgs e)
+        private void SubfoldersEditButton_Click(object? sender, EventArgs e)
         {
             List<object> items = Options.Subfolders.Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDown);
@@ -693,12 +696,12 @@ namespace EasyFileManager
             {
                 Options.Subfolders.Replace(items.Select(x => ((string)x).AsEasyEnumFromGlobal<EasySubfolder>()));
                 UpdateFolderControlsB();
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
             SubfoldersGroupBox.Focus();
         }
 
-        private async void FilterEditButton_ClickAsync(object? sender, EventArgs e)
+        private void FilterEditButton_Click(object? sender, EventArgs e)
         {
             List<object> items = Options.TypeFilter.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
@@ -724,7 +727,7 @@ namespace EasyFileManager
                     Options.TypeFilter |= s.AsEasyEnumFromGlobal<EasyTypeFilter>();
                 }
                 UpdateFilterControlsB();
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
             FilterGroupBox.Focus();
         }
@@ -776,54 +779,54 @@ namespace EasyFileManager
             if (s != Options.Comment) { Options.Comment = s; }
         }
 
-        private async void PrefixTextBox_LeaveAsync(object? sender, EventArgs e)
+        private void PrefixTextBox_Leave(object? sender, EventArgs e)
         {
             string s = PrefixTextBox.Text;
             if (s != Options.Prefix)
             {
                 Options.Prefix = s;
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
         }
 
-        private async void ReplaceTextBox_LeaveAsync(object? sender, EventArgs e)
+        private void ReplaceTextBox_Leave(object? sender, EventArgs e)
         {
             string s = ReplaceTextBox.Text;
             if (s != Options.Replace)
             {
                 Options.Replace = s;
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
         }
 
-        private async void WithTextBox_LeaveAsync(object? sender, EventArgs e)
+        private void WithTextBox_Leave(object? sender, EventArgs e)
         {
             string s = WithTextBox.Text;
             if (s != Options.With)
             {
                 Options.With = s;
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
         }
 
-        private async void SuffixTextBox_LeaveAsync(object? sender, EventArgs e)
+        private void SuffixTextBox_Leave(object? sender, EventArgs e)
         {
             string s = SuffixTextBox.Text;
             if (s != Options.Suffix)
             {
                 Options.Suffix = s;
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
         }
 
-        private async void FilterStringTextBox_LeaveAsync(object? sender, EventArgs e)
+        private void FilterStringTextBox_Leave(object? sender, EventArgs e)
         {
             string s = FilterStringTextBox.Text;
             if (s != Options.FilterString)
             {
                 Options.FilterString = s;
                 UpdateFilterControlsC();
-                await UpdateFormattingAsync();
+                UpdateExplorerView();
             }
         }
 
@@ -836,6 +839,7 @@ namespace EasyFileManager
             Options.CustomizeEnabled = CustomizeCheckBox.Checked;
             UpdateCustomizePanel();
             UpdateEditPanel(customize: true);
+            UpdateExplorerView();
         }
 
         private void TitleCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -868,6 +872,7 @@ namespace EasyFileManager
             UpdateGPSControlsB();
             UpdateGPSControlsA();
             UpdateGPSControlsA();
+            UpdateExplorerView();
         }
 
         private void WriteGPSCoordsCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -875,6 +880,7 @@ namespace EasyFileManager
             Options.WriteGPSCoords = WriteGPSCoordsCheckBox.Checked;
             GeolocationGroupBox.Focus();
             UpdateGPSControlsB();
+            UpdateExplorerView();
         }
 
         private void WriteGPSAreaInfoCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -882,6 +888,7 @@ namespace EasyFileManager
             Options.WriteGPSAreaInfo = WriteGPSAreaInfoCheckBox.Checked;
             GeolocationGroupBox.Focus();
             UpdateGPSControlsB();
+            UpdateExplorerView();
         }
 
         private void WriteGPSEasyMetadataCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -889,12 +896,14 @@ namespace EasyFileManager
             Options.WriteGPSEasyMetadata = WriteGPSEasyMetadataCheckBox.Checked;
             GeolocationGroupBox.Focus();
             UpdateGPSControlsB();
+            UpdateExplorerView();
         }
 
         private void DateCheckBox_CheckStateChanged(object? sender, EventArgs e)
         {
             Options.DateState = DateCheckBox.CheckState;
             UpdateDateControlsA();
+            UpdateExplorerView();
         }
 
         private void WriteDateModifiedCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -902,6 +911,7 @@ namespace EasyFileManager
             Options.WriteDateModified = WriteDateModifiedCheckBox.Checked;
             UpdateDateControlsB();
             DateGroupBox.Focus();
+            UpdateExplorerView();
         }
 
         private void WriteDateCreatedCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -909,6 +919,7 @@ namespace EasyFileManager
             Options.WriteDateCreated = WriteDateCreatedCheckBox.Checked;
             UpdateDateControlsB();
             DateGroupBox.Focus();
+            UpdateExplorerView();
         }
 
         private void WriteDateTakenOrEncodedCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -916,6 +927,7 @@ namespace EasyFileManager
             Options.WriteDateCamera = WriteDateTakenOrEncodedCheckBox.Checked;
             UpdateDateControlsB();
             DateGroupBox.Focus();
+            UpdateExplorerView();
         }
 
         private void WriteDateEasyMetadataCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -923,12 +935,14 @@ namespace EasyFileManager
             Options.WriteDateEasyMetadata = WriteDateEasyMetadataCheckBox.Checked;
             UpdateDateControlsB();
             DateGroupBox.Focus();
+            UpdateExplorerView();
         }
 
         private void EasyMetadataCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.EasyMetadataEnabled = EasyMetadataCheckBox.Checked;
             UpdateEasyMetadataControlsB();
+            UpdateExplorerView();
         }
 
         private void BackupFolderCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -955,70 +969,64 @@ namespace EasyFileManager
             DuplicatesGroupBox.Focus();
         }
 
-        private async void RenameCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private void RenameCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.RenameEnabled = RenameCheckBox.Checked;
             UpdateRenamePanel();
             UpdateEditPanel(rename: true);
-            if (!await UpdateFormattingAsync())
-            {
-                UpdateExplorerView();
-            }
+            UpdateExplorerView();
         }
 
-        private async void CopyMoveCheckBox_CheckStateChangedAsync(object? sender, EventArgs e)
+        private void CopyMoveCheckBox_CheckStateChanged(object? sender, EventArgs e)
         {
             Options.CopyMoveState = CopyMoveCheckBox.CheckState;
             UpdateCopyMoveCheckBox();
             UpdateCopyMovePanel();
             UpdateEditPanel(copyMove: true);
-            if (!await UpdateFormattingAsync())
-            {
-                UpdateExplorerView();
-            }
+            UpdateExplorerView();
         }
 
-        private async void FinalizeCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private void FinalizeCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.FinalizeEnabled = FinalizeCheckBox.Checked;
             UpdateFinalizePanel();
             UpdateEditPanel(finalize: true);
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
         }
 
-        private async void ReplaceWithCheckBox_CheckStateChangedAsync(object? sender, EventArgs e)
+        private void ReplaceWithCheckBox_CheckStateChanged(object? sender, EventArgs e)
         {
             Options.ReplaceWithState = ReplaceWithCheckBox.CheckState;
             UpdateReplaceWithControls();
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
         }
 
-        private async void DateFormatCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private void DateFormatCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.DateFormatEnabled = DateFormatCheckBox.Checked;
             DateFormatComboBox.Enabled = Options.DateFormatEnabled;
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
         }
 
-        private async void TopFolderCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private void TopFolderCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.TopFolderEnabled = TopFolderCheckBox.Checked;
             UpdateFolderControlsA();
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
         }
 
-        private async void FilterCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private void FilterCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.FilterEnabled = FilterCheckBox.Checked;
             UpdateFilterControlsA();
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
         }
 
-        private async void SubfoldersCheckBox_CheckedChangedAsync(object? sender, EventArgs e)
+        private void SubfoldersCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             Options.SubfoldersEnabled = SubfoldersCheckBox.Checked;
             UpdateFolderControlsA();
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
         }
 
         #endregion
@@ -1028,12 +1036,14 @@ namespace EasyFileManager
         private void KeywordsComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
             Options.KeywordsIndex = KeywordsComboBox.SelectedIndex;
+            UpdateExplorerView();
         }
 
         private void GPSSourceComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
             Options.GPSSourceIndex = GPSSourceComboBox.SelectedIndex;
             UpdateGPSControlsA();
+            UpdateExplorerView();
         }
 
         private void GPSComboBox_SelectedIndexChanged(object? sender, EventArgs e)
@@ -1046,9 +1056,14 @@ namespace EasyFileManager
             {
                 Options.GPSAreaIndex = GPSComboBox.SelectedIndex;
             }
+            UpdateExplorerView();
         }
 
-        private void EasyMetadataComboBox_SelectedIndexChanged(object? sender, EventArgs e) => Options.EasyMetadataIndex = EasyMetadataComboBox.SelectedIndex;
+        private void EasyMetadataComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            Options.EasyMetadataIndex = EasyMetadataComboBox.SelectedIndex;
+            UpdateExplorerView();
+        }
 
         private void DateComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
@@ -1060,18 +1075,19 @@ namespace EasyFileManager
             {
                 Options.DateSourceIndex = DateComboBox.SelectedIndex;
             }
+            UpdateExplorerView();
         }
 
-        private async void DateFormatComboBox_SelectedIndexChangedAsync(object? sender, EventArgs e)
-        {
-            Options.DateFormat = (string)DateFormatComboBox.SelectedItem;
-            await UpdateFormattingAsync();
-        }
-
-        private async void FilterNameComboBox_SelectedIndexChangedAsync(object? sender, EventArgs e)
+        private void FilterNameComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
             Options.NameFilter = (EasyNameFilter)FilterNameComboBox.SelectedIndex;
-            await UpdateFormattingAsync();
+            UpdateExplorerView();
+        }
+
+        private void DateFormatComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            Options.DateFormat = (string)DateFormatComboBox.SelectedItem;
+            UpdateExplorerView();
         }
 
         #endregion

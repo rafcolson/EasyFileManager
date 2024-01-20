@@ -198,11 +198,11 @@ namespace EasyFileManager
             {
                 return;
             }
-            UpdateThumbnailPropsView();
             if (IsUpdating)
             {
-                return;
+                WaitUntilTaskCompleted();
             }
+            UpdateThumbnailPropsView();
             DelayAsync(UpdateFormattingAsync);
         }
 
@@ -1101,6 +1101,6 @@ namespace EasyFileManager
             return false;
         }
 
-        private async Task<bool> UpdateFormattingAsync() => (Options.RenameEnabled || (Options.CopyMoveState != CheckState.Unchecked)) && await UpdateAsync(UpdateFormatting);
+        private async Task<bool> UpdateFormattingAsync() => (Options.HasRenaming() || Options.HasCopyingMoving()) && await UpdateAsync(UpdateFormatting);
     }
 }

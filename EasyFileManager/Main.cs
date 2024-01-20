@@ -298,7 +298,7 @@ namespace EasyFileManager
             ShutDownUponCompletionToolStripMenuItem.Click += ShutDownUponCompletionToolStripMenuItem_Click;
 
             SplashScreenToolStripMenuItem.Click += SplashScreenToolStripMenuItem_Click;
-            RestoreToDefaultToolStripMenuItem.Click += RestoreDefaultToolStripMenuItem_ClickAsync;
+            RestoreToDefaultToolStripMenuItem.Click += RestoreDefaultToolStripMenuItem_Click;
             AboutEasyFileManagerToolStripMenuItem.Click += AboutEasyFileManagerToolStripMenuItem_Click;
 
             PreviousFolderButton.Click += PreviousFolderButton_Click;
@@ -329,9 +329,9 @@ namespace EasyFileManager
             PathTextBox.Leave += PathTextBox_Leave;
 
             CustomizeCheckBox.CheckedChanged += CustomizeCheckBox_CheckedChanged;
-            RenameCheckBox.CheckedChanged += RenameCheckBox_CheckedChangedAsync;
-            CopyMoveCheckBox.CheckStateChanged += CopyMoveCheckBox_CheckStateChangedAsync;
-            FinalizeCheckBox.CheckedChanged += FinalizeCheckBox_CheckedChangedAsync;
+            RenameCheckBox.CheckedChanged += RenameCheckBox_CheckedChanged;
+            CopyMoveCheckBox.CheckStateChanged += CopyMoveCheckBox_CheckStateChanged;
+            FinalizeCheckBox.CheckedChanged += FinalizeCheckBox_CheckedChanged;
 
             TitleCheckBox.CheckedChanged += TitleCheckBox_CheckedChanged;
             TitleTextBox.Leave += TitleTextBox_Leave;
@@ -363,28 +363,28 @@ namespace EasyFileManager
             EasyMetadataCheckBox.CheckedChanged += EasyMetadataCheckBox_CheckedChanged;
             EasyMetadataComboBox.SelectedIndexChanged += EasyMetadataComboBox_SelectedIndexChanged;
 
-            PrefixTextBox.Leave += PrefixTextBox_LeaveAsync;
-            ReplaceTextBox.Leave += ReplaceTextBox_LeaveAsync;
-            WithTextBox.Leave += WithTextBox_LeaveAsync;
-            SuffixTextBox.Leave += SuffixTextBox_LeaveAsync;
+            PrefixTextBox.Leave += PrefixTextBox_Leave;
+            ReplaceTextBox.Leave += ReplaceTextBox_Leave;
+            WithTextBox.Leave += WithTextBox_Leave;
+            SuffixTextBox.Leave += SuffixTextBox_Leave;
 
-            ReplaceWithCheckBox.CheckStateChanged += ReplaceWithCheckBox_CheckStateChangedAsync;
+            ReplaceWithCheckBox.CheckStateChanged += ReplaceWithCheckBox_CheckStateChanged;
 
-            DateFormatCheckBox.CheckedChanged += DateFormatCheckBox_CheckedChangedAsync;
-            DateFormatComboBox.SelectedIndexChanged += DateFormatComboBox_SelectedIndexChangedAsync;
+            DateFormatCheckBox.CheckedChanged += DateFormatCheckBox_CheckedChanged;
+            DateFormatComboBox.SelectedIndexChanged += DateFormatComboBox_SelectedIndexChanged;
 
             BackupFolderCheckBox.CheckedChanged += BackupFolderCheckBox_CheckedChanged;
-            TopFolderCheckBox.CheckedChanged += TopFolderCheckBox_CheckedChangedAsync;
-            SubfoldersCheckBox.CheckedChanged += SubfoldersCheckBox_CheckedChangedAsync;
-            FilterCheckBox.CheckedChanged += FilterCheckBox_CheckedChangedAsync;
+            TopFolderCheckBox.CheckedChanged += TopFolderCheckBox_CheckedChanged;
+            SubfoldersCheckBox.CheckedChanged += SubfoldersCheckBox_CheckedChanged;
+            FilterCheckBox.CheckedChanged += FilterCheckBox_CheckedChanged;
 
             SelectBackupFolderButton.Click += SelectBackupFolderButton_Click;
-            SelectTopFolderButton.Click += SelectTopFolderButton_ClickAsync;
-            SubfoldersEditButton.Click += SubfoldersEditButton_ClickAsync;
-            FilterEditButton.Click += FilterEditButton_ClickAsync;
+            SelectTopFolderButton.Click += SelectTopFolderButton_Click;
+            SubfoldersEditButton.Click += SubfoldersEditButton_Click;
+            FilterEditButton.Click += FilterEditButton_Click;
 
-            FilterNameComboBox.SelectedIndexChanged += FilterNameComboBox_SelectedIndexChangedAsync;
-            FilterStringTextBox.Leave += FilterStringTextBox_LeaveAsync;
+            FilterNameComboBox.SelectedIndexChanged += FilterNameComboBox_SelectedIndexChanged;
+            FilterStringTextBox.Leave += FilterStringTextBox_Leave;
 
             CleanUpCheckBox.CheckedChanged += CleanUpCheckBox_CheckedChanged;
             DuplicatesCheckBox.CheckStateChanged += DuplicatesCheckBox_CheckStateChanged;
@@ -414,7 +414,6 @@ namespace EasyFileManager
             Options = new();
             Properties.Settings.Default.EasyOptions = Options.ToString();
             Properties.Settings.Default.Save();
-            InitializeLayout();
         }
 
         private void ShowSplash(bool hideMainForm = false, TimeSpan? timeSpan = null)
@@ -563,7 +562,7 @@ namespace EasyFileManager
             ShutDownUponCompletionToolStripMenuItem.Click -= ShutDownUponCompletionToolStripMenuItem_Click;
 
             SplashScreenToolStripMenuItem.Click -= SplashScreenToolStripMenuItem_Click;
-            RestoreToDefaultToolStripMenuItem.Click -= RestoreDefaultToolStripMenuItem_ClickAsync;
+            RestoreToDefaultToolStripMenuItem.Click -= RestoreDefaultToolStripMenuItem_Click;
             AboutEasyFileManagerToolStripMenuItem.Click -= AboutEasyFileManagerToolStripMenuItem_Click;
 
             PreviousFolderButton.Click -= PreviousFolderButton_Click;
@@ -594,9 +593,9 @@ namespace EasyFileManager
             PathTextBox.Leave -= PathTextBox_Leave;
 
             CustomizeCheckBox.CheckedChanged -= CustomizeCheckBox_CheckedChanged;
-            RenameCheckBox.CheckedChanged -= RenameCheckBox_CheckedChangedAsync;
-            CopyMoveCheckBox.CheckStateChanged -= CopyMoveCheckBox_CheckStateChangedAsync;
-            FinalizeCheckBox.CheckedChanged -= FinalizeCheckBox_CheckedChangedAsync;
+            RenameCheckBox.CheckedChanged -= RenameCheckBox_CheckedChanged;
+            CopyMoveCheckBox.CheckStateChanged -= CopyMoveCheckBox_CheckStateChanged;
+            FinalizeCheckBox.CheckedChanged -= FinalizeCheckBox_CheckedChanged;
 
             TitleCheckBox.CheckedChanged -= TitleCheckBox_CheckedChanged;
             TitleTextBox.Leave -= TitleTextBox_Leave;
@@ -628,28 +627,28 @@ namespace EasyFileManager
             EasyMetadataCheckBox.CheckStateChanged -= EasyMetadataCheckBox_CheckedChanged;
             EasyMetadataComboBox.SelectedIndexChanged -= EasyMetadataComboBox_SelectedIndexChanged;
 
-            PrefixTextBox.Leave -= PrefixTextBox_LeaveAsync;
-            ReplaceTextBox.Leave -= ReplaceTextBox_LeaveAsync;
-            WithTextBox.Leave -= WithTextBox_LeaveAsync;
-            SuffixTextBox.Leave -= SuffixTextBox_LeaveAsync;
+            PrefixTextBox.Leave -= PrefixTextBox_Leave;
+            ReplaceTextBox.Leave -= ReplaceTextBox_Leave;
+            WithTextBox.Leave -= WithTextBox_Leave;
+            SuffixTextBox.Leave -= SuffixTextBox_Leave;
 
-            ReplaceWithCheckBox.CheckStateChanged -= ReplaceWithCheckBox_CheckStateChangedAsync;
+            ReplaceWithCheckBox.CheckStateChanged -= ReplaceWithCheckBox_CheckStateChanged;
 
-            DateFormatCheckBox.CheckedChanged -= DateFormatCheckBox_CheckedChangedAsync;
-            DateFormatComboBox.SelectedIndexChanged -= DateFormatComboBox_SelectedIndexChangedAsync;
+            DateFormatCheckBox.CheckedChanged -= DateFormatCheckBox_CheckedChanged;
+            DateFormatComboBox.SelectedIndexChanged -= DateFormatComboBox_SelectedIndexChanged;
 
             BackupFolderCheckBox.CheckedChanged -= BackupFolderCheckBox_CheckedChanged;
-            TopFolderCheckBox.CheckedChanged -= TopFolderCheckBox_CheckedChangedAsync;
-            SubfoldersCheckBox.CheckedChanged -= SubfoldersCheckBox_CheckedChangedAsync;
-            FilterCheckBox.CheckedChanged -= FilterCheckBox_CheckedChangedAsync;
+            TopFolderCheckBox.CheckedChanged -= TopFolderCheckBox_CheckedChanged;
+            SubfoldersCheckBox.CheckedChanged -= SubfoldersCheckBox_CheckedChanged;
+            FilterCheckBox.CheckedChanged -= FilterCheckBox_CheckedChanged;
 
-            FilterNameComboBox.SelectedIndexChanged -= FilterNameComboBox_SelectedIndexChangedAsync;
-            FilterStringTextBox.Leave -= FilterStringTextBox_LeaveAsync;
+            FilterNameComboBox.SelectedIndexChanged -= FilterNameComboBox_SelectedIndexChanged;
+            FilterStringTextBox.Leave -= FilterStringTextBox_Leave;
 
             SelectBackupFolderButton.Click -= SelectBackupFolderButton_Click;
-            SelectTopFolderButton.Click -= SelectTopFolderButton_ClickAsync;
-            SubfoldersEditButton.Click -= SubfoldersEditButton_ClickAsync;
-            FilterEditButton.Click -= FilterEditButton_ClickAsync;
+            SelectTopFolderButton.Click -= SelectTopFolderButton_Click;
+            SubfoldersEditButton.Click -= SubfoldersEditButton_Click;
+            FilterEditButton.Click -= FilterEditButton_Click;
 
             CleanUpCheckBox.CheckedChanged -= CleanUpCheckBox_CheckedChanged;
             DuplicatesCheckBox.CheckStateChanged -= DuplicatesCheckBox_CheckStateChanged;
