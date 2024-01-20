@@ -355,10 +355,10 @@
     <value>Overschrijf aanmaakdatum</value>
   </data>
   <data name="WriteDateTakenOrEncoded" xml:space="preserve">
-    <value>Overschrijf genomen of gecodeerd</value>
+    <value>Overschrijf datum genomen of gecodeerd</value>
   </data>
   <data name="WriteDateEasyMetadata" xml:space="preserve">
-    <value>Overschrijf Easy-metagegevens</value>
+    <value>Overschrijf datum Easy-metagegevens</value>
   </data>
   <data name="EditEasyMetadata" xml:space="preserve">
     <value>Easy-metagegevens bewerken</value>

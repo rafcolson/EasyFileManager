@@ -346,7 +346,7 @@
     <value>Écrire des informations de zone GPS</value>
   </data>
   <data name="WriteGPSEasyMetadata" xml:space="preserve">
-    <value>Écrire des informations de zone GPS des Easy métadonnées</value>
+    <value>Écrire les coordonnées GPS des Easy métadonnées</value>
   </data>
   <data name="WriteDateModified" xml:space="preserve">
     <value>Écrire la date de modification</value>

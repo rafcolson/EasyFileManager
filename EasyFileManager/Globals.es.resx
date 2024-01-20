@@ -346,7 +346,7 @@
     <value>Sobrescribir información de área GPS</value>
   </data>
   <data name="WriteGPSEasyMetadata" xml:space="preserve">
-    <value>Sobrescribir metadatos de GPS Easy</value>
+    <value>Sobrescribir coordenadas GPS de metadatos Easy</value>
   </data>
   <data name="WriteDateModified" xml:space="preserve">
     <value>Sobrescribir fecha de modificación</value>
