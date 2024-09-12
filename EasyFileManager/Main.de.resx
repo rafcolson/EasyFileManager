@@ -223,6 +223,12 @@
   <data name="ViewToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Ansicht</value>
   </data>
+  <data name="PreviewPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>317, 26</value>
+  </data>
+  <data name="PreviewPathToolStripMenuItem.Text" xml:space="preserve">
+    <value>Vorschau des Dateipfads</value>
+  </data>
   <data name="ShowThumbnailToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>317, 26</value>
   </data>

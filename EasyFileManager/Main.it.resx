@@ -220,6 +220,12 @@
   <data name="ViewToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Visualliza</value>
   </data>
+  <data name="PreviewPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 26</value>
+  </data>
+  <data name="PreviewPathToolStripMenuItem.Text" xml:space="preserve">
+    <value>Percorso di anteprima</value>
+  </data>
   <data name="ShowThumbnailToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>242, 26</value>
   </data>

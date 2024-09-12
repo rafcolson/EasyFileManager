@@ -159,6 +159,7 @@
             ExportToolStripMenuItem = new ToolStripMenuItem();
             ExitToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripMenuItem = new ToolStripMenuItem();
+            PreviewPathToolStripMenuItem = new ToolStripMenuItem();
             ShowThumbnailToolStripMenuItem = new ToolStripMenuItem();
             ShowPropertiesToolStripMenuItem = new ToolStripMenuItem();
             ShowMillisecondsToolStripMenuItem = new ToolStripMenuItem();
@@ -272,12 +273,13 @@
             // 
             // MainSplitContainer.Panel1
             // 
+            resources.ApplyResources(MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
             MainSplitContainer.Panel1.Controls.Add(PathTableLayoutPanel);
             // 
             // MainSplitContainer.Panel2
             // 
-            MainSplitContainer.Panel2.Controls.Add(ExplorerEditSplitContainer);
             resources.ApplyResources(MainSplitContainer.Panel2, "MainSplitContainer.Panel2");
+            MainSplitContainer.Panel2.Controls.Add(ExplorerEditSplitContainer);
             // 
             // PathTableLayoutPanel
             // 
@@ -337,10 +339,12 @@
             // 
             // ExplorerEditSplitContainer.Panel1
             // 
+            resources.ApplyResources(ExplorerEditSplitContainer.Panel1, "ExplorerEditSplitContainer.Panel1");
             ExplorerEditSplitContainer.Panel1.Controls.Add(ExplorerThumbnailPropsSplitContainer);
             // 
             // ExplorerEditSplitContainer.Panel2
             // 
+            resources.ApplyResources(ExplorerEditSplitContainer.Panel2, "ExplorerEditSplitContainer.Panel2");
             ExplorerEditSplitContainer.Panel2.Controls.Add(EditTableLayoutPanel);
             // 
             // ExplorerThumbnailPropsSplitContainer
@@ -351,14 +355,17 @@
             // 
             // ExplorerThumbnailPropsSplitContainer.Panel1
             // 
+            resources.ApplyResources(ExplorerThumbnailPropsSplitContainer.Panel1, "ExplorerThumbnailPropsSplitContainer.Panel1");
             ExplorerThumbnailPropsSplitContainer.Panel1.Controls.Add(ExplorerDataGridView);
             // 
             // ExplorerThumbnailPropsSplitContainer.Panel2
             // 
+            resources.ApplyResources(ExplorerThumbnailPropsSplitContainer.Panel2, "ExplorerThumbnailPropsSplitContainer.Panel2");
             ExplorerThumbnailPropsSplitContainer.Panel2.Controls.Add(ThumbnailPropsSplitContainer);
             // 
             // ExplorerDataGridView
             // 
+            resources.ApplyResources(ExplorerDataGridView, "ExplorerDataGridView");
             ExplorerDataGridView.AllowUserToAddRows = false;
             ExplorerDataGridView.AllowUserToDeleteRows = false;
             ExplorerDataGridView.AllowUserToResizeColumns = false;
@@ -366,7 +373,6 @@
             ExplorerDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ExplorerDataGridView.ColumnHeadersVisible = false;
             ExplorerDataGridView.Columns.AddRange(new DataGridViewColumn[] { ExplorerDataGridViewColumnValues });
-            resources.ApplyResources(ExplorerDataGridView, "ExplorerDataGridView");
             ExplorerDataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
             ExplorerDataGridView.Name = "ExplorerDataGridView";
             ExplorerDataGridView.ReadOnly = true;
@@ -397,11 +403,13 @@
             // 
             // ThumbnailPropsSplitContainer.Panel1
             // 
+            resources.ApplyResources(ThumbnailPropsSplitContainer.Panel1, "ThumbnailPropsSplitContainer.Panel1");
             ThumbnailPropsSplitContainer.Panel1.Controls.Add(RotateTableLayoutPanel);
             ThumbnailPropsSplitContainer.Panel1.Controls.Add(ThumbnailPictureBox);
             // 
             // ThumbnailPropsSplitContainer.Panel2
             // 
+            resources.ApplyResources(ThumbnailPropsSplitContainer.Panel2, "ThumbnailPropsSplitContainer.Panel2");
             ThumbnailPropsSplitContainer.Panel2.Controls.Add(PropsDataGridView);
             // 
             // RotateTableLayoutPanel
@@ -441,6 +449,7 @@
             // 
             // PropsDataGridView
             // 
+            resources.ApplyResources(PropsDataGridView, "PropsDataGridView");
             PropsDataGridView.AllowUserToAddRows = false;
             PropsDataGridView.AllowUserToDeleteRows = false;
             PropsDataGridView.AllowUserToResizeColumns = false;
@@ -449,7 +458,6 @@
             PropsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             PropsDataGridView.ColumnHeadersVisible = false;
             PropsDataGridView.Columns.AddRange(new DataGridViewColumn[] { PropsDataGridViewColumnValues });
-            resources.ApplyResources(PropsDataGridView, "PropsDataGridView");
             PropsDataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
             PropsDataGridView.Name = "PropsDataGridView";
             PropsDataGridView.ReadOnly = true;
@@ -490,10 +498,12 @@
             // 
             // CustomizeSplitContainer.Panel1
             // 
+            resources.ApplyResources(CustomizeSplitContainer.Panel1, "CustomizeSplitContainer.Panel1");
             CustomizeSplitContainer.Panel1.Controls.Add(CustomizeCheckBox);
             // 
             // CustomizeSplitContainer.Panel2
             // 
+            resources.ApplyResources(CustomizeSplitContainer.Panel2, "CustomizeSplitContainer.Panel2");
             CustomizeSplitContainer.Panel2.Controls.Add(CustomizeTableLayoutPanel);
             // 
             // CustomizeCheckBox
@@ -831,10 +841,12 @@
             // 
             // CopyMoveSplitContainer.Panel1
             // 
+            resources.ApplyResources(CopyMoveSplitContainer.Panel1, "CopyMoveSplitContainer.Panel1");
             CopyMoveSplitContainer.Panel1.Controls.Add(CopyMoveCheckBox);
             // 
             // CopyMoveSplitContainer.Panel2
             // 
+            resources.ApplyResources(CopyMoveSplitContainer.Panel2, "CopyMoveSplitContainer.Panel2");
             CopyMoveSplitContainer.Panel2.Controls.Add(CopyMoveTableLayoutPanel);
             // 
             // CopyMoveCheckBox
@@ -1017,10 +1029,12 @@
             // 
             // RenameSplitContainer.Panel1
             // 
+            resources.ApplyResources(RenameSplitContainer.Panel1, "RenameSplitContainer.Panel1");
             RenameSplitContainer.Panel1.Controls.Add(RenameCheckBox);
             // 
             // RenameSplitContainer.Panel2
             // 
+            resources.ApplyResources(RenameSplitContainer.Panel2, "RenameSplitContainer.Panel2");
             RenameSplitContainer.Panel2.Controls.Add(RenameTableLayoutPanel);
             // 
             // RenameCheckBox
@@ -1143,10 +1157,12 @@
             // 
             // FinalizeSplitContainer.Panel1
             // 
+            resources.ApplyResources(FinalizeSplitContainer.Panel1, "FinalizeSplitContainer.Panel1");
             FinalizeSplitContainer.Panel1.Controls.Add(FinalizeCheckBox);
             // 
             // FinalizeSplitContainer.Panel2
             // 
+            resources.ApplyResources(FinalizeSplitContainer.Panel2, "FinalizeSplitContainer.Panel2");
             FinalizeSplitContainer.Panel2.Controls.Add(FinalizeTableLayoutPanel);
             // 
             // FinalizeCheckBox
@@ -1272,122 +1288,127 @@
             // 
             // FileToolStripMenuItem
             // 
+            resources.ApplyResources(FileToolStripMenuItem, "FileToolStripMenuItem");
             FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ImportToolStripMenuItem, ExportToolStripMenuItem, ExitToolStripMenuItem });
             FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            resources.ApplyResources(FileToolStripMenuItem, "FileToolStripMenuItem");
             // 
             // ImportToolStripMenuItem
             // 
-            ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
             resources.ApplyResources(ImportToolStripMenuItem, "ImportToolStripMenuItem");
+            ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
             // 
             // ExportToolStripMenuItem
             // 
-            ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
             resources.ApplyResources(ExportToolStripMenuItem, "ExportToolStripMenuItem");
+            ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
             // 
             // ExitToolStripMenuItem
             // 
-            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             resources.ApplyResources(ExitToolStripMenuItem, "ExitToolStripMenuItem");
+            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             // 
             // ViewToolStripMenuItem
             // 
-            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowVideoMetadataToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
-            ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
             resources.ApplyResources(ViewToolStripMenuItem, "ViewToolStripMenuItem");
+            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowVideoMetadataToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
+            ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
+            // 
+            // PreviewPathToolStripMenuItem
+            // 
+            resources.ApplyResources(PreviewPathToolStripMenuItem, "PreviewPathToolStripMenuItem");
+            PreviewPathToolStripMenuItem.Name = "PreviewPathToolStripMenuItem";
             // 
             // ShowThumbnailToolStripMenuItem
             // 
-            ShowThumbnailToolStripMenuItem.Name = "ShowThumbnailToolStripMenuItem";
             resources.ApplyResources(ShowThumbnailToolStripMenuItem, "ShowThumbnailToolStripMenuItem");
+            ShowThumbnailToolStripMenuItem.Name = "ShowThumbnailToolStripMenuItem";
             // 
             // ShowPropertiesToolStripMenuItem
             // 
-            ShowPropertiesToolStripMenuItem.Name = "ShowPropertiesToolStripMenuItem";
             resources.ApplyResources(ShowPropertiesToolStripMenuItem, "ShowPropertiesToolStripMenuItem");
+            ShowPropertiesToolStripMenuItem.Name = "ShowPropertiesToolStripMenuItem";
             // 
             // ShowMillisecondsToolStripMenuItem
             // 
-            ShowMillisecondsToolStripMenuItem.Name = "ShowMillisecondsToolStripMenuItem";
             resources.ApplyResources(ShowMillisecondsToolStripMenuItem, "ShowMillisecondsToolStripMenuItem");
+            ShowMillisecondsToolStripMenuItem.Name = "ShowMillisecondsToolStripMenuItem";
             // 
             // ShowHiddenItemsToolStripMenuItem
             // 
-            ShowHiddenItemsToolStripMenuItem.Name = "ShowHiddenItemsToolStripMenuItem";
             resources.ApplyResources(ShowHiddenItemsToolStripMenuItem, "ShowHiddenItemsToolStripMenuItem");
+            ShowHiddenItemsToolStripMenuItem.Name = "ShowHiddenItemsToolStripMenuItem";
             // 
             // ShowVideoMetadataToolStripMenuItem
             // 
-            ShowVideoMetadataToolStripMenuItem.Name = "ShowVideoMetadataToolStripMenuItem";
             resources.ApplyResources(ShowVideoMetadataToolStripMenuItem, "ShowVideoMetadataToolStripMenuItem");
+            ShowVideoMetadataToolStripMenuItem.Name = "ShowVideoMetadataToolStripMenuItem";
             // 
             // ViewToolStripSeparator
             // 
-            ViewToolStripSeparator.Name = "ViewToolStripSeparator";
             resources.ApplyResources(ViewToolStripSeparator, "ViewToolStripSeparator");
+            ViewToolStripSeparator.Name = "ViewToolStripSeparator";
             // 
             // LanguageToolStripMenuItem
             // 
-            LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem";
             resources.ApplyResources(LanguageToolStripMenuItem, "LanguageToolStripMenuItem");
+            LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem";
             // 
             // OptionsToolStripMenuItem
             // 
+            resources.ApplyResources(OptionsToolStripMenuItem, "OptionsToolStripMenuItem");
             OptionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { UseEasyMetadataWithVideoToolStripMenuItem, PreserveDateModifiedToolStripMenuItem, PreserveDateCreatedToolStripMenuItem, LogApplicationEventsToolStripMenuItem, ShutDownUponCompletionToolStripMenuItem });
             OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem";
-            resources.ApplyResources(OptionsToolStripMenuItem, "OptionsToolStripMenuItem");
             // 
             // UseEasyMetadataWithVideoToolStripMenuItem
             // 
-            UseEasyMetadataWithVideoToolStripMenuItem.Name = "UseEasyMetadataWithVideoToolStripMenuItem";
             resources.ApplyResources(UseEasyMetadataWithVideoToolStripMenuItem, "UseEasyMetadataWithVideoToolStripMenuItem");
+            UseEasyMetadataWithVideoToolStripMenuItem.Name = "UseEasyMetadataWithVideoToolStripMenuItem";
             // 
             // PreserveDateModifiedToolStripMenuItem
             // 
-            PreserveDateModifiedToolStripMenuItem.Name = "PreserveDateModifiedToolStripMenuItem";
             resources.ApplyResources(PreserveDateModifiedToolStripMenuItem, "PreserveDateModifiedToolStripMenuItem");
+            PreserveDateModifiedToolStripMenuItem.Name = "PreserveDateModifiedToolStripMenuItem";
             // 
             // PreserveDateCreatedToolStripMenuItem
             // 
-            PreserveDateCreatedToolStripMenuItem.Name = "PreserveDateCreatedToolStripMenuItem";
             resources.ApplyResources(PreserveDateCreatedToolStripMenuItem, "PreserveDateCreatedToolStripMenuItem");
+            PreserveDateCreatedToolStripMenuItem.Name = "PreserveDateCreatedToolStripMenuItem";
             // 
             // LogApplicationEventsToolStripMenuItem
             // 
-            LogApplicationEventsToolStripMenuItem.Name = "LogApplicationEventsToolStripMenuItem";
             resources.ApplyResources(LogApplicationEventsToolStripMenuItem, "LogApplicationEventsToolStripMenuItem");
+            LogApplicationEventsToolStripMenuItem.Name = "LogApplicationEventsToolStripMenuItem";
             // 
             // ShutDownUponCompletionToolStripMenuItem
             // 
-            ShutDownUponCompletionToolStripMenuItem.Name = "ShutDownUponCompletionToolStripMenuItem";
             resources.ApplyResources(ShutDownUponCompletionToolStripMenuItem, "ShutDownUponCompletionToolStripMenuItem");
+            ShutDownUponCompletionToolStripMenuItem.Name = "ShutDownUponCompletionToolStripMenuItem";
             // 
             // HelpToolStripMenuItem
             // 
+            resources.ApplyResources(HelpToolStripMenuItem, "HelpToolStripMenuItem");
             HelpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SplashScreenToolStripMenuItem, RestoreToDefaultToolStripMenuItem, HelpToolStripSeparator, AboutEasyFileManagerToolStripMenuItem });
             HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
-            resources.ApplyResources(HelpToolStripMenuItem, "HelpToolStripMenuItem");
             // 
             // SplashScreenToolStripMenuItem
             // 
-            SplashScreenToolStripMenuItem.Name = "SplashScreenToolStripMenuItem";
             resources.ApplyResources(SplashScreenToolStripMenuItem, "SplashScreenToolStripMenuItem");
+            SplashScreenToolStripMenuItem.Name = "SplashScreenToolStripMenuItem";
             // 
             // RestoreToDefaultToolStripMenuItem
             // 
-            RestoreToDefaultToolStripMenuItem.Name = "RestoreToDefaultToolStripMenuItem";
             resources.ApplyResources(RestoreToDefaultToolStripMenuItem, "RestoreToDefaultToolStripMenuItem");
+            RestoreToDefaultToolStripMenuItem.Name = "RestoreToDefaultToolStripMenuItem";
             // 
             // HelpToolStripSeparator
             // 
-            HelpToolStripSeparator.Name = "HelpToolStripSeparator";
             resources.ApplyResources(HelpToolStripSeparator, "HelpToolStripSeparator");
+            HelpToolStripSeparator.Name = "HelpToolStripSeparator";
             // 
             // AboutEasyFileManagerToolStripMenuItem
             // 
-            AboutEasyFileManagerToolStripMenuItem.Name = "AboutEasyFileManagerToolStripMenuItem";
             resources.ApplyResources(AboutEasyFileManagerToolStripMenuItem, "AboutEasyFileManagerToolStripMenuItem");
+            AboutEasyFileManagerToolStripMenuItem.Name = "AboutEasyFileManagerToolStripMenuItem";
             // 
             // MainStatusStrip
             // 
@@ -1406,12 +1427,13 @@
             // 
             // MainProgressBar
             // 
+            resources.ApplyResources(MainProgressBar, "MainProgressBar");
             MainProgressBar.Alignment = ToolStripItemAlignment.Right;
             MainProgressBar.Name = "MainProgressBar";
-            resources.ApplyResources(MainProgressBar, "MainProgressBar");
             // 
             // OpenFolderDialog
             // 
+            resources.ApplyResources(OpenFolderDialog, "OpenFolderDialog");
             OpenFolderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
             // 
             // ImportSettingsDialog
@@ -1716,5 +1738,6 @@
         private TextBox FilterStringTextBox;
         private TextBox CleanUpTextBox;
         private Button CleanUpEditButton;
+        private ToolStripMenuItem PreviewPathToolStripMenuItem;
     }
 }

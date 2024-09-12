@@ -54,12 +54,11 @@ namespace EasyFileManager
                         Folder.Initialize(path);
 
                         Folders.Replace(Folder.GetDirectoryPaths());
-                        Files.Replace(Folder.GetFilePaths());
+                        Files.Replace(Folder.GetFilePaths(), Properties.Settings.Default.PreviewPath);
 
                         UpdateHistory();
                         UpdateOneLevelUpButton();
                         UpdateExplorerView();
-                        UpdateThumbnailPropsView();
                         UpdateBackupControls();
                         return true;
                     }
@@ -681,30 +680,33 @@ namespace EasyFileManager
             Debug.WriteLine("Cleaning up...");
 
             int maxValue = 100;
-            int numSubSteps = 1;
+            int i = 0;
 
             cancellationToken.ThrowIfCancellationRequested();
 
+            EasyCleanUpParameter[] ecupa = Options.CleanUpParameters.GetContainingFlags();
+            int numSubSteps = ecupa.Length;
             EasyFileProperty propertyFlags = EasyFileProperty.None;
-            foreach (EasyCleanUpParameter ecup in Options.CleanUpParameters.GetContainingFlags())
+
+            foreach (EasyCleanUpParameter ecup in ecupa)
             {
                 EasyFileProperty v = ecup.GetValue<EasyFileProperty>();
                 if (v != EasyFileProperty.None)
                 {
                     propertyFlags |= v;
-                    continue;
                 }
-                numSubSteps += 1;
-
+            }
+            if (Options.CleanUpParameters.HasFlag(EasyCleanUpParameter.EmptyFolders))
+            {
                 string[] fpa = GetSelectedFolderPaths(true);
-                int n = fpa.Length;
-                for (int i = 0; i < n; i++)
+                int fpan = fpa.Length;
+                for (int fpai = 0; fpai < fpan; fpai++)
                 {
-                    string p = fpa[i];
+                    string p = fpa[fpai];
                     using EasyFolder ed = new(p);
                     if (!ed.GetAllPaths().Any())
                     {
-                        Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 0, numSubSteps), $"Deleting empty folder: {p}");
+                        Progress.Report(EasyProgress.GetValue(((maxValue * fpai) / fpan), maxValue, i, numSubSteps), $"Deleting empty folder: {p}");
                         if (ed.Delete() && Options.LogApplicationEvents)
                         {
                             Logger.Write($"Deleted empty folder: {p}");
@@ -712,29 +714,27 @@ namespace EasyFileManager
                     }
                 }
             }
-            if (propertyFlags != EasyFileProperty.None)
+            cancellationToken.ThrowIfCancellationRequested();
+
+            string[] sfpa = GetSelectedFilePaths(true);
+            int sfpan = sfpa.Length;
+            EasyFileProperty[] efpa = propertyFlags.GetContainingFlags();
+            for (int j = 0; j < efpa.Length; j++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                EasyFiles files = new(GetSelectedFilePaths(true).Select(x => new EasyFile(x)));
-                EasyFileProperty[] efpa = propertyFlags.GetContainingFlags();
-                int n = efpa.Length;
-                for (int i = 0; i < n; i++)
+                i += 1;
+                EasyFileProperty efp = efpa[j];
+                string? s = Enum.GetName(efp);
+                for (int sfpai = 0; sfpai < sfpan; sfpai++)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    EasyFileProperty efp = efpa[i];
-                    string? s = Enum.GetName(efp);
-                    foreach (EasyFile ef in files)
+                    using EasyFile ef = new(sfpa[sfpai]);
+                    Progress.Report(EasyProgress.GetValue(((maxValue * sfpai) / sfpan), maxValue, i, numSubSteps), $"Deleting '{s}' property of {ef.Path}");
+                    if (ef.RemoveProperty(efp) && Options.LogApplicationEvents)
                     {
-                        Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 1, numSubSteps), $"Deleting '{s}' property of {ef.Path}");
-                        if (ef.RemoveProperty(efp) && Options.LogApplicationEvents)
-                        {
-                            Logger.Write($"Deleted '{s}' property of {ef.Path}");
-                        }
+                        Logger.Write($"Deleted '{s}' property of {ef.Path}");
                     }
                 }
-                files.Clear();
             }
             Progress.Report(maxValue);
 
@@ -911,13 +911,16 @@ namespace EasyFileManager
             bool showThumbnail = Properties.Settings.Default.ShowThumbnail;
             bool showProperties = Properties.Settings.Default.ShowProperties;
             DataGridViewSelectedRowCollection rows = ExplorerDataGridView.SelectedRows;
-            if (!(showThumbnail || showProperties) || rows.Count != 1 || rows[0].Tag is not EasyPath easyPath || EasyType.Invalid.HasFlag(easyPath.Type))
+            if (!(showThumbnail || showProperties) || rows.Count != 1 || rows[0].Tag is not EasyPath ep)
             {
                 ExplorerThumbnailPropsSplitContainer.Panel2Collapsed = true;
                 IsUpdating = false;
                 return;
             }
-            EasyPath ep = (EasyPath)rows[0].Tag!;
+            if (!Properties.Settings.Default.PreviewPath)
+            {
+                ep.Initialize(ep.Path);
+            }
             RotateTableLayoutPanel.Visible = showThumbnail && ep.Type == EasyType.Image;
             ExplorerThumbnailPropsSplitContainer.Panel2Collapsed = false;
             ThumbnailPropsSplitContainer.Panel1Collapsed = !showThumbnail;
@@ -1015,7 +1018,7 @@ namespace EasyFileManager
 
                 if (Properties.Settings.Default.ShowVideoMetadata)
                 {
-                    await ef.ExtractExifGeoAreaAsync(Options.UseEasyMetadataWithVideo);
+                    ef.ExtractExifGeoArea(Options.UseEasyMetadataWithVideo);
                 }
 
                 PropsDataGridView.AddRow(Globals.Keywords, string.Join(COMMA, ef.Keywords));
@@ -1101,6 +1104,6 @@ namespace EasyFileManager
             return false;
         }
 
-        private async Task<bool> UpdateFormattingAsync() => (Options.HasRenaming() || Options.HasCopyingMoving()) && await UpdateAsync(UpdateFormatting);
+        private async Task<bool> UpdateFormattingAsync() => Properties.Settings.Default.PreviewPath && (Options.HasRenaming() || Options.HasCopyingMoving()) && await UpdateAsync(UpdateFormatting);
     }
 }

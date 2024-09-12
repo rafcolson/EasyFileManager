@@ -119,6 +119,7 @@ namespace EasyFileManager
 
         private void InitializeLayout()
         {
+            PreviewPathToolStripMenuItem.Checked = Properties.Settings.Default.PreviewPath;
             ShowThumbnailToolStripMenuItem.Checked = Properties.Settings.Default.ShowThumbnail;
             ShowPropertiesToolStripMenuItem.Checked = Properties.Settings.Default.ShowProperties;
             ShowMillisecondsToolStripMenuItem.Checked = Properties.Settings.Default.ShowMilliseconds;
@@ -284,6 +285,7 @@ namespace EasyFileManager
             ExportToolStripMenuItem.Click += ExportToolStripMenuItem_Click;
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
 
+            PreviewPathToolStripMenuItem.Click += PreviewPathToolStripMenuItem_Click;
             ShowThumbnailToolStripMenuItem.Click += ShowThumbnailToolStripMenuItem_Click;
             ShowHiddenItemsToolStripMenuItem.Click += ShowHiddenItemsToolStripMenuItem_Click;
             ShowPropertiesToolStripMenuItem.Click += ShowPropertiesToolStripMenuItem_Click;
@@ -405,17 +407,6 @@ namespace EasyFileManager
             FolderContentsWatcher.EnableRaisingEvents = true;
         }
 
-        private void RestoreToDefault(string startupDirectory = EMPTY_STRING)
-        {
-            if (string.IsNullOrEmpty(startupDirectory))
-            {
-                Properties.Settings.Default.StartupDirectory = STARTUP_DIRECTORY_DEFAULT;
-            }
-            Options = new();
-            Properties.Settings.Default.EasyOptions = Options.ToString();
-            Properties.Settings.Default.Save();
-        }
-
         private void ShowSplash(bool hideMainForm = false, TimeSpan? timeSpan = null)
         {
             if (hideMainForm) { Visible = false; }
@@ -432,7 +423,7 @@ namespace EasyFileManager
             InitializeComponent();
             Icon = Properties.Resources.ApplicationIcon;
             InitializeFields();
-            //RestoreToDefault(@"G:\_TEMP\Test");
+            //RestoreToDefault(@"G:\_EFM\Test");
             Options = new(Properties.Settings.Default.EasyOptions);
 
             this.SuspendDrawing();
@@ -548,6 +539,7 @@ namespace EasyFileManager
             ExportToolStripMenuItem.Click -= ExportToolStripMenuItem_Click;
             ExitToolStripMenuItem.Click -= ExitToolStripMenuItem_Click;
 
+            PreviewPathToolStripMenuItem.Click -= PreviewPathToolStripMenuItem_Click;
             ShowThumbnailToolStripMenuItem.Click -= ShowThumbnailToolStripMenuItem_Click;
             ShowHiddenItemsToolStripMenuItem.Click -= ShowHiddenItemsToolStripMenuItem_Click;
             ShowPropertiesToolStripMenuItem.Click -= ShowPropertiesToolStripMenuItem_Click;
@@ -681,6 +673,17 @@ namespace EasyFileManager
             GeoLocator.Dispose();
             ExifWrapper.Dispose();
             Utils.Dispose();
+        }
+
+        private static void RestoreToDefault(string startupDirectory = EMPTY_STRING)
+        {
+            if (string.IsNullOrEmpty(startupDirectory))
+            {
+                Properties.Settings.Default.StartupDirectory = STARTUP_DIRECTORY_DEFAULT;
+            }
+            Options = new();
+            Properties.Settings.Default.EasyOptions = Options.ToString();
+            Properties.Settings.Default.Save();
         }
 
         #endregion

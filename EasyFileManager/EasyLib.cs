@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Shell;
+
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Text.Encodings.Web;
@@ -821,26 +822,22 @@ namespace EasyFileManager
             return null;
         }
 
-        public virtual EasyPath? Add(string path)
+        public virtual EasyPath? Add(string path, bool readShell = true)
         {
             if (!Contains(path))
             {
-                EasyPath ep = new(path);
-                if (!ep.IsInvalid)
-                {
-                    Add(ep);
-                    return ep;
-                }
-                ep.Dispose();
+                EasyPath ep = new(path, readShell);
+                Add(ep);
+                return ep;
             }
             return null;
         }
 
-        public void AddRange(IEnumerable<string> paths)
+        public void AddRange(IEnumerable<string> paths, bool readShell = true)
         {
             foreach (string path in paths)
             {
-                Add(path);
+                Add(path, readShell);
             }
         }
 
@@ -895,10 +892,10 @@ namespace EasyFileManager
             base.Clear();
         }
 
-        public void Replace(IEnumerable<string> paths)
+        public void Replace(IEnumerable<string> paths, bool readShell = true)
         {
             Clear();
-            AddRange(paths);
+            AddRange(paths, readShell);
         }
 
         public string[] GetPaths() => ToArray().Select(x => x.Path).ToArray();
@@ -927,17 +924,18 @@ namespace EasyFileManager
             }
         }
 
-        public override EasyFolder? Add(string path)
+        public override EasyFolder? Add(string path, bool readShell = true)
         {
             if (!Contains(path))
             {
-                EasyFolder ef = new(path);
-                if (!ef.IsInvalid)
+                EasyFolder ed;
+                try
                 {
-                    Add(ef);
-                    return ef;
+                    ed = new(path, readShell);
+                    Add(ed);
+                    return ed;
                 }
-                ef.Dispose();
+                catch (ArgumentException) { }
             }
             return null;
         }
@@ -962,17 +960,18 @@ namespace EasyFileManager
             }
         }
 
-        public override EasyFile? Add(string path)
+        public override EasyFile? Add(string path, bool readShell = true)
         {
             if (!Contains(path))
             {
-                EasyFile ef = new(path);
-                if (!ef.IsInvalid)
+                EasyFile ef;
+                try
                 {
+                    ef = new(path, readShell);
                     Add(ef);
                     return ef;
                 }
-                ef.Dispose();
+                catch (ArgumentException) { }
             }
             return null;
         }
@@ -1015,8 +1014,8 @@ namespace EasyFileManager
 
         public bool Exists => IsFolder ? Directory.Exists(_path) : File.Exists(_path);
         public bool IsInvalid => Type == EasyType.Invalid;
-        public bool IsFile => EasyType.File.HasFlag(Type);
         public bool IsFolder => _fileAttributes.HasFlag(FileAttributes.Directory);
+        public bool IsFile => !IsFolder;
         public bool IsSystem => _fileAttributes.HasFlag(FileAttributes.System);
         public bool IsHidden => _fileAttributes.HasFlag(FileAttributes.Hidden) || _path.StartsWith(PERIOD);
         public bool IsReadOnly => _fileAttributes.HasFlag(FileAttributes.ReadOnly);
@@ -1191,9 +1190,9 @@ namespace EasyFileManager
             }
         }
 
-        public EasyPath(string path = EMPTY_STRING) => Initialize(path);
+        public EasyPath(string path = EMPTY_STRING, bool readShell = true) => Initialize(path, readShell);
 
-        public virtual void Initialize(string path = EMPTY_STRING)
+        public virtual void Initialize(string path = EMPTY_STRING, bool readShell = true)
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -1216,10 +1215,13 @@ namespace EasyFileManager
             }
             try
             {
-                ReadShellObject();
                 ReadFileAttributes();
-                ReadDateModified();
-                ReadDateCreated();
+                if (readShell)
+                {
+                    ReadShellObject();
+                    ReadDateModified();
+                    ReadDateCreated();
+                }
                 if (IsSymbolicLink)
                 {
                     if (IsFolder)
@@ -1340,7 +1342,13 @@ namespace EasyFileManager
             }
         }
 
-        public EasyFolder(string path = EMPTY_STRING) : base(path) { }
+        public EasyFolder() : base() { }
+
+        public EasyFolder(string path, bool readShell = true) : base(path, readShell)
+        {
+            if (IsFolder) { return; }
+            Dispose(); throw new ArgumentException("Path is not a folder.");
+        }
 
         public string[] GetFilePaths(bool recursive = false) => Utils.GetFilePaths(_path, recursive);
 
@@ -1489,7 +1497,7 @@ namespace EasyFileManager
         }
         private bool ReadEasyMetadata()
         {
-            string delimiter = $"{nameof(_easyMetadata)}{EQUALS_SIGN}";
+            string delimiter = $"{nameof(EasyMetadata)}{EQUALS_SIGN}";
             foreach (string kw in Keywords)
             {
                 if (kw.SplitLast(delimiter) is string[] sa)
@@ -1605,17 +1613,23 @@ namespace EasyFileManager
             return false;
         }
 
-        public EasyFile(string path) : base(path) { }
+        public EasyFile() : base() { }
 
-        public override void Initialize(string path = EMPTY_STRING)
+        public EasyFile(string path, bool readShell = true) : base(path, readShell)
         {
-            base.Initialize(path);
+            if (IsFile) { return; }
+            Dispose(); throw new ArgumentException("Path is not a file.");
+        }
+
+        public override void Initialize(string path = EMPTY_STRING, bool readShell = true)
+        {
+            base.Initialize(path, readShell);
             _formattedPath = path;
             _easyMetadata = null;
             _geoCoordinates = null;
             _geoObject = null;
 
-            if (!IsInvalid)
+            if (!IsInvalid || readShell)
             {
                 ReadDateTaken();
                 ReadDateEncoded();
@@ -1658,7 +1672,7 @@ namespace EasyFileManager
                 case EasyFileProperty.Keywords: if (Keywords.Any()) { Keywords = Array.Empty<string>(); result = true; }; break;
                 case EasyFileProperty.GPSCoordinates: if (_geoCoordinates != null || ReadGeoCoordinates()) { _geoCoordinates = null; WriteGeoCoordinates(); result = true; } break;
                 case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { _areaInfo = string.Empty; result = WriteAreaInfo(); }; break;
-                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { WriteEasyMetaData(); result = true; } break;
+                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { _easyMetadata = null; WriteEasyMetaData(); result = true; } break;
             }
             return result;
         }
@@ -1846,17 +1860,16 @@ namespace EasyFileManager
             return false;
         }
 
-        public async Task ExtractExifGeoAreaAsync(bool useEasyMetadataWithVideo = true)
+        public void ExtractExifGeoArea(bool useEasyMetadataWithVideo = true)
         {
             if (Type != EasyType.Video
                 || (_geoCoordinates is GeoCoordinates gc && gc.IsValid)
                 || (useEasyMetadataWithVideo && EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
-                || await ExtractExifGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
+                || ExtractExifGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
             {
                 return;
             }
             _geoCoordinates = gc0;
-            WriteGeoCoordinates();
             if (useEasyMetadataWithVideo)
             {
                 bool result = true;
@@ -1937,7 +1950,7 @@ namespace EasyFileManager
                         }
                         if ((allTypes || egds == EasyMetadataSource.VideoMetadata) && Type == EasyType.Video)
                         {
-                            geoCoords = await ExtractExifGPSCoords(_path);
+                            geoCoords = ExtractExifGPSCoords(_path);
                         }
 
                         if (geoObject == null) // TODO: add option to prioritize area info over gps coordinates

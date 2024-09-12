@@ -154,6 +154,14 @@ namespace EasyFileManager
 
         private void ExitToolStripMenuItem_Click(object? sender, EventArgs e) => Exit();
 
+        private void PreviewPathToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            bool b = !PreviewPathToolStripMenuItem.Checked;
+            Properties.Settings.Default.PreviewPath = b;
+            PreviewPathToolStripMenuItem.Checked = b;
+            Update(Properties.Settings.Default.StartupDirectory, true);
+        }
+
         private void ShowThumbnailToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             bool b = !ShowThumbnailToolStripMenuItem.Checked;
