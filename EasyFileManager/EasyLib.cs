@@ -1125,24 +1125,6 @@ namespace EasyFileManager
             }
             catch { return false; }
         }
-        private bool ReadFileAttributes()
-        {
-            try
-            {
-                if (_shellObject is ShellObject so)
-                {
-                    try
-                    {
-                        uint i = (uint)so.Properties.DefaultPropertyCollection["System.FileAttributes"].ValueAsObject;
-                        _fileAttributes = (FileAttributes)Enum.ToObject(typeof(FileAttributes), i);
-                    }
-                    catch (IndexOutOfRangeException) { }
-                }
-                _fileAttributes = File.GetAttributes(_path);
-                return true;
-            }
-            catch { return false; }
-        }
         private bool ReadDateModified()
         {
             if (_shellObject is ShellObject so)
@@ -1215,7 +1197,7 @@ namespace EasyFileManager
             }
             try
             {
-                ReadFileAttributes();
+                _fileAttributes = File.GetAttributes(_path);
                 if (readShell)
                 {
                     ReadShellObject();
@@ -1971,7 +1953,7 @@ namespace EasyFileManager
 
                         if (geoObject == null)
                         {
-                            Debug.WriteLine($"File {Name} has no available geolocation data.");
+                            Debug.WriteLine($"File {Name} with geocoords '{GeoCoordinates}' has no available geolocation data.");
                         }
                         else
                         {

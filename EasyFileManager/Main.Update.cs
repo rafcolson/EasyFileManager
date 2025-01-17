@@ -896,6 +896,7 @@ namespace EasyFileManager
             }
         }
 
+        [DebuggerHidden]
         private async void UpdateThumbnailPropsView()
         {
             IsUpdating = true;
