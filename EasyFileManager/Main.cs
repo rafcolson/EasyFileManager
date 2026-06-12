@@ -19,8 +19,8 @@ namespace EasyFileManager
         private const string BACKUP_PREFIX = "_EFM_BACKUP_";
         private const string DUPLICATES_PREFIX = "_EFM_DUPLICATES_";
 
-        private static readonly List<string> _history = new();
-        private static readonly List<string> _selectedPaths = new();
+        private static readonly List<string> _history = [];
+        private static readonly List<string> _selectedPaths = [];
 
         private static CancellationTokenSource _cancellationTokenSource = new();
         private static Task _task = Task.CompletedTask;
@@ -54,8 +54,9 @@ namespace EasyFileManager
         public static EasyLogger Logger { get; private set; } = new();
         public static EasyOptions Options { get; private set; } = new();
         public static EasyFolder Folder { get; private set; } = new();
-        public static EasyFolders Folders { get; } = new();
-        public static EasyFiles Files { get; } = new();
+        public static EasyFolders Folders { get; } = [];
+        public static EasyFiles Files { get; } = [];
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsUpdating
         {
             get => _isUpdating;
@@ -65,6 +66,7 @@ namespace EasyFileManager
                 Cursor = _isUpdating ? Cursors.WaitCursor : Cursors.Default;
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsApplying
         {
             get => _isApplying;
@@ -101,11 +103,22 @@ namespace EasyFileManager
 
             _editTextBoxContextMenuStrip = new(Font);
             _editPathContextMenuStrip = new(Font);
-            _editPathContextMenuStrip.Items.Add(GetToolStripMenuItem(Globals.Explore, PathToolStripMenuItem_Click));
+            if (GetToolStripMenuItem(Globals.Explore, PathToolStripMenuItem_Click) is ToolStripMenuItem exploreMenuItem)
+            {
+                _editPathContextMenuStrip.Items.Add(exploreMenuItem);
+            }
             _editPropsContextMenuStrip = new(Font, EditMenuItems.CopySelectAll);
             _editExplorerContextMenuStrip = new(Font, EditMenuItems.CopySelectAll);
-            _editExplorerContextMenuStrip.Items.Add(GetToolStripMenuItem(Globals.Explore, (o, e) => ExplorerToolStripMenuItem_Click(o, e)));
-            _editExplorerContextMenuStrip.Items.Add(GetToolStripMenuItem(Globals.Open, (o, e) => ExplorerToolStripMenuItem_Click(o, e, true)));
+            var explorerMenuItem = GetToolStripMenuItem(Globals.Explore, (o, e) => ExplorerToolStripMenuItem_Click(o, e));
+            if (explorerMenuItem is not null)
+            {
+                _editExplorerContextMenuStrip.Items.Add(explorerMenuItem);
+            }
+            var openMenuItem = GetToolStripMenuItem(Globals.Open, (o, e) => ExplorerToolStripMenuItem_Click(o, e, true));
+            if (openMenuItem is not null)
+            {
+                _editExplorerContextMenuStrip.Items.Add(openMenuItem);
+            }
             _editExplorerContextMenuStrip.Opening += EditExplorerContextMenuStrip_Opening;
         }
 
@@ -161,7 +174,7 @@ namespace EasyFileManager
             WriteGPSAreaInfoCheckBox.Checked = Options.WriteGPSAreaInfo;
             WriteGPSEasyMetadataCheckBox.Checked = Options.WriteGPSEasyMetadata;
             GPSSourceComboBox.Items.Clear();
-            GPSSourceComboBox.Items.AddRange(Enum.GetValues<EasyMetadataSource>().Select(x => x.GetEasyGlobalStringValue()).ToArray());
+            GPSSourceComboBox.Items.AddRange([.. Enum.GetValues<EasyMetadataSource>().Select(x => x.GetEasyGlobalStringValue())]);
             GPSSourceComboBox.Dock = DockStyle.None;
             GPSSourceComboBox.UpdateDropDownList();
             GPSSourceComboBox.Dock = DockStyle.Fill;
@@ -193,7 +206,7 @@ namespace EasyFileManager
             DateFormatCheckBox.Checked = Options.DateFormatEnabled;
             DateFormatComboBox.Enabled = Options.DateFormatEnabled;
             DateFormatComboBox.Items.Clear();
-            DateFormatComboBox.Items.AddRange(Enum.GetValues<DateTimeFormat>().Select(x => x.GetValue<string>()).Cast<object>().ToArray());
+            DateFormatComboBox.Items.AddRange([.. Enum.GetValues<DateTimeFormat>().Select(x => x.GetValue<string>()).Cast<object>()]);
             DateFormatComboBox.Dock = DockStyle.None;
             DateFormatComboBox.UpdateDropDownList();
             DateFormatComboBox.Dock = DockStyle.Fill;
@@ -216,7 +229,7 @@ namespace EasyFileManager
 
             FilterCheckBox.Checked = Options.FilterEnabled;
             FilterNameComboBox.Items.Clear();
-            FilterNameComboBox.Items.AddRange(Enum.GetValues<EasyNameFilter>().Select(x => x.GetEasyGlobalStringValue()).ToArray());
+            FilterNameComboBox.Items.AddRange([.. Enum.GetValues<EasyNameFilter>().Select(x => x.GetEasyGlobalStringValue())]);
             FilterNameComboBox.Dock = DockStyle.None;
             FilterNameComboBox.UpdateDropDownList();
             FilterNameComboBox.Dock = DockStyle.Fill;

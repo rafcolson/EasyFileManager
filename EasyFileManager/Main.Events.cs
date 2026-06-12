@@ -98,7 +98,7 @@ namespace EasyFileManager
             {
                 DataGridViewSelectedRowCollection rows = dgv.SelectedRows;
                 bool isValidSelection = rows.Count == 1 && rows[0].Tag is EasyPath ep && !ep.Type.HasFlag(EasyType.System);
-                string[] openExplore = new[] { Globals.Open, Globals.Explore };
+                string[] openExplore = [Globals.Open, Globals.Explore];
                 foreach (ToolStripItem item in cms.Items)
                 {
                     if (openExplore.Contains(item.Text))
@@ -207,7 +207,7 @@ namespace EasyFileManager
         private void LanguageToolStripMenuItem_Click(object? sender, EventArgs e)
         {
 
-            string[] sa = Enum.GetValues<Language>().Select(x => $"{x.GetGlobalStringValue()} ({x.GetValue<string>()})").ToArray();
+            string[] sa = [.. Enum.GetValues<Language>().Select(x => $"{x.GetGlobalStringValue()} ({x.GetValue<string>()})")];
             using DropDownListDialog ddld = new(sa, Properties.Settings.Default.LanguageIndex);
             if (ddld.ShowDialog() == DialogResult.OK)
             {
@@ -279,7 +279,7 @@ namespace EasyFileManager
             }
         }
 
-        private static void ExplorerToolStripMenuItem_Click(object? sender, EventArgs e, bool open = false)
+        private static void ExplorerToolStripMenuItem_Click(object? sender, EventArgs _, bool open = false)
         {
             if (sender is ToolStripMenuItem tsmi && tsmi.Owner is ContextMenuStrip cms && cms.SourceControl is DataGridView dgv)
             {
@@ -312,7 +312,7 @@ namespace EasyFileManager
 
         private void KeywordsEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = new(KeywordsComboBox.Items.Cast<object>());
+            List<object> items = [.. KeywordsComboBox.Items.Cast<object>()];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDownSortEdit);
             eld.OnAddItem = () =>
             {
@@ -335,7 +335,7 @@ namespace EasyFileManager
             };
             if (eld.ShowDialog() == DialogResult.OK)
             {
-                Options.Keywords.Replace(items.Cast<EasyList<string>>().ToArray());
+                Options.Keywords.Replace([.. items.Cast<EasyList<string>>()]);
                 Options.KeywordsIndex = eld.SelectedIndex;
 
                 UpdateKeywordsControlsA();
@@ -346,7 +346,7 @@ namespace EasyFileManager
 
         private void GPSEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = new(GPSComboBox.Items.Cast<object>());
+            List<object> items = [.. GPSComboBox.Items.Cast<object>()];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDownSortEdit);
             eld.OnAddItem = async () =>
             {
@@ -388,7 +388,7 @@ namespace EasyFileManager
             if (eld.ShowDialog() == DialogResult.OK)
             {
                 GPSComboBox.Items.Clear();
-                GPSComboBox.Items.AddRange(items.ToArray());
+                GPSComboBox.Items.AddRange([.. items]);
                 GPSComboBox.SelectedItem = eld.SelectedItem;
 
                 Options.GeoAreas = GPSComboBox.GetItems<KeyValuePair<string, GeoCoordinates?>>().ToDictionary(x => x.Key, x => x.Value);
@@ -403,7 +403,7 @@ namespace EasyFileManager
 
         private void DateEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = new(DateComboBox.Items.Cast<object>());
+            List<object> items = [.. DateComboBox.Items.Cast<object>()];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDownSortEdit);
             eld.OnAddItem = () =>
             {
@@ -443,7 +443,7 @@ namespace EasyFileManager
             if (eld.ShowDialog() == DialogResult.OK)
             {
                 DateComboBox.Items.Clear();
-                DateComboBox.Items.AddRange(items.ToArray());
+                DateComboBox.Items.AddRange([.. items]);
                 DateComboBox.SelectedItem = eld.SelectedItem;
 
                 Options.Dates.Replace(items.Cast<string>());
@@ -457,7 +457,7 @@ namespace EasyFileManager
 
         private void EasyMetadataEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = new(EasyMetadataComboBox.Items.Cast<object>());
+            List<object> items = [.. EasyMetadataComboBox.Items.Cast<object>()];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDownSortEdit);
             eld.OnAddItem = () =>
             {
@@ -480,7 +480,7 @@ namespace EasyFileManager
             };
             if (eld.ShowDialog() == DialogResult.OK)
             {
-                Options.EasyMetadata.Replace(items.Cast<string>().ToArray());
+                Options.EasyMetadata.Replace([.. items.Cast<string>()]);
                 Options.EasyMetadataIndex = eld.SelectedIndex;
 
                 UpdateEasyMetadataControlsA();
@@ -555,15 +555,15 @@ namespace EasyFileManager
 
         private void CleanUpEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = Options.CleanUpParameters.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
+            List<object> items = [.. Options.CleanUpParameters.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue())];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
-            object[] oa = EasyCleanUpParameter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            object[] oa = [.. EasyCleanUpParameter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue())];
             eld.OnAddItem = () =>
             {
                 using DropDownListDialog ddld = new(oa, 0, font: Font);
                 while (ddld.ShowDialog() == DialogResult.OK)
                 {
-                    if (!eld.Items.Contains(ddld.SelectedItem))
+                    if (ddld.SelectedItem is object o && !eld.Items.Contains(o))
                     {
                         eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
                         break;
@@ -585,15 +585,15 @@ namespace EasyFileManager
 
         private void DuplicatesCompareEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = Options.DuplicatesCompareParameters.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
+            List<object> items = [.. Options.DuplicatesCompareParameters.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue())];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
-            object[] oa = EasyCompareParameter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            object[] oa = [.. EasyCompareParameter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue())];
             eld.OnAddItem = () =>
             {
                 using DropDownListDialog ddld = new(oa, 0, font: Font);
                 while (ddld.ShowDialog() == DialogResult.OK)
                 {
-                    if (!eld.Items.Contains(ddld.SelectedItem))
+                    if (ddld.SelectedItem is object o && !eld.Items.Contains(o))
                     {
                         eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
                         break;
@@ -622,7 +622,7 @@ namespace EasyFileManager
             }
             UpdateApplyButton(true);
 
-            List<Action<CancellationToken>> actions = new();
+            List<Action<CancellationToken>> actions = [];
             if (Options.HasCustomizing())
             {
                 actions.Add(Customize);
@@ -647,7 +647,7 @@ namespace EasyFileManager
                 Logger.Reset();
             }
             EasyMetadata.Options.Reset();
-            await UpdateAsync(actions.ToArray());
+            await UpdateAsync([.. actions]);
 
             Folders.Replace(Folder.GetDirectoryPaths());
             Files.Replace(Folder.GetFilePaths());
@@ -688,15 +688,15 @@ namespace EasyFileManager
 
         private void SubfoldersEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = Options.Subfolders.Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
+            List<object> items = [.. Options.Subfolders.Select(x => (object)x.GetEasyGlobalStringValue())];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDown);
-            object[] oa = Enum.GetValues<EasySubfolder>().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            object[] oa = [.. Enum.GetValues<EasySubfolder>().Select(x => x.GetEasyGlobalStringValue())];
             eld.OnAddItem = () =>
             {
                 using DropDownListDialog ddld = new(oa, 0, font: Font);
-                if (ddld.ShowDialog() == DialogResult.OK)
+                if (ddld.ShowDialog() == DialogResult.OK && ddld.SelectedItem is object o)
                 {
-                    eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
+                    eld.SelectedIndex = eld.Items.Add(o);
                 }
                 return Task.CompletedTask;
             };
@@ -711,15 +711,15 @@ namespace EasyFileManager
 
         private void FilterEditButton_Click(object? sender, EventArgs e)
         {
-            List<object> items = Options.TypeFilter.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue()).ToList();
+            List<object> items = [.. Options.TypeFilter.GetContainingFlags().Select(x => (object)x.GetEasyGlobalStringValue())];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemove);
-            object[] oa = EasyTypeFilter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            object[] oa = [.. EasyTypeFilter.All.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue())];
             eld.OnAddItem = () =>
             {
                 using DropDownListDialog ddld = new(oa, 0, font: Font);
                 while (ddld.ShowDialog() == DialogResult.OK)
                 {
-                    if (!eld.Items.Contains(ddld.SelectedItem))
+                    if (ddld.SelectedItem is object o && !eld.Items.Contains(o))
                     {
                         eld.SelectedIndex = eld.Items.Add(ddld.SelectedItem);
                         break;
@@ -1094,7 +1094,10 @@ namespace EasyFileManager
 
         private void DateFormatComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            Options.DateFormat = (string)DateFormatComboBox.SelectedItem;
+            if (DateFormatComboBox.SelectedItem is object o)
+            {
+                Options.DateFormat = (string)o;
+            }
             UpdateExplorerView();
         }
 

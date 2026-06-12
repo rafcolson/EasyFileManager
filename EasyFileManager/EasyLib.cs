@@ -51,14 +51,14 @@ namespace EasyFileManager
             {
                 if (!ContainsKey(o))
                 {
-                    this[o] = new();
+                    this[o] = [];
                 }
                 this[o].Add(ef);
             }
 
             public void Filter(bool dispose = false)
             {
-                List<object> l = new();
+                List<object> l = [];
                 foreach (KeyValuePair<object, EasyFiles> kvp in this)
                 {
                     if (kvp.Value.Count == 1)
@@ -99,7 +99,7 @@ namespace EasyFileManager
                 Union(id);
             }
 
-            public string[][] GetFilePaths() => Values.Select(x => x.GetPaths()).ToArray();
+            public string[][] GetFilePaths() => [.. Values.Select(x => x.GetPaths())];
 
             public override string ToString() => GetFilePaths().ToJson();
         }
@@ -107,16 +107,18 @@ namespace EasyFileManager
         public static Map<string, string[][]> GetDuplicates(string[] filePaths, EasyCompareParameter parameters)
         {
             Array.Sort(filePaths);
-            Map<string, Lib> m = new();
+            Map<string, Lib> m = [];
             foreach (string p in filePaths)
             {
                 EasyFile ef = new(p);
                 string ext = ef.Extension.ToUpper();
-                if (!m.ContainsKey(ext))
+                if (!m.TryGetValue(ext, out Lib? value))
                 {
-                    m[ext] = new();
+                    value = new();
+                    m[ext] = value;
                 }
-                m[ext].Put(string.Empty, ef);
+
+                value.Put(string.Empty, ef);
             }
             Lib lib;
             foreach (KeyValuePair<string, Lib> kvp in m)
@@ -125,7 +127,7 @@ namespace EasyFileManager
                 {
                     foreach (object o in kvp.Value.GetKeys())
                     {
-                        List<EasyFile> l = kvp.Value[o].Cast<EasyFile>().ToList();
+                        List<EasyFile> l = [.. kvp.Value[o].Cast<EasyFile>()];
                         lib = new();
                         switch (ecp)
                         {
@@ -198,7 +200,7 @@ namespace EasyFileManager
                     }
                 }
             }
-            Map<string, string[][]> duplicates = new();
+            Map<string, string[][]> duplicates = [];
             foreach (KeyValuePair<string, Lib> kvp in m)
             {
                 if (kvp.Value.Any())
@@ -219,9 +221,9 @@ namespace EasyFileManager
 
         public string Info { get; private set; } = EMPTY_STRING;
         public int Value { get; private set; } = 0;
-        public int MaxValue { get => _maxValue; set { if (value < 0) { throw new ArgumentOutOfRangeException(nameof(MaxValue)); } _maxValue = value; } }
-        public int StepIndex { get => _stepIndex; set { if (value < 0) { throw new ArgumentOutOfRangeException(nameof(StepIndex)); } _stepIndex = value; } }
-        public int NumSteps { get => _numSteps; set { if (value < 1) { throw new ArgumentOutOfRangeException(nameof(NumSteps)); } _numSteps = value; } }
+        public int MaxValue { get => _maxValue; set { ArgumentOutOfRangeException.ThrowIfNegative(value); _maxValue = value; } }
+        public int StepIndex { get => _stepIndex; set { ArgumentOutOfRangeException.ThrowIfNegative(value); _stepIndex = value; } }
+        public int NumSteps { get => _numSteps; set { ArgumentOutOfRangeException.ThrowIfLessThan(value, 1); _numSteps = value; } }
         public EasyProgress(Action<int> handler) : base(handler) { MaxValue = 100; StepIndex = 0; NumSteps = 1; }
         public static int GetValue(int value, int maxValue, int stepIndex, int numSteps)
         {
@@ -248,10 +250,9 @@ namespace EasyFileManager
     }
 
     [AttributeUsage(AttributeTargets.Field)]
-    public class EasyGlobalStringValueAttribute : Attribute
+    public class EasyGlobalStringValueAttribute(string name) : Attribute
     {
-        public string Value { get; protected set; }
-        public EasyGlobalStringValueAttribute(string name) => Value = Globals.ResourceManager.GetString(name) is string s ? s : string.Empty;
+        public string Value { get; protected set; } = Globals.ResourceManager.GetString(name) is string s ? s : string.Empty;
     }
 
     [Flags]
@@ -523,11 +524,20 @@ namespace EasyFileManager
 
     public class EasyOptions
     {
-        private static JsonSerializerOptions JsonSerializerOptions => new()
+        // Cache and reuse JsonSerializerOptions instances to fix CA1869
+        private static readonly JsonSerializerOptions CachedJsonSerializerOptions = new()
         {
             Converters = { EasyFileManager.EasyMetadata.JsonConverter },
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             WriteIndented = true,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true
+        };
+
+        private static readonly JsonSerializerOptions CachedJsonSerializerOptionsWithNoIgnore = new()
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             IgnoreReadOnlyFields = true,
             IgnoreReadOnlyProperties = true
         };
@@ -592,17 +602,17 @@ namespace EasyFileManager
         public EasyCleanUpParameter CleanUpParameters { get; set; } = EasyCleanUpParameter.Default;
         public EasyCompareParameter DuplicatesCompareParameters { get; set; } = EasyCompareParameter.Default;
 
-        public List<EasyList<string>> Keywords { get; set; } = new();
-        public Dictionary<string, GeoCoordinates?> GeoAreas { get; set; } = new();
-        public EasyList<string> EasyMetadata { get; set; } = new();
-        public EasyList<string> Dates { get; set; } = new();
-        public EasyList<EasySubfolder> Subfolders { get; set; } = new();
+        public List<EasyList<string>> Keywords { get; set; } = [];
+        public Dictionary<string, GeoCoordinates?> GeoAreas { get; set; } = [];
+        public EasyList<string> EasyMetadata { get; set; } = [];
+        public EasyList<string> Dates { get; set; } = [];
+        public EasyList<EasySubfolder> Subfolders { get; set; } = [];
 
         public EasyOptions() { }
 
         public EasyOptions(string json)
         {
-            if (!string.IsNullOrEmpty(json) && JsonSerializer.Deserialize<EasyOptions>(json, JsonSerializerOptions) is EasyOptions eo)
+            if (!string.IsNullOrEmpty(json) && JsonSerializer.Deserialize<EasyOptions>(json, CachedJsonSerializerOptions) is EasyOptions eo)
             {
                 Title = eo.Title;
                 Subject = eo.Subject;
@@ -683,7 +693,7 @@ namespace EasyFileManager
             return FinalizeEnabled && ((CleanUpEnabled && CleanUpParameters != EasyCleanUpParameter.None) || (DuplicatesState != CheckState.Unchecked && DuplicatesCompareParameters != EasyCompareParameter.None));
         }
 
-        public override string ToString() => JsonSerializer.Serialize(this, JsonSerializerOptions);
+        public override string ToString() => JsonSerializer.Serialize(this, CachedJsonSerializerOptions);
     }
 
     public class EasyMetadata
@@ -716,9 +726,16 @@ namespace EasyFileManager
 
         public static JsonConverter JsonConverter => new EasyMetadataJsonConverter();
 
-        private static JsonSerializerOptions JsonSerializerOptions => new()
+        private static readonly JsonSerializerOptions CachedJsonSerializerOptions = new()
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true
+        };
+        private static readonly JsonSerializerOptions CachedJsonSerializerOptionsWithNoIgnore = new()
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             IgnoreReadOnlyFields = true,
             IgnoreReadOnlyProperties = true
@@ -735,7 +752,7 @@ namespace EasyFileManager
 
         public EasyMetadata(string json)
         {
-            if (!string.IsNullOrEmpty(json) && JsonSerializer.Deserialize<EasyMetadata>(json, JsonSerializerOptions) is EasyMetadata emd)
+            if (!string.IsNullOrEmpty(json) && JsonSerializer.Deserialize<EasyMetadata>(json, CachedJsonSerializerOptions) is EasyMetadata emd)
             {
                 Date = emd.Date;
                 GeoArea = emd.GeoArea;
@@ -748,9 +765,9 @@ namespace EasyFileManager
 
         public Map<string, object?> ToMap() => new(ToJson());
 
-        public string ToJson() => JsonSerializer.Serialize(this, new JsonSerializerOptions(JsonSerializerOptions) { DefaultIgnoreCondition = JsonIgnoreCondition.Never });
+        public string ToJson() => JsonSerializer.Serialize(this, CachedJsonSerializerOptionsWithNoIgnore);
 
-        public override string ToString() => JsonSerializer.Serialize(this, JsonSerializerOptions);
+        public override string ToString() => JsonSerializer.Serialize(this, CachedJsonSerializerOptions);
     }
 
     public class EasyList<T> : List<T>
@@ -862,7 +879,7 @@ namespace EasyFileManager
 
         public new int RemoveAll(Predicate<EasyPath> predicate)
         {
-            EasyPaths<T> el = new(this);
+            EasyPaths<T> el = [.. this];
             int result = base.RemoveAll(predicate);
             el.ExceptWith(this);
             el.Clear();
@@ -877,7 +894,7 @@ namespace EasyFileManager
 
         public new void RemoveRange(int index, int count)
         {
-            EasyPaths<T> el = new(this);
+            EasyPaths<T> el = [.. this];
             base.RemoveRange(index, count);
             el.ExceptWith(this);
             el.Clear();
@@ -898,9 +915,9 @@ namespace EasyFileManager
             AddRange(paths, readShell);
         }
 
-        public string[] GetPaths() => ToArray().Select(x => x.Path).ToArray();
+        public string[] GetPaths() => [.. ToArray().Select(x => x.Path)];
 
-        public string[] GetRawPaths() => ToArray().Select(x => x.RawPath).ToHashSet().ToArray();
+        public string[] GetRawPaths() => [.. ToArray().Select(x => x.RawPath)];
 
         public override string ToString() => ToArray().ToJson(EasyPath.JsonConverter);
     }
@@ -917,65 +934,65 @@ namespace EasyFileManager
 
         public new IEnumerator<EasyFolder> GetEnumerator()
         {
-            using IEnumerator<EasyPath> ie = base.GetEnumerator();
-            while (ie.MoveNext())
+            var enumerator = base.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                yield return (EasyFolder)ie.Current;
+                yield return (EasyFolder)enumerator.Current;
             }
         }
 
         public override EasyFolder? Add(string path, bool readShell = true)
         {
-            if (!Contains(path))
+        if (!Contains(path))
+        {
+            EasyFolder ed;
+            try
             {
-                EasyFolder ed;
-                try
-                {
-                    ed = new(path, readShell);
-                    Add(ed);
-                    return ed;
-                }
-                catch (ArgumentException) { }
+                ed = new(path, readShell);
+                Add(ed);
+                return ed;
             }
-            return null;
+            catch (ArgumentException) { }
         }
+        return null;
     }
+}
 
-    public class EasyFiles : EasyPaths<EasyFile>
+public class EasyFiles : EasyPaths<EasyFile>
+{
+    public new EasyFile this[int index] { get => (EasyFile)base[index]; set => base[index] = value; }
+
+    public EasyFiles() { }
+
+    public EasyFiles(IEnumerable<string> paths) => AddRange(paths);
+
+    public EasyFiles(IEnumerable<EasyFile> easyFiles) => AddRange(easyFiles);
+
+    public new IEnumerator<EasyFile> GetEnumerator()
     {
-        public new EasyFile this[int index] { get => (EasyFile)base[index]; set => base[index] = value; }
-
-        public EasyFiles() { }
-
-        public EasyFiles(IEnumerable<string> paths) => AddRange(paths);
-
-        public EasyFiles(IEnumerable<EasyFile> easyFiles) => AddRange(easyFiles);
-
-        public new IEnumerator<EasyFile> GetEnumerator()
+        var enumerator = base.GetEnumerator();
+        while (enumerator.MoveNext())
         {
-            using IEnumerator<EasyPath> ie = base.GetEnumerator();
-            while (ie.MoveNext())
-            {
-                yield return (EasyFile)ie.Current;
-            }
-        }
-
-        public override EasyFile? Add(string path, bool readShell = true)
-        {
-            if (!Contains(path))
-            {
-                EasyFile ef;
-                try
-                {
-                    ef = new(path, readShell);
-                    Add(ef);
-                    return ef;
-                }
-                catch (ArgumentException) { }
-            }
-            return null;
+            yield return (EasyFile)enumerator.Current;
         }
     }
+
+    public override EasyFile? Add(string path, bool readShell = true)
+    {
+        if (!Contains(path))
+        {
+            EasyFile ef;
+            try
+            {
+                ef = new(path, readShell);
+                Add(ef);
+                return ef;
+            }
+            catch (ArgumentException) { }
+        }
+        return null;
+    }
+}
 
     public class EasyPath : IDisposable, IEquatable<EasyPath>, IComparable<EasyPath>
     {
@@ -1380,7 +1397,7 @@ namespace EasyFileManager
         {
             get
             {
-                List<DateTime> l = new();
+                List<DateTime> l = [];
                 if (DateFromEasyMetadata is DateTime dfem)
                 {
                     l.Add(dfem);
@@ -1397,7 +1414,7 @@ namespace EasyFileManager
                 {
                     l.Add(de);
                 }
-                return l.Any() ? l.Min() : null;
+                return l.Count != 0 ? l.Min() : null;
             }
         }
 
@@ -1422,7 +1439,7 @@ namespace EasyFileManager
         }
         public string[] Keywords
         {
-            get => _shellObject is ShellObject so && so.Properties.System.Keywords.Value is string[] kw ? kw : Array.Empty<string>();
+            get => _shellObject is ShellObject so && so.Properties.System.Keywords.Value is string[] kw ? kw : [];
             set { if (_shellObject is ShellObject so) { so.Properties.System.Keywords.Value = value; } }
         }
         public string? AreaInfoFromEasyMetadata
@@ -1517,20 +1534,20 @@ namespace EasyFileManager
                 uint denominator = 10000;
                 so.Properties.System.GPS.LatitudeRef.Value = latRef;
                 so.Properties.System.GPS.LongitudeRef.Value = lonRef;
-                so.Properties.System.GPS.LatitudeNumerator.Value = new uint[]
-                {
+                so.Properties.System.GPS.LatitudeNumerator.Value =
+                [
                     (uint)latCoords[0],
                     (uint)latCoords[1],
                     (uint)(latCoords[2] * denominator)
-                };
-                so.Properties.System.GPS.LongitudeNumerator.Value = new uint[]
-                {
+                ];
+                so.Properties.System.GPS.LongitudeNumerator.Value =
+                [
                     (uint)lonCoords[0],
                     (uint)lonCoords[1],
                     (uint)(lonCoords[2] * denominator)
-                };
-                so.Properties.System.GPS.LatitudeDenominator.Value = new uint[] { 1, 1, denominator };
-                so.Properties.System.GPS.LongitudeDenominator.Value = new uint[] { 1, 1, denominator };
+                ];
+                so.Properties.System.GPS.LatitudeDenominator.Value = [1, 1, denominator];
+                so.Properties.System.GPS.LongitudeDenominator.Value = [1, 1, denominator];
                 return true;
             }
             return false;
@@ -1623,11 +1640,11 @@ namespace EasyFileManager
 
         public bool AddKeyword(string keyword)
         {
-            List<string> l = Keywords.ToList();
+            List<string> l = [.. Keywords];
             if (!l.Contains(keyword))
             {
                 l.Add(keyword);
-                Keywords = l.ToArray();
+                Keywords = [.. l];
                 return true;
             }
             return false;
@@ -1635,10 +1652,10 @@ namespace EasyFileManager
 
         public bool RemoveKeyword(string keyword)
         {
-            List<string> l = Keywords.ToList();
+            List<string> l = [.. Keywords];
             if (l.Remove(keyword))
             {
-                Keywords = l.ToArray();
+                Keywords = [.. l];
                 return true;
             }
             return false;
@@ -1651,7 +1668,7 @@ namespace EasyFileManager
             {
                 case EasyFileProperty.Title: if (!string.IsNullOrEmpty(Title)) { Title = string.Empty; result = true; }; break;
                 case EasyFileProperty.Comment: if (!string.IsNullOrEmpty(Comment)) { Comment = string.Empty; result = true; }; break;
-                case EasyFileProperty.Keywords: if (Keywords.Any()) { Keywords = Array.Empty<string>(); result = true; }; break;
+                case EasyFileProperty.Keywords: if (Keywords.Length != 0) { Keywords = []; result = true; }; break;
                 case EasyFileProperty.GPSCoordinates: if (_geoCoordinates != null || ReadGeoCoordinates()) { _geoCoordinates = null; WriteGeoCoordinates(); result = true; } break;
                 case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { _areaInfo = string.Empty; result = WriteAreaInfo(); }; break;
                 case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { _easyMetadata = null; WriteEasyMetaData(); result = true; } break;
@@ -1896,12 +1913,12 @@ namespace EasyFileManager
                 if (options.CommentEnabled) { Comment = options.Comment; }
                 if (options.KeywordsState != CheckState.Unchecked)
                 {
-                    List<string> l = options.KeywordsState == CheckState.Indeterminate ? Keywords.ToList() : new();
+                    List<string> l = options.KeywordsState == CheckState.Indeterminate ? [.. Keywords] : new();
                     if (options.KeywordsIndex != -1)
                     {
                         l.AddRange(options.Keywords[options.KeywordsIndex]);
                     }
-                    Keywords = l.ToArray();
+                    Keywords = [.. l];
                 }
                 if (options.GeolocationEnabled && (options.WriteGPSEasyMetadata || options.WriteGPSCoords || options.WriteGPSAreaInfo))
                 {

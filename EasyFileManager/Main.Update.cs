@@ -215,7 +215,7 @@ namespace EasyFileManager
         private void UpdateKeywordsControlsA()
         {
             KeywordsComboBox.Items.Clear();
-            KeywordsComboBox.Items.AddRange(Options.Keywords.ToArray());
+            KeywordsComboBox.Items.AddRange([.. Options.Keywords]);
             KeywordsComboBox.SelectedIndex = Options.KeywordsIndex;
             UpdateKeywordsControlsB();
         }
@@ -244,14 +244,14 @@ namespace EasyFileManager
             GPSComboBox.Items.Clear();
             if (Options.GPSSourceIndex == 0)
             {
-                items = Options.GeoAreas.Cast<object>().ToArray();
+                items = [.. Options.GeoAreas.Cast<object>()];
                 GPSComboBox.Items.AddRange(items);
                 GPSComboBox.SelectedIndex = Options.GPSCustomIndex;
                 GPSEditButton.Visible = true;
             }
             else
             {
-                items = Enum.GetValues<GeoAreaDescription>().Select(x => x.GetGlobalStringValue()).ToArray();
+                items = [.. Enum.GetValues<GeoAreaDescription>().Select(x => x.GetGlobalStringValue())];
                 GPSComboBox.Items.AddRange(items);
                 GPSComboBox.SelectedIndex = Options.GPSAreaIndex;
                 GPSEditButton.Visible = false;
@@ -283,20 +283,20 @@ namespace EasyFileManager
             {
                 case CheckState.Unchecked:
                 default:
-                    items = Array.Empty<object>();
+                    items = [];
                     DateGroupBox.Text = Globals.DateDefault;
                     DateEditButton.Visible = true;
                     break;
                 case CheckState.Checked:
                     DateGroupBox.Text = Globals.DateCustomize;
-                    items = Options.Dates.ToArray();
+                    items = [.. Options.Dates];
                     DateComboBox.Items.AddRange(items);
                     DateComboBox.SelectedIndex = Options.DateCustomIndex;
                     DateEditButton.Visible = true;
                     break;
                 case CheckState.Indeterminate:
                     DateGroupBox.Text = Globals.DateMetadata;
-                    items = Enum.GetValues<EasyDateSource>().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+                    items = [.. Enum.GetValues<EasyDateSource>().Select(x => x.GetEasyGlobalStringValue())];
                     DateComboBox.Items.AddRange(items);
                     DateComboBox.SelectedIndex = Options.DateSourceIndex;
                     DateEditButton.Visible = false;
@@ -317,7 +317,7 @@ namespace EasyFileManager
         private void UpdateEasyMetadataControlsA()
         {
             EasyMetadataComboBox.Items.Clear();
-            EasyMetadataComboBox.Items.AddRange(Options.EasyMetadata.ToArray());
+            EasyMetadataComboBox.Items.AddRange([.. Options.EasyMetadata]);
             EasyMetadataComboBox.SelectedIndex = Options.EasyMetadataIndex;
             UpdateEasyMetadataControlsB();
         }
@@ -346,7 +346,7 @@ namespace EasyFileManager
 
         private void UpdateFolderControlsB()
         {
-            string[] sa = Options.Subfolders.Select(x => $"{LEFT_CURLY_BRACE}{x.GetEasyGlobalStringValue()}{RIGHT_CURLY_BRACE}").ToArray();
+            string[] sa = [.. Options.Subfolders.Select(x => $"{LEFT_CURLY_BRACE}{x.GetEasyGlobalStringValue()}{RIGHT_CURLY_BRACE}")];
             SubfoldersTextBox.Text = string.Join($"{SPACE}{BACKSLASH}{SPACE}", sa);
         }
 
@@ -362,7 +362,7 @@ namespace EasyFileManager
 
         private void UpdateFilterControlsB()
         {
-            string[] sa = Options.TypeFilter.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            string[] sa = [.. Options.TypeFilter.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue())];
             FilterTypeTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
         }
 
@@ -378,7 +378,7 @@ namespace EasyFileManager
 
         private void UpdateCleanUpControlsB()
         {
-            string[] sa = Options.CleanUpParameters.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            string[] sa = [.. Options.CleanUpParameters.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue())];
             CleanUpTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
         }
 
@@ -402,7 +402,7 @@ namespace EasyFileManager
 
         private void UpdateDuplicatesControlsB()
         {
-            string[] sa = Options.DuplicatesCompareParameters.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue()).ToArray();
+            string[] sa = [.. Options.DuplicatesCompareParameters.GetContainingFlags().Select(x => x.GetEasyGlobalStringValue())];
             DuplicatesCompareTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
         }
 
@@ -419,7 +419,7 @@ namespace EasyFileManager
 
             if (!apply)
             {
-                if (!GetSelectedFilePaths().Any())
+                if (GetSelectedFilePaths().Length == 0)
                 {
                     ClearFormatting();
                     return;
@@ -485,7 +485,7 @@ namespace EasyFileManager
             OrderedMap<string, string> om = new(GetAllPaths(dp, true).ToDictionary(s => s));
             DataGridViewRowCollection rows = ExplorerDataGridView.Rows;
 
-            EasyFiles viewFiles = new();
+            EasyFiles viewFiles = [];
             foreach (DataGridViewRow row in rows)
             {
                 if (row.Tag is EasyFile ef)
@@ -493,7 +493,7 @@ namespace EasyFileManager
                     viewFiles.Add(ef);
                 }
             }
-            EasyFiles selectedFiles = new();
+            EasyFiles selectedFiles = [];
             foreach (DataGridViewRow row in ExplorerDataGridView.SelectedRows)
             {
                 if (row.Tag is EasyFolder ed)
@@ -513,7 +513,7 @@ namespace EasyFileManager
                     }
                 }
             }
-            EasyFiles selectedViewFiles = new();
+            EasyFiles selectedViewFiles = [];
             numValues = selectedFiles.Count;
             for (int i = 0; i < numValues; i++)
             {
@@ -640,7 +640,7 @@ namespace EasyFileManager
 
             Progress.Report(EasyProgress.GetValue(1, maxValue, 0, numSubSteps));
 
-            List<string> l = new();
+            List<string> l = [];
             foreach (DataGridViewRow row in ExplorerDataGridView.SelectedRows)
             {
                 if (row.Tag is EasyFolder ed)
@@ -704,7 +704,7 @@ namespace EasyFileManager
                 {
                     string p = fpa[fpai];
                     using EasyFolder ed = new(p);
-                    if (!ed.GetAllPaths().Any())
+                    if (ed.GetAllPaths().Length == 0)
                     {
                         Progress.Report(EasyProgress.GetValue(((maxValue * fpai) / fpan), maxValue, i, numSubSteps), $"Deleting empty folder: {p}");
                         if (ed.Delete() && Options.LogApplicationEvents)
@@ -777,9 +777,9 @@ namespace EasyFileManager
                     {
                         foreach (string[] sa in nsa)
                         {
-                            EasyPaths<EasyPath> easyPaths = new(sa.Select(x => new EasyPath(x)));
-                            Image[] images = easyPaths.SelectWhereNotNull(x => x.ExtraLargeThumbnail).ToArray();
-                            using ImageTableDialog itd = new(images, Screen.PrimaryScreen.Bounds.Size, 0, buttons: DialogResultFlags.YesNo);
+                            EasyPaths<EasyPath> easyPaths = [.. sa.Select(x => new EasyPath(x))];
+                            Image[] images = [.. easyPaths.SelectWhereNotNull(x => x.ExtraLargeThumbnail)];
+                            using ImageTableDialog itd = new(images, Screen.PrimaryScreen!.Bounds.Size, 0, buttons: DialogResultFlags.YesNo);
                             itd.OnSelectedIndexChanged = () =>
                             {
                                 itd.CaptionText = string.Format(deleteOrStore, sa[itd.SelectedIndex]);
@@ -819,7 +819,7 @@ namespace EasyFileManager
                         {
                             foreach (string[] sa in nsa)
                             {
-                                List<string> l = new(sa);
+                                List<string> l = [.. sa];
                                 l.RemoveAt(0);
                                 foreach (string s in l)
                                 {
@@ -975,7 +975,7 @@ namespace EasyFileManager
             string ext = ep.Extension;
             if (!string.IsNullOrEmpty(ext))
             {
-                ext = $" ({ep.Extension.ToUpper()})";
+                ext = $" ({[.. ep.Extension]})";
             }
             PropsDataGridView.AddRow(Globals.Type, $"{ep.Type.GetEasyGlobalStringValue()}{ext}");
             PropsDataGridView.AddRow(Globals.Size, $"{mb} MB");
@@ -1048,7 +1048,7 @@ namespace EasyFileManager
             IsUpdating = false;
         }
 
-        private async Task<bool> UpdateAsync(Action<CancellationToken> action) => await UpdateAsync(new Action<CancellationToken>[] { action });
+        private async Task<bool> UpdateAsync(Action<CancellationToken> action) => await UpdateAsync([action]);
 
         private async Task<bool> UpdateAsync(Action<CancellationToken>[] actions)
         {

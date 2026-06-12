@@ -14,14 +14,14 @@ namespace EasyFileManager
         private EasyList<string>? GetKeywords(object? editItem = null)
         {
             editItem ??= new EasyList<string>();
-            List<object> items = new((EasyList<string>)editItem);
+            List<object> items = [.. (EasyList<string>)editItem];
             using EditListDialog eld = new(ref items, font: Font, editButtons: Buttons.EditButtons.AddRemoveRenameMoveUpMoveDownSort);
-            return eld.ShowDialog() == DialogResult.OK ? new EasyList<string>(items.Cast<string>()) : null;
+            return eld.ShowDialog() == DialogResult.OK ? [.. items.Cast<string>()] : null;
         }
 
         private string[] GetSelectedFilePaths(bool recursive = false)
         {
-            List<string> l = new();
+            List<string> l = [];
             foreach (DataGridViewRow row in ExplorerDataGridView.SelectedRows)
             {
                 if (row.Tag is EasyFile ef)
@@ -33,12 +33,12 @@ namespace EasyFileManager
                     l.AddRange(ed.GetFilePaths(true));
                 }
             }
-            return l.ToArray();
+            return [.. l];
         }
 
         private string[] GetSelectedFolderPaths(bool recursive = false)
         {
-            List<string> l = new();
+            List<string> l = [];
             foreach (DataGridViewRow row in ExplorerDataGridView.SelectedRows)
             {
                 if (row.Tag is EasyFolder ed)
@@ -50,7 +50,7 @@ namespace EasyFileManager
                     l.Add(ed.Path);
                 }
             }
-            return l.ToArray();
+            return [.. l];
         }
 
         private object? GetDate(object? editItem = null)
@@ -66,7 +66,7 @@ namespace EasyFileManager
             return id.ShowDialog() == DialogResult.OK ? m[string.Empty] : null;
         }
 
-        private object? GetEasyMetadata(object? editItem = null)
+        private string? GetEasyMetadata(object? editItem = null)
         {
             EasyMetadata emd = editItem is not string s || string.IsNullOrEmpty(s) ? new() : new(s);
             Map<string, object?> m = emd.ToMap();
@@ -141,7 +141,7 @@ namespace EasyFileManager
 
         private static void CloseForms(bool includeMainForm = true, CloseReason closeReason = CloseReason.None)
         {
-            Form[] forms = Application.OpenForms.Cast<Form>().ToArray();
+            Form[] forms = [.. Application.OpenForms.Cast<Form>()];
             for (int i = forms.Length - 1; i >= Convert.ToSingle(!includeMainForm); i--)
             {
                 Form form = forms[i];
@@ -206,7 +206,7 @@ namespace EasyFileManager
 
         private static string[] GetFilteredFilePaths(string[] paths, EasyTypeFilter typeFilter, EasyNameFilter nameFilter = default, string filterString = EMPTY_STRING)
         {
-            return paths.Where(path => NameFilteredPathExists(path, nameFilter, filterString) && TypeFilteredPathExists(path, typeFilter)).ToArray();
+            return [.. paths.Where(path => NameFilteredPathExists(path, nameFilter, filterString) && TypeFilteredPathExists(path, typeFilter))];
         }
 
         //private static bool SetAddRemoveProgramsIcon()
