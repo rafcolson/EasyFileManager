@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -272,6 +272,12 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>Tamaño</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Destino</value>
+  </data>
+  <data name="TargetSize" xml:space="preserve">
+    <value>Tamaño del destino</value>
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Asunto</value>

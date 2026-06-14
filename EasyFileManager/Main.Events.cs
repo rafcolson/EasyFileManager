@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Diagnostics;
 
 using WinFormsLib;
@@ -54,11 +54,11 @@ namespace EasyFileManager
             DataGridViewRow row = ExplorerDataGridView.Rows[e.RowIndex];
             if (row.Tag is EasyFolder ed)
             {
-                Update(ed.Path);
+                Update(GetExplorerPath(ed));
             }
             else if (row.Tag is EasyFile ef)
             {
-                Process.Start(EXPLORER_EXE, ef.Path);
+                Process.Start(EXPLORER_EXE, GetExplorerPath(ef));
             }
         }
 
@@ -285,9 +285,15 @@ namespace EasyFileManager
             {
                 if (dgv.SelectedRows.Count == 1 && dgv.SelectedRows[0].Tag is EasyPath ep)
                 {
-                    Process.Start(EXPLORER_EXE, open ? ep.Path : ep.ParentPath);
+                    string path = GetExplorerPath(ep);
+                    Process.Start(EXPLORER_EXE, open ? path : GetParentPath(path));
                 }
             }
+        }
+
+        private static string GetExplorerPath(EasyPath easyPath)
+        {
+            return easyPath.TargetPath ?? easyPath.Path;
         }
 
         #endregion

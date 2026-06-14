@@ -107,13 +107,4 @@
     <ProjectReference Include="..\..\DotNetHelper\WinFormsLib\WinFormsLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Microsoft.WindowsAPICodePack">
-      <HintPath>Resources\Assemblies\Microsoft.WindowsAPICodePack.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
-      <HintPath>Resources\Assemblies\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

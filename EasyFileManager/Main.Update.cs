@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 using WinFormsLib;
 
@@ -937,38 +937,11 @@ namespace EasyFileManager
                 return;
             }
             PropsDataGridView.SuspendLayout();
-            if (!ep.UpdateSize())
+            if (!await UpdateSizeAsync(ep))
             {
-                Debug.WriteLine($"Updating size async");
-
-                bool aborted = false;
-                Task t = RunCancellableTask(() =>
-                {
-                    Progress.Report(99, ep.Path);
-                    try
-                    {
-                        long l = 0;
-                        foreach (FileInfo fi in new DirectoryInfo(ep.Path).EnumerateFiles("*", SearchOption.AllDirectories))
-                        {
-                            _cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                            l += fi.Length;
-                        }
-                        ep.UpdateSize(l);
-                    }
-                    catch (OperationCanceledException) { aborted = true; }
-                    Progress.Report(100, ep.Path);
-                }, _cancellationTokenSource, () =>
-                {
-                    Debug.WriteLine($"Updating size async {(aborted ? "aborted" : "finished")}");
-                });
-                _task = t;
-                await t;
-                if (aborted)
-                {
-                    Progress.Report(100, ep.Path);
-                    IsUpdating = false;
-                    return;
-                }
+                Progress.Report(100, ep.Path);
+                IsUpdating = false;
+                return;
             }
             double mb = Math.Round(ep.Size / (double)1048576L, 2);
             PropsDataGridView.AddRow(Globals.Name, ep.Name);
@@ -977,8 +950,21 @@ namespace EasyFileManager
             {
                 ext = $" ({[.. ep.Extension]})";
             }
-            PropsDataGridView.AddRow(Globals.Type, $"{ep.Type.GetEasyGlobalStringValue()}{ext}");
+            PropsDataGridView.AddRow(Globals.Type, $"{GetTypeText(ep)}{ext}");
             PropsDataGridView.AddRow(Globals.Size, $"{mb} MB");
+            if (ep.IsSymbolicLink)
+            {
+                if (ep.TargetPath is string targetPath)
+                {
+                    PropsDataGridView.AddRow(Globals.Target, targetPath);
+                    using EasyPath targetPathInfo = new(targetPath);
+                    if (await UpdateSizeAsync(targetPathInfo))
+                    {
+                        double targetMb = Math.Round(targetPathInfo.Size / (double)1048576L, 2);
+                        PropsDataGridView.AddRow(Globals.TargetSize, $"{targetMb} MB");
+                    }
+                }
+            }
             bool showMillis = Properties.Settings.Default.ShowMilliseconds;
             if (ep.DateModified is DateTime dtm)
             {
@@ -1046,6 +1032,48 @@ namespace EasyFileManager
             PropsDataGridView.ResumeLayout(true);
 
             IsUpdating = false;
+        }
+
+        private static string GetTypeText(EasyPath easyPath)
+        {
+            string[] values = [.. easyPath.Type.GetContainingFlags()
+                .Select(type => type.GetEasyGlobalStringValue())
+                .Where(value => !string.IsNullOrEmpty(value))];
+            return values.Length == 0 ? easyPath.Type.GetEasyGlobalStringValue() : string.Join($" {VERTICAL_BAR} ", values);
+        }
+
+        private async Task<bool> UpdateSizeAsync(EasyPath easyPath)
+        {
+            if (easyPath.UpdateSize())
+            {
+                return true;
+            }
+
+            Debug.WriteLine("Updating size async");
+
+            bool aborted = false;
+            Task t = RunCancellableTask(() =>
+            {
+                Progress.Report(99, easyPath.Path);
+                try
+                {
+                    long l = 0;
+                    foreach (FileInfo fi in new DirectoryInfo(easyPath.Path).EnumerateFiles("*", SearchOption.AllDirectories))
+                    {
+                        _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                        l += fi.Length;
+                    }
+                    easyPath.UpdateSize(l);
+                }
+                catch (OperationCanceledException) { aborted = true; }
+                Progress.Report(100, easyPath.Path);
+            }, _cancellationTokenSource, () =>
+            {
+                Debug.WriteLine($"Updating size async {(aborted ? "aborted" : "finished")}");
+            });
+            _task = t;
+            await t;
+            return !aborted;
         }
 
         private async Task<bool> UpdateAsync(Action<CancellationToken> action) => await UpdateAsync([action]);

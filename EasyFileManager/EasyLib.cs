@@ -1,5 +1,3 @@
-﻿using Microsoft.WindowsAPICodePack.Shell;
-
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Text.Encodings.Web;
@@ -1037,6 +1035,7 @@ public class EasyFiles : EasyPaths<EasyFile>
         public bool IsHidden => _fileAttributes.HasFlag(FileAttributes.Hidden) || _path.StartsWith(PERIOD);
         public bool IsReadOnly => _fileAttributes.HasFlag(FileAttributes.ReadOnly);
         public bool IsSymbolicLink => _fileAttributes.HasFlag(FileAttributes.ReparsePoint);
+        public string? TargetPath => IsSymbolicLink ? IsFolder ? GetTargetDirectory(_path) : GetTargetFile(_path) : null;
         public EasyType Type
         {
             get
@@ -1221,20 +1220,6 @@ public class EasyFiles : EasyPaths<EasyFile>
                     ReadDateModified();
                     ReadDateCreated();
                 }
-                if (IsSymbolicLink)
-                {
-                    if (IsFolder)
-                    {
-                        if (GetTargetDirectory(path) is string td)
-                        {
-                            Initialize(td);
-                        }
-                    }
-                    else if (GetTargetFile(path) is string tf)
-                    {
-                        Initialize(tf);
-                    }
-                }
             }
             catch (Exception e)
             {
@@ -1283,7 +1268,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                         return false;
                     }
                 }
-                else if (IsFile && _shellObject is ShellObject so && so.Properties.System.FileAllocationSize.Value is ulong ul)
+                else if (IsFile && _shellObject is ShellObject so && so.Properties.System.Size.Value is ulong ul)
                 {
                     _size = Convert.ToInt64(ul);
                 }
