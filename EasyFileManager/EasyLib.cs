@@ -1465,12 +1465,18 @@ public class EasyFiles : EasyPaths<EasyFile>
         }
         private bool ReadGeoCoordinates()
         {
+            if (Type.HasFlag(EasyType.Video) && Properties.Settings.Default.ShowEmbeddedVideoGPS)
+            {
+                _geoCoordinates = ReadVideoGPSCoords(_path);
+                if (_geoCoordinates is GeoCoordinates gc && gc.IsValid) { return true; }
+            }
             if (_shellObject is ShellObject so)
             {
                 double[] lat = so.Properties.System.GPS.Latitude.Value;
                 double[] lon = so.Properties.System.GPS.Longitude.Value;
                 string latRef = so.Properties.System.GPS.LatitudeRef.Value;
                 string lonRef = so.Properties.System.GPS.LongitudeRef.Value;
+
                 if (lat != null && lon != null && !string.IsNullOrEmpty(latRef) & !string.IsNullOrEmpty(lonRef))
                 {
                     _geoCoordinates = new(lat, lon, latRef, lonRef);
@@ -1502,49 +1508,67 @@ public class EasyFiles : EasyPaths<EasyFile>
             if (_shellObject is ShellObject so && Type == EasyType.Video) { so.Properties.System.Media.DateEncoded.Value = DateEncoded; return true; }
             return false;
         }
-        private bool WriteAreaInfo(string? areaInfo = null)
+        private bool WriteAreaInfo()
         {
-            areaInfo ??= AreaInfo;
             if (_shellObject is ShellObject so && (EasyType.Image | EasyType.Video).HasFlag(Type))
             {
-                so.Properties.System.GPS.AreaInformation.Value = areaInfo;
+                so.Properties.System.GPS.AreaInformation.Value = AreaInfo;
                 return true;
             }
             return false;
         }
-        private bool WriteGeoCoordinates(double[] latCoords, double[] lonCoords, string latRef, string lonRef)
+        private bool WriteGeoCoordinates()
         {
-            if (_shellObject is ShellObject so && (EasyType.Image | EasyType.Video).HasFlag(Type))
+            if (_geoCoordinates == null || !_geoCoordinates.IsValid)
             {
-                uint denominator = 10000;
-                so.Properties.System.GPS.LatitudeRef.Value = latRef;
-                so.Properties.System.GPS.LongitudeRef.Value = lonRef;
-                so.Properties.System.GPS.LatitudeNumerator.Value =
-                [
-                    (uint)latCoords[0],
-                    (uint)latCoords[1],
-                    (uint)(latCoords[2] * denominator)
-                ];
-                so.Properties.System.GPS.LongitudeNumerator.Value =
-                [
-                    (uint)lonCoords[0],
-                    (uint)lonCoords[1],
-                    (uint)(lonCoords[2] * denominator)
-                ];
-                so.Properties.System.GPS.LatitudeDenominator.Value = [1, 1, denominator];
-                so.Properties.System.GPS.LongitudeDenominator.Value = [1, 1, denominator];
-                return true;
+                return DeleteGeoCoordinates();
             }
-            return false;
+            if (Type.HasFlag(EasyType.Video))
+            {
+                bool result = WriteVideoGPSCoords(_path, _geoCoordinates);
+                if (result) { Initialize(_path); }
+                return result;
+            }
+            if (_shellObject is not ShellObject so || !Type.HasFlag(EasyType.Image)) { return false; }
+            uint denominator = 10000;
+            so.Properties.System.GPS.LatitudeRef.Value = _geoCoordinates.LatitudeWindDirection;
+            so.Properties.System.GPS.LongitudeRef.Value = _geoCoordinates.LongitudeWindDirection;
+            so.Properties.System.GPS.LatitudeNumerator.Value =
+            [
+                (uint)_geoCoordinates.LatitudeCoordinates[0],
+                (uint)_geoCoordinates.LatitudeCoordinates[1],
+                (uint)(_geoCoordinates.LatitudeCoordinates[2] * denominator)
+            ];
+            so.Properties.System.GPS.LongitudeNumerator.Value =
+            [
+                (uint)_geoCoordinates.LongitudeCoordinates[0],
+                (uint)_geoCoordinates.LongitudeCoordinates[1],
+                (uint)(_geoCoordinates.LongitudeCoordinates[2] * denominator)
+            ];
+            so.Properties.System.GPS.LatitudeDenominator.Value = [1, 1, denominator];
+            so.Properties.System.GPS.LongitudeDenominator.Value = [1, 1, denominator];
+            return true;
         }
-        private bool WriteGeoCoordinates(GeoCoordinates? geoCoords = null)
+        private bool DeleteGeoCoordinates()
         {
-            geoCoords ??= GeoCoordinates ?? new();
-            return WriteGeoCoordinates(geoCoords.LatitudeCoordinates, geoCoords.LongitudeCoordinates, geoCoords.LatitudeWindDirection, geoCoords.LongitudeWindDirection);
+            if (Type.HasFlag(EasyType.Video))
+            {
+                bool result = WriteVideoGPSCoords(_path, null);
+                if (result) { Initialize(_path); }
+                return result;
+            }
+            if (_shellObject is not ShellObject so || !Type.HasFlag(EasyType.Image)) { return false; }
+            so.Properties.System.GPS.LatitudeRef.Value = string.Empty;
+            so.Properties.System.GPS.LongitudeRef.Value = string.Empty;
+            so.Properties.System.GPS.LatitudeNumerator.Value = [];
+            so.Properties.System.GPS.LongitudeNumerator.Value = [];
+            so.Properties.System.GPS.LatitudeDenominator.Value = [];
+            so.Properties.System.GPS.LongitudeDenominator.Value = [];
+            _geoCoordinates = null;
+            return true;
         }
-        private bool WriteEasyMetaData(EasyMetadata? easyMetadata = null)
+        private bool WriteEasyMetaData()
         {
-            easyMetadata ??= EasyMetadata;
             string delimiter = $"{nameof(EasyMetadata)}{EQUALS_SIGN}";
             string? keyword = null;
             foreach (string kw in Keywords)
@@ -1560,13 +1584,13 @@ public class EasyFiles : EasyPaths<EasyFile>
             bool? deleteOrOverwrite = delete ? EasyMetadata.Options.Delete : EasyMetadata.Options.Overwrite;
             if (keyword == null)
             {
-                if (easyMetadata == null)
+                if (EasyMetadata == null)
                 {
                     return false;
                 }
                 return AddKeyword($"{delimiter}{EasyMetadata}");
             }
-            string caption = easyMetadata == null ? Globals.DeleteEasyMetadata : Globals.OverwriteEasyMetadata;
+            string caption = EasyMetadata == null ? Globals.DeleteEasyMetadata : Globals.OverwriteEasyMetadata;
             if (deleteOrOverwrite == null)
             {
                 using MessageCheckDialog md = new(Globals.MessageCheckDialogText, caption);
@@ -1591,7 +1615,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                 }
                 if (!delete)
                 {
-                    return AddKeyword($"{delimiter}{easyMetadata}");
+                    return AddKeyword($"{delimiter}{EasyMetadata}");
                 }
             }
             return false;
@@ -1654,7 +1678,9 @@ public class EasyFiles : EasyPaths<EasyFile>
                 case EasyFileProperty.Title: if (!string.IsNullOrEmpty(Title)) { Title = string.Empty; result = true; }; break;
                 case EasyFileProperty.Comment: if (!string.IsNullOrEmpty(Comment)) { Comment = string.Empty; result = true; }; break;
                 case EasyFileProperty.Keywords: if (Keywords.Length != 0) { Keywords = []; result = true; }; break;
-                case EasyFileProperty.GPSCoordinates: if (_geoCoordinates != null || ReadGeoCoordinates()) { _geoCoordinates = null; WriteGeoCoordinates(); result = true; } break;
+                case EasyFileProperty.GPSCoordinates:
+                    result = DeleteGeoCoordinates();
+                    break;
                 case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { _areaInfo = string.Empty; result = WriteAreaInfo(); }; break;
                 case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { _easyMetadata = null; WriteEasyMetaData(); result = true; } break;
             }
@@ -1849,7 +1875,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             if (Type != EasyType.Video
                 || (_geoCoordinates is GeoCoordinates gc && gc.IsValid)
                 || (useEasyMetadataWithVideo && EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
-                || ExtractExifGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
+                || ReadVideoGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
             {
                 return;
             }
@@ -1934,7 +1960,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                         }
                         if ((allTypes || egds == EasyMetadataSource.VideoMetadata) && Type == EasyType.Video)
                         {
-                            geoCoords = ExtractExifGPSCoords(_path);
+                            geoCoords = ReadVideoGPSCoords(_path);
                         }
 
                         if (geoObject == null) // TODO: add option to prioritize area info over gps coordinates

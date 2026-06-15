@@ -253,11 +253,11 @@
   <data name="ShowHiddenItemsToolStripMenuItem.Text" xml:space="preserve">
     <value>Ausgeblendete Elemente anzeigen</value>
   </data>
-  <data name="ShowVideoMetadataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>317, 26</value>
+  <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 26</value>
   </data>
-  <data name="ShowVideoMetadataToolStripMenuItem.Text" xml:space="preserve">
-    <value>Video-Metadaten anzeigen</value>
+  <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Text" xml:space="preserve">
+    <value>Eingebettetes Video-GPS anzeigen</value>
   </data>
   <data name="ViewToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>314, 6</value>

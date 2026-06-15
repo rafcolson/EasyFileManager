@@ -164,7 +164,7 @@
             ShowPropertiesToolStripMenuItem = new ToolStripMenuItem();
             ShowMillisecondsToolStripMenuItem = new ToolStripMenuItem();
             ShowHiddenItemsToolStripMenuItem = new ToolStripMenuItem();
-            ShowVideoMetadataToolStripMenuItem = new ToolStripMenuItem();
+            ShowEmbeddedVideoGPSToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripSeparator = new ToolStripSeparator();
             LanguageToolStripMenuItem = new ToolStripMenuItem();
             OptionsToolStripMenuItem = new ToolStripMenuItem();
@@ -1310,7 +1310,7 @@
             // ViewToolStripMenuItem
             // 
             resources.ApplyResources(ViewToolStripMenuItem, "ViewToolStripMenuItem");
-            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowVideoMetadataToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
+            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowEmbeddedVideoGPSToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
             ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
             // 
             // PreviewPathToolStripMenuItem
@@ -1338,10 +1338,10 @@
             resources.ApplyResources(ShowHiddenItemsToolStripMenuItem, "ShowHiddenItemsToolStripMenuItem");
             ShowHiddenItemsToolStripMenuItem.Name = "ShowHiddenItemsToolStripMenuItem";
             // 
-            // ShowVideoMetadataToolStripMenuItem
+            // ShowEmbeddedVideoGPSToolStripMenuItem
             // 
-            resources.ApplyResources(ShowVideoMetadataToolStripMenuItem, "ShowVideoMetadataToolStripMenuItem");
-            ShowVideoMetadataToolStripMenuItem.Name = "ShowVideoMetadataToolStripMenuItem";
+            resources.ApplyResources(ShowEmbeddedVideoGPSToolStripMenuItem, "ShowEmbeddedVideoGPSToolStripMenuItem");
+            ShowEmbeddedVideoGPSToolStripMenuItem.Name = "ShowEmbeddedVideoGPSToolStripMenuItem";
             // 
             // ViewToolStripSeparator
             // 
@@ -1662,7 +1662,7 @@
         private CheckBox DateFormatCheckBox;
         private TableLayoutPanel ReplaceTableLayoutPanel;
         private CheckBox ReplaceWithCheckBox;
-        private ToolStripMenuItem ShowVideoMetadataToolStripMenuItem;
+        private ToolStripMenuItem ShowEmbeddedVideoGPSToolStripMenuItem;
         private DataGridViewTextBoxColumn PropsDataGridViewColumnValues;
         private DataGridViewTextBoxColumn ExplorerDataGridViewColumnValues;
         private TableLayoutPanel CustomizeTableLayoutPanel;

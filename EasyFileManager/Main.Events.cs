@@ -195,11 +195,11 @@ namespace EasyFileManager
             UpdateThumbnailPropsView();
         }
 
-        private void ShowVideoMetadataToolStripMenuItem_Click(object? sender, EventArgs e)
+        private void ShowEmbeddedVideoGPSToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            bool b = !ShowVideoMetadataToolStripMenuItem.Checked;
-            Properties.Settings.Default.ShowVideoMetadata = b;
-            ShowVideoMetadataToolStripMenuItem.Checked = b;
+            bool b = !ShowEmbeddedVideoGPSToolStripMenuItem.Checked;
+            Properties.Settings.Default.ShowEmbeddedVideoGPS = b;
+            ShowEmbeddedVideoGPSToolStripMenuItem.Checked = b;
             UpdateExplorerView();
             UpdateThumbnailPropsView();
         }

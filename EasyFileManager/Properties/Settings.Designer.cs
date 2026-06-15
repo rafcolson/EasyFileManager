@@ -134,12 +134,12 @@ namespace EasyFileManager.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowVideoMetadata {
+        public bool ShowEmbeddedVideoGPS {
             get {
-                return ((bool)(this["ShowVideoMetadata"]));
+                return ((bool)(this["ShowEmbeddedVideoGPS"]));
             }
             set {
-                this["ShowVideoMetadata"] = value;
+                this["ShowEmbeddedVideoGPS"] = value;
             }
         }
     }

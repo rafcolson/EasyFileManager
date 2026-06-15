@@ -1003,7 +1003,7 @@ namespace EasyFileManager
                 PropsDataGridView.AddRow(Globals.Subject, ef.Subject);
                 PropsDataGridView.AddRow(Globals.Comment, ef.Comment);
 
-                if (Properties.Settings.Default.ShowVideoMetadata)
+                if (Properties.Settings.Default.ShowEmbeddedVideoGPS)
                 {
                     ef.ExtractExifGeoArea(Options.UseEasyMetadataWithVideo);
                 }

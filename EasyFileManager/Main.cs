@@ -137,7 +137,7 @@ namespace EasyFileManager
             ShowPropertiesToolStripMenuItem.Checked = Properties.Settings.Default.ShowProperties;
             ShowMillisecondsToolStripMenuItem.Checked = Properties.Settings.Default.ShowMilliseconds;
             ShowHiddenItemsToolStripMenuItem.Checked = Properties.Settings.Default.ShowHiddenItems;
-            ShowVideoMetadataToolStripMenuItem.Checked = Properties.Settings.Default.ShowVideoMetadata;
+            ShowEmbeddedVideoGPSToolStripMenuItem.Checked = Properties.Settings.Default.ShowEmbeddedVideoGPS;
 
             UseEasyMetadataWithVideoToolStripMenuItem.Checked = Options.UseEasyMetadataWithVideo;
             PreserveDateCreatedToolStripMenuItem.Checked = Options.PreserveDateCreated;
@@ -303,7 +303,7 @@ namespace EasyFileManager
             ShowHiddenItemsToolStripMenuItem.Click += ShowHiddenItemsToolStripMenuItem_Click;
             ShowPropertiesToolStripMenuItem.Click += ShowPropertiesToolStripMenuItem_Click;
             ShowMillisecondsToolStripMenuItem.Click += ShowMillisecondsToolStripMenuItem_Click;
-            ShowVideoMetadataToolStripMenuItem.Click += ShowVideoMetadataToolStripMenuItem_Click;
+            ShowEmbeddedVideoGPSToolStripMenuItem.Click += ShowEmbeddedVideoGPSToolStripMenuItem_Click;
             LanguageToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
 
             UseEasyMetadataWithVideoToolStripMenuItem.Click += UseEasyMetadataWithVideoToolStripMenuItem_Click;
@@ -557,7 +557,7 @@ namespace EasyFileManager
             ShowHiddenItemsToolStripMenuItem.Click -= ShowHiddenItemsToolStripMenuItem_Click;
             ShowPropertiesToolStripMenuItem.Click -= ShowPropertiesToolStripMenuItem_Click;
             ShowMillisecondsToolStripMenuItem.Click -= ShowMillisecondsToolStripMenuItem_Click;
-            ShowVideoMetadataToolStripMenuItem.Click -= ShowVideoMetadataToolStripMenuItem_Click;
+            ShowEmbeddedVideoGPSToolStripMenuItem.Click -= ShowEmbeddedVideoGPSToolStripMenuItem_Click;
             LanguageToolStripMenuItem.Click -= LanguageToolStripMenuItem_Click;
 
             UseEasyMetadataWithVideoToolStripMenuItem.Click -= UseEasyMetadataWithVideoToolStripMenuItem_Click;

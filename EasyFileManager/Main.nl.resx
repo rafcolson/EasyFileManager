@@ -256,11 +256,11 @@
   <data name="ShowHiddenItemsToolStripMenuItem.Text" xml:space="preserve">
     <value>Verborgen items weergeven</value>
   </data>
-  <data name="ShowVideoMetadataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>301, 26</value>
+  <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 26</value>
   </data>
-  <data name="ShowVideoMetadataToolStripMenuItem.Text" xml:space="preserve">
-    <value>Videometagegevens weergeven</value>
+  <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ingebedde video-GPS weergeven</value>
   </data>
   <data name="ViewToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 6</value>
