@@ -696,6 +696,8 @@ namespace EasyFileManager
 
     public class EasyMetadata
     {
+        public const int CurrentVersion = 1;
+
         public static class Options
         {
             public static bool? Delete { get; set; }
@@ -739,6 +741,7 @@ namespace EasyFileManager
             IgnoreReadOnlyProperties = true
         };
 
+        public int Version { get; set; } = CurrentVersion;
         public string? Date { get; set; } = null;
         public GeoArea? GeoArea { get; set; } = null;
         public EasyList<string>? Tags { get; set; } = null;
@@ -752,16 +755,33 @@ namespace EasyFileManager
         {
             if (!string.IsNullOrEmpty(json) && JsonSerializer.Deserialize<EasyMetadata>(json, CachedJsonSerializerOptions) is EasyMetadata emd)
             {
+                Version = emd.Version <= 0 ? CurrentVersion : emd.Version;
                 Date = emd.Date;
                 GeoArea = emd.GeoArea;
                 Tags = emd.Tags;
                 CustomDict = emd.CustomDict;
+                Upgrade();
             }
         }
 
         public EasyMetadata(Map<string, object?> map) : this(map.ToString()) { }
 
+        private void Upgrade()
+        {
+            if (Version < CurrentVersion)
+            {
+                Version = CurrentVersion;
+            }
+        }
+
         public Map<string, object?> ToMap() => new(ToJson());
+
+        public Map<string, object?> ToEditableMap()
+        {
+            Map<string, object?> map = ToMap();
+            map.Remove(nameof(Version));
+            return map;
+        }
 
         public string ToJson() => JsonSerializer.Serialize(this, CachedJsonSerializerOptionsWithNoIgnore);
 
@@ -1862,6 +1882,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                     }
                 }
                 so.Properties.System.Photo.Orientation.Value = (ushort?)i;
+                so.Thumbnail.Refresh();
 
                 if (preserveDateModified && dtm is DateTime dt) { _dateModified = dt.Similar(); WriteDateModified(); Initialize(_path); }
 

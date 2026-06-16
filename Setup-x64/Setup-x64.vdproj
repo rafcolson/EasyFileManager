@@ -64,10 +64,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.9.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:.NET Desktop Runtime 9.0.17 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.9.0.x64"
                     }
                 }
             }
@@ -96,15 +96,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.9.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
-                    }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.3.1.x64"
-                    {
-                    "Name" = "8:.NET Desktop Runtime 3.1.32 (x64)"
-                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.3.1.x64"
+                    "Name" = "8:.NET Runtime 9.0.17 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.9.0.x64"
                     }
                 }
             }
@@ -278,8 +273,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EasyFileManager"
-        "ProductCode" = "8:{517E95AF-9EC1-4CB4-A674-64CB32CD5215}"
-        "PackageCode" = "8:{8D3AD3CC-78CC-4809-A6CE-4DDC2CDFC152}"
+        "ProductCode" = "8:{05F8A8AB-EB9F-4A77-B889-7BC4F3FA4264}"
+        "PackageCode" = "8:{CF98FC10-F6B0-450C-B1E4-016351FED52C}"
         "UpgradeCode" = "8:{3B13BB25-9128-4994-BD63-D4785DF2FAD3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -287,7 +282,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:0.0.0"
-        "Manufacturer" = "8:RacoSoft"
+        "Manufacturer" = "8:Raco"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/rafcolson/EasyFileManager/issues"
         "Title" = "8:EasyFileManagerSetup-x64"
@@ -934,7 +929,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4228E6DB6EA34BB08D63720E3A9191F5"
             {
-            "SourcePath" = "8:..\\EasyFileManager\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\EasyFileManager\\obj\\Release\\net9.0-windows10.0.26100.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5D99A2C8413C43C19C035F81FF2FBC4B"

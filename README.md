@@ -24,7 +24,7 @@ Development
 -----------
 Since I was tired of manually organizing photos and videos for family, I decided to start this project to make it easier to go through terabytes of data. As I gradually learned about existing software and services, it quickly evolved into an easy, yet somewhat advanced tool for managing computer files.
 
-The project can be built with [Microsoft Visual Studio Community](https://visualstudio.microsoft.com/vs/community/), subject to the terms of [Microsoft Software License for Visual Studio Community](https://visualstudio.microsoft.com/license-terms/vs2022-ga-community) for individuals.
+The project can be built with [Microsoft Visual Studio Community](https://visualstudio.microsoft.com/vs/community/), subject to the terms of [Microsoft Software License for Visual Studio Community](https://visualstudio.microsoft.com/license-terms/vs2022-ga-community) for individuals. The Windows Forms Designer layout was created at 1920 × 1080 with Windows display scaling set to 100%. Use these settings for the most accurate design-time representation.
 
 Dependencies
 ------------

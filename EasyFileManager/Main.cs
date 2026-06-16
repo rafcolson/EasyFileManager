@@ -83,6 +83,21 @@ namespace EasyFileManager
 
         private void Main_Load(object? sender, EventArgs e) => FinishInitialization();
 
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+            BeginInvoke((MethodInvoker)delegate
+            {
+                InitializeRowHeaders();
+            });
+        }
+
+        private void InitializeRowHeaders()
+        {
+            ExplorerDataGridView.ResizeRowHeaders(DeviceDpi);
+            PropsDataGridView.ResizeRowHeaders(DeviceDpi);
+        }
+
         private static void InitializeLanguage()
         {
             Language language = (Language)Properties.Settings.Default.LanguageIndex;
@@ -251,7 +266,7 @@ namespace EasyFileManager
             UpdateCopyMovePanel();
             UpdateFinalizePanel();
 
-            UpdateEditPanel(true, true, true);
+            UpdateEditPanel(true, true, true, true);
 
             Update(Properties.Settings.Default.StartupDirectory, true);
 
@@ -452,6 +467,7 @@ namespace EasyFileManager
             {
                 InitializeWatchers();
                 InitializeMinorEventHandlers();
+                InitializeRowHeaders();
                 this.ResumeDrawing();
 
                 Debug.WriteLine($"Initialized '{Name}'.");

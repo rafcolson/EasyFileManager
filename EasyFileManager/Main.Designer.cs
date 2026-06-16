@@ -42,11 +42,11 @@
             ExplorerDataGridView = new DataGridView();
             ExplorerDataGridViewColumnValues = new DataGridViewTextBoxColumn();
             ThumbnailPropsSplitContainer = new SplitContainer();
+            ThumbnailPictureBox = new PictureBox();
             RotateTableLayoutPanel = new TableLayoutPanel();
             Rotate270Button = new Button();
             Rotate180Button = new Button();
             Rotate90Button = new Button();
-            ThumbnailPictureBox = new PictureBox();
             PropsDataGridView = new DataGridView();
             PropsDataGridViewColumnValues = new DataGridViewTextBoxColumn();
             EditTableLayoutPanel = new TableLayoutPanel();
@@ -153,6 +153,9 @@
             CleanUpEditButton = new Button();
             CleanUpTextBox = new TextBox();
             CleanUpCheckBox = new CheckBox();
+            MainStatusStrip = new StatusStrip();
+            MainProgressStatusLabel = new ToolStripStatusLabel();
+            MainProgressBar = new ToolStripProgressBar();
             MainMenuStrip = new MenuStrip();
             FileToolStripMenuItem = new ToolStripMenuItem();
             ImportToolStripMenuItem = new ToolStripMenuItem();
@@ -178,9 +181,6 @@
             RestoreToDefaultToolStripMenuItem = new ToolStripMenuItem();
             HelpToolStripSeparator = new ToolStripSeparator();
             AboutEasyFileManagerToolStripMenuItem = new ToolStripMenuItem();
-            MainStatusStrip = new StatusStrip();
-            MainProgressStatusLabel = new ToolStripStatusLabel();
-            MainProgressBar = new ToolStripProgressBar();
             OpenFolderDialog = new FolderBrowserDialog();
             ImportSettingsDialog = new OpenFileDialog();
             ExportSettingsDialog = new SaveFileDialog();
@@ -202,8 +202,8 @@
             ThumbnailPropsSplitContainer.Panel1.SuspendLayout();
             ThumbnailPropsSplitContainer.Panel2.SuspendLayout();
             ThumbnailPropsSplitContainer.SuspendLayout();
-            RotateTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ThumbnailPictureBox).BeginInit();
+            RotateTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PropsDataGridView).BeginInit();
             EditTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CustomizeSplitContainer).BeginInit();
@@ -261,8 +261,8 @@
             DuplicatesTableLayoutPanel.SuspendLayout();
             CleanUpGroupBox.SuspendLayout();
             CleanUpTableLayoutPanel.SuspendLayout();
-            MainMenuStrip.SuspendLayout();
             MainStatusStrip.SuspendLayout();
+            MainMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // MainSplitContainer
@@ -273,13 +273,12 @@
             // 
             // MainSplitContainer.Panel1
             // 
-            resources.ApplyResources(MainSplitContainer.Panel1, "MainSplitContainer.Panel1");
             MainSplitContainer.Panel1.Controls.Add(PathTableLayoutPanel);
             // 
             // MainSplitContainer.Panel2
             // 
-            resources.ApplyResources(MainSplitContainer.Panel2, "MainSplitContainer.Panel2");
             MainSplitContainer.Panel2.Controls.Add(ExplorerEditSplitContainer);
+            resources.ApplyResources(MainSplitContainer.Panel2, "MainSplitContainer.Panel2");
             // 
             // PathTableLayoutPanel
             // 
@@ -339,12 +338,10 @@
             // 
             // ExplorerEditSplitContainer.Panel1
             // 
-            resources.ApplyResources(ExplorerEditSplitContainer.Panel1, "ExplorerEditSplitContainer.Panel1");
             ExplorerEditSplitContainer.Panel1.Controls.Add(ExplorerThumbnailPropsSplitContainer);
             // 
             // ExplorerEditSplitContainer.Panel2
             // 
-            resources.ApplyResources(ExplorerEditSplitContainer.Panel2, "ExplorerEditSplitContainer.Panel2");
             ExplorerEditSplitContainer.Panel2.Controls.Add(EditTableLayoutPanel);
             // 
             // ExplorerThumbnailPropsSplitContainer
@@ -355,21 +352,20 @@
             // 
             // ExplorerThumbnailPropsSplitContainer.Panel1
             // 
-            resources.ApplyResources(ExplorerThumbnailPropsSplitContainer.Panel1, "ExplorerThumbnailPropsSplitContainer.Panel1");
             ExplorerThumbnailPropsSplitContainer.Panel1.Controls.Add(ExplorerDataGridView);
             // 
             // ExplorerThumbnailPropsSplitContainer.Panel2
             // 
-            resources.ApplyResources(ExplorerThumbnailPropsSplitContainer.Panel2, "ExplorerThumbnailPropsSplitContainer.Panel2");
             ExplorerThumbnailPropsSplitContainer.Panel2.Controls.Add(ThumbnailPropsSplitContainer);
             // 
             // ExplorerDataGridView
             // 
-            resources.ApplyResources(ExplorerDataGridView, "ExplorerDataGridView");
             ExplorerDataGridView.AllowUserToAddRows = false;
             ExplorerDataGridView.AllowUserToDeleteRows = false;
             ExplorerDataGridView.AllowUserToResizeColumns = false;
             ExplorerDataGridView.AllowUserToResizeRows = false;
+            ExplorerDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            resources.ApplyResources(ExplorerDataGridView, "ExplorerDataGridView");
             ExplorerDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ExplorerDataGridView.ColumnHeadersVisible = false;
             ExplorerDataGridView.Columns.AddRange(new DataGridViewColumn[] { ExplorerDataGridViewColumnValues });
@@ -377,7 +373,7 @@
             ExplorerDataGridView.Name = "ExplorerDataGridView";
             ExplorerDataGridView.ReadOnly = true;
             ExplorerDataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            ExplorerDataGridView.RowTemplate.Height = 28;
+            ExplorerDataGridView.RowTemplate.Height = 48;
             ExplorerDataGridView.RowTemplate.ReadOnly = true;
             ExplorerDataGridView.RowTemplate.Resizable = DataGridViewTriState.False;
             ExplorerDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -403,14 +399,18 @@
             // 
             // ThumbnailPropsSplitContainer.Panel1
             // 
-            resources.ApplyResources(ThumbnailPropsSplitContainer.Panel1, "ThumbnailPropsSplitContainer.Panel1");
-            ThumbnailPropsSplitContainer.Panel1.Controls.Add(RotateTableLayoutPanel);
             ThumbnailPropsSplitContainer.Panel1.Controls.Add(ThumbnailPictureBox);
+            ThumbnailPropsSplitContainer.Panel1.Controls.Add(RotateTableLayoutPanel);
             // 
             // ThumbnailPropsSplitContainer.Panel2
             // 
-            resources.ApplyResources(ThumbnailPropsSplitContainer.Panel2, "ThumbnailPropsSplitContainer.Panel2");
             ThumbnailPropsSplitContainer.Panel2.Controls.Add(PropsDataGridView);
+            // 
+            // ThumbnailPictureBox
+            // 
+            resources.ApplyResources(ThumbnailPictureBox, "ThumbnailPictureBox");
+            ThumbnailPictureBox.Name = "ThumbnailPictureBox";
+            ThumbnailPictureBox.TabStop = false;
             // 
             // RotateTableLayoutPanel
             // 
@@ -422,39 +422,34 @@
             // 
             // Rotate270Button
             // 
-            resources.ApplyResources(Rotate270Button, "Rotate270Button");
             Rotate270Button.BackgroundImage = Properties.Resources.Rotate270;
+            resources.ApplyResources(Rotate270Button, "Rotate270Button");
             Rotate270Button.Name = "Rotate270Button";
             Rotate270Button.UseVisualStyleBackColor = true;
             // 
             // Rotate180Button
             // 
-            resources.ApplyResources(Rotate180Button, "Rotate180Button");
             Rotate180Button.BackgroundImage = Properties.Resources.Rotate180;
+            resources.ApplyResources(Rotate180Button, "Rotate180Button");
             Rotate180Button.Name = "Rotate180Button";
             Rotate180Button.UseVisualStyleBackColor = true;
             // 
             // Rotate90Button
             // 
-            resources.ApplyResources(Rotate90Button, "Rotate90Button");
             Rotate90Button.BackgroundImage = Properties.Resources.Rotate90;
+            resources.ApplyResources(Rotate90Button, "Rotate90Button");
             Rotate90Button.Name = "Rotate90Button";
             Rotate90Button.UseVisualStyleBackColor = true;
             // 
-            // ThumbnailPictureBox
-            // 
-            resources.ApplyResources(ThumbnailPictureBox, "ThumbnailPictureBox");
-            ThumbnailPictureBox.Name = "ThumbnailPictureBox";
-            ThumbnailPictureBox.TabStop = false;
-            // 
             // PropsDataGridView
             // 
-            resources.ApplyResources(PropsDataGridView, "PropsDataGridView");
             PropsDataGridView.AllowUserToAddRows = false;
             PropsDataGridView.AllowUserToDeleteRows = false;
             PropsDataGridView.AllowUserToResizeColumns = false;
             PropsDataGridView.AllowUserToResizeRows = false;
+            PropsDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             PropsDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            resources.ApplyResources(PropsDataGridView, "PropsDataGridView");
             PropsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             PropsDataGridView.ColumnHeadersVisible = false;
             PropsDataGridView.Columns.AddRange(new DataGridViewColumn[] { PropsDataGridViewColumnValues });
@@ -462,7 +457,7 @@
             PropsDataGridView.Name = "PropsDataGridView";
             PropsDataGridView.ReadOnly = true;
             PropsDataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            PropsDataGridView.RowTemplate.Height = 28;
+            PropsDataGridView.RowTemplate.Height = 48;
             PropsDataGridView.RowTemplate.ReadOnly = true;
             PropsDataGridView.RowTemplate.Resizable = DataGridViewTriState.False;
             PropsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -486,7 +481,7 @@
             resources.ApplyResources(EditTableLayoutPanel, "EditTableLayoutPanel");
             EditTableLayoutPanel.Controls.Add(CustomizeSplitContainer, 0, 0);
             EditTableLayoutPanel.Controls.Add(CopyMoveSplitContainer, 0, 1);
-            EditTableLayoutPanel.Controls.Add(RenameSplitContainer, 0, 1);
+            EditTableLayoutPanel.Controls.Add(RenameSplitContainer, 0, 2);
             EditTableLayoutPanel.Controls.Add(FinalizeSplitContainer, 0, 3);
             EditTableLayoutPanel.Name = "EditTableLayoutPanel";
             // 
@@ -498,12 +493,10 @@
             // 
             // CustomizeSplitContainer.Panel1
             // 
-            resources.ApplyResources(CustomizeSplitContainer.Panel1, "CustomizeSplitContainer.Panel1");
             CustomizeSplitContainer.Panel1.Controls.Add(CustomizeCheckBox);
             // 
             // CustomizeSplitContainer.Panel2
             // 
-            resources.ApplyResources(CustomizeSplitContainer.Panel2, "CustomizeSplitContainer.Panel2");
             CustomizeSplitContainer.Panel2.Controls.Add(CustomizeTableLayoutPanel);
             // 
             // CustomizeCheckBox
@@ -676,8 +669,8 @@
             // 
             // EasyMetadataEditButton
             // 
-            resources.ApplyResources(EasyMetadataEditButton, "EasyMetadataEditButton");
             EasyMetadataEditButton.BackgroundImage = Properties.Resources.Edit;
+            resources.ApplyResources(EasyMetadataEditButton, "EasyMetadataEditButton");
             EasyMetadataEditButton.Name = "EasyMetadataEditButton";
             EasyMetadataEditButton.UseVisualStyleBackColor = true;
             // 
@@ -841,12 +834,10 @@
             // 
             // CopyMoveSplitContainer.Panel1
             // 
-            resources.ApplyResources(CopyMoveSplitContainer.Panel1, "CopyMoveSplitContainer.Panel1");
             CopyMoveSplitContainer.Panel1.Controls.Add(CopyMoveCheckBox);
             // 
             // CopyMoveSplitContainer.Panel2
             // 
-            resources.ApplyResources(CopyMoveSplitContainer.Panel2, "CopyMoveSplitContainer.Panel2");
             CopyMoveSplitContainer.Panel2.Controls.Add(CopyMoveTableLayoutPanel);
             // 
             // CopyMoveCheckBox
@@ -1029,12 +1020,10 @@
             // 
             // RenameSplitContainer.Panel1
             // 
-            resources.ApplyResources(RenameSplitContainer.Panel1, "RenameSplitContainer.Panel1");
             RenameSplitContainer.Panel1.Controls.Add(RenameCheckBox);
             // 
             // RenameSplitContainer.Panel2
             // 
-            resources.ApplyResources(RenameSplitContainer.Panel2, "RenameSplitContainer.Panel2");
             RenameSplitContainer.Panel2.Controls.Add(RenameTableLayoutPanel);
             // 
             // RenameCheckBox
@@ -1157,12 +1146,10 @@
             // 
             // FinalizeSplitContainer.Panel1
             // 
-            resources.ApplyResources(FinalizeSplitContainer.Panel1, "FinalizeSplitContainer.Panel1");
             FinalizeSplitContainer.Panel1.Controls.Add(FinalizeCheckBox);
             // 
             // FinalizeSplitContainer.Panel2
             // 
-            resources.ApplyResources(FinalizeSplitContainer.Panel2, "FinalizeSplitContainer.Panel2");
             FinalizeSplitContainer.Panel2.Controls.Add(FinalizeTableLayoutPanel);
             // 
             // FinalizeCheckBox
@@ -1279,141 +1266,9 @@
             CleanUpCheckBox.Name = "CleanUpCheckBox";
             CleanUpCheckBox.UseVisualStyleBackColor = true;
             // 
-            // MainMenuStrip
-            // 
-            resources.ApplyResources(MainMenuStrip, "MainMenuStrip");
-            MainMenuStrip.ImageScalingSize = new Size(20, 20);
-            MainMenuStrip.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem, ViewToolStripMenuItem, OptionsToolStripMenuItem, HelpToolStripMenuItem });
-            MainMenuStrip.Name = "MainMenuStrip";
-            // 
-            // FileToolStripMenuItem
-            // 
-            resources.ApplyResources(FileToolStripMenuItem, "FileToolStripMenuItem");
-            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ImportToolStripMenuItem, ExportToolStripMenuItem, ExitToolStripMenuItem });
-            FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            // 
-            // ImportToolStripMenuItem
-            // 
-            resources.ApplyResources(ImportToolStripMenuItem, "ImportToolStripMenuItem");
-            ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
-            // 
-            // ExportToolStripMenuItem
-            // 
-            resources.ApplyResources(ExportToolStripMenuItem, "ExportToolStripMenuItem");
-            ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
-            // 
-            // ExitToolStripMenuItem
-            // 
-            resources.ApplyResources(ExitToolStripMenuItem, "ExitToolStripMenuItem");
-            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            // 
-            // ViewToolStripMenuItem
-            // 
-            resources.ApplyResources(ViewToolStripMenuItem, "ViewToolStripMenuItem");
-            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowEmbeddedVideoGPSToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
-            ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
-            // 
-            // PreviewPathToolStripMenuItem
-            // 
-            resources.ApplyResources(PreviewPathToolStripMenuItem, "PreviewPathToolStripMenuItem");
-            PreviewPathToolStripMenuItem.Name = "PreviewPathToolStripMenuItem";
-            // 
-            // ShowThumbnailToolStripMenuItem
-            // 
-            resources.ApplyResources(ShowThumbnailToolStripMenuItem, "ShowThumbnailToolStripMenuItem");
-            ShowThumbnailToolStripMenuItem.Name = "ShowThumbnailToolStripMenuItem";
-            // 
-            // ShowPropertiesToolStripMenuItem
-            // 
-            resources.ApplyResources(ShowPropertiesToolStripMenuItem, "ShowPropertiesToolStripMenuItem");
-            ShowPropertiesToolStripMenuItem.Name = "ShowPropertiesToolStripMenuItem";
-            // 
-            // ShowMillisecondsToolStripMenuItem
-            // 
-            resources.ApplyResources(ShowMillisecondsToolStripMenuItem, "ShowMillisecondsToolStripMenuItem");
-            ShowMillisecondsToolStripMenuItem.Name = "ShowMillisecondsToolStripMenuItem";
-            // 
-            // ShowHiddenItemsToolStripMenuItem
-            // 
-            resources.ApplyResources(ShowHiddenItemsToolStripMenuItem, "ShowHiddenItemsToolStripMenuItem");
-            ShowHiddenItemsToolStripMenuItem.Name = "ShowHiddenItemsToolStripMenuItem";
-            // 
-            // ShowEmbeddedVideoGPSToolStripMenuItem
-            // 
-            resources.ApplyResources(ShowEmbeddedVideoGPSToolStripMenuItem, "ShowEmbeddedVideoGPSToolStripMenuItem");
-            ShowEmbeddedVideoGPSToolStripMenuItem.Name = "ShowEmbeddedVideoGPSToolStripMenuItem";
-            // 
-            // ViewToolStripSeparator
-            // 
-            resources.ApplyResources(ViewToolStripSeparator, "ViewToolStripSeparator");
-            ViewToolStripSeparator.Name = "ViewToolStripSeparator";
-            // 
-            // LanguageToolStripMenuItem
-            // 
-            resources.ApplyResources(LanguageToolStripMenuItem, "LanguageToolStripMenuItem");
-            LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem";
-            // 
-            // OptionsToolStripMenuItem
-            // 
-            resources.ApplyResources(OptionsToolStripMenuItem, "OptionsToolStripMenuItem");
-            OptionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { UseEasyMetadataWithVideoToolStripMenuItem, PreserveDateModifiedToolStripMenuItem, PreserveDateCreatedToolStripMenuItem, LogApplicationEventsToolStripMenuItem, ShutDownUponCompletionToolStripMenuItem });
-            OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem";
-            // 
-            // UseEasyMetadataWithVideoToolStripMenuItem
-            // 
-            resources.ApplyResources(UseEasyMetadataWithVideoToolStripMenuItem, "UseEasyMetadataWithVideoToolStripMenuItem");
-            UseEasyMetadataWithVideoToolStripMenuItem.Name = "UseEasyMetadataWithVideoToolStripMenuItem";
-            // 
-            // PreserveDateModifiedToolStripMenuItem
-            // 
-            resources.ApplyResources(PreserveDateModifiedToolStripMenuItem, "PreserveDateModifiedToolStripMenuItem");
-            PreserveDateModifiedToolStripMenuItem.Name = "PreserveDateModifiedToolStripMenuItem";
-            // 
-            // PreserveDateCreatedToolStripMenuItem
-            // 
-            resources.ApplyResources(PreserveDateCreatedToolStripMenuItem, "PreserveDateCreatedToolStripMenuItem");
-            PreserveDateCreatedToolStripMenuItem.Name = "PreserveDateCreatedToolStripMenuItem";
-            // 
-            // LogApplicationEventsToolStripMenuItem
-            // 
-            resources.ApplyResources(LogApplicationEventsToolStripMenuItem, "LogApplicationEventsToolStripMenuItem");
-            LogApplicationEventsToolStripMenuItem.Name = "LogApplicationEventsToolStripMenuItem";
-            // 
-            // ShutDownUponCompletionToolStripMenuItem
-            // 
-            resources.ApplyResources(ShutDownUponCompletionToolStripMenuItem, "ShutDownUponCompletionToolStripMenuItem");
-            ShutDownUponCompletionToolStripMenuItem.Name = "ShutDownUponCompletionToolStripMenuItem";
-            // 
-            // HelpToolStripMenuItem
-            // 
-            resources.ApplyResources(HelpToolStripMenuItem, "HelpToolStripMenuItem");
-            HelpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SplashScreenToolStripMenuItem, RestoreToDefaultToolStripMenuItem, HelpToolStripSeparator, AboutEasyFileManagerToolStripMenuItem });
-            HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
-            // 
-            // SplashScreenToolStripMenuItem
-            // 
-            resources.ApplyResources(SplashScreenToolStripMenuItem, "SplashScreenToolStripMenuItem");
-            SplashScreenToolStripMenuItem.Name = "SplashScreenToolStripMenuItem";
-            // 
-            // RestoreToDefaultToolStripMenuItem
-            // 
-            resources.ApplyResources(RestoreToDefaultToolStripMenuItem, "RestoreToDefaultToolStripMenuItem");
-            RestoreToDefaultToolStripMenuItem.Name = "RestoreToDefaultToolStripMenuItem";
-            // 
-            // HelpToolStripSeparator
-            // 
-            resources.ApplyResources(HelpToolStripSeparator, "HelpToolStripSeparator");
-            HelpToolStripSeparator.Name = "HelpToolStripSeparator";
-            // 
-            // AboutEasyFileManagerToolStripMenuItem
-            // 
-            resources.ApplyResources(AboutEasyFileManagerToolStripMenuItem, "AboutEasyFileManagerToolStripMenuItem");
-            AboutEasyFileManagerToolStripMenuItem.Name = "AboutEasyFileManagerToolStripMenuItem";
-            // 
             // MainStatusStrip
             // 
             resources.ApplyResources(MainStatusStrip, "MainStatusStrip");
-            MainStatusStrip.ImageScalingSize = new Size(20, 20);
             MainStatusStrip.Items.AddRange(new ToolStripItem[] { MainProgressStatusLabel, MainProgressBar });
             MainStatusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             MainStatusStrip.Name = "MainStatusStrip";
@@ -1427,13 +1282,144 @@
             // 
             // MainProgressBar
             // 
-            resources.ApplyResources(MainProgressBar, "MainProgressBar");
             MainProgressBar.Alignment = ToolStripItemAlignment.Right;
+            MainProgressBar.Margin = new Padding(1, 6, 1, 6);
             MainProgressBar.Name = "MainProgressBar";
+            resources.ApplyResources(MainProgressBar, "MainProgressBar");
+            // 
+            // MainMenuStrip
+            // 
+            resources.ApplyResources(MainMenuStrip, "MainMenuStrip");
+            MainMenuStrip.GripMargin = new Padding(2);
+            MainMenuStrip.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem, ViewToolStripMenuItem, OptionsToolStripMenuItem, HelpToolStripMenuItem });
+            MainMenuStrip.Name = "MainMenuStrip";
+            // 
+            // FileToolStripMenuItem
+            // 
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ImportToolStripMenuItem, ExportToolStripMenuItem, ExitToolStripMenuItem });
+            FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            resources.ApplyResources(FileToolStripMenuItem, "FileToolStripMenuItem");
+            // 
+            // ImportToolStripMenuItem
+            // 
+            ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
+            resources.ApplyResources(ImportToolStripMenuItem, "ImportToolStripMenuItem");
+            // 
+            // ExportToolStripMenuItem
+            // 
+            ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
+            resources.ApplyResources(ExportToolStripMenuItem, "ExportToolStripMenuItem");
+            // 
+            // ExitToolStripMenuItem
+            // 
+            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            resources.ApplyResources(ExitToolStripMenuItem, "ExitToolStripMenuItem");
+            // 
+            // ViewToolStripMenuItem
+            // 
+            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowEmbeddedVideoGPSToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
+            ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
+            resources.ApplyResources(ViewToolStripMenuItem, "ViewToolStripMenuItem");
+            // 
+            // PreviewPathToolStripMenuItem
+            // 
+            PreviewPathToolStripMenuItem.Name = "PreviewPathToolStripMenuItem";
+            resources.ApplyResources(PreviewPathToolStripMenuItem, "PreviewPathToolStripMenuItem");
+            // 
+            // ShowThumbnailToolStripMenuItem
+            // 
+            ShowThumbnailToolStripMenuItem.Name = "ShowThumbnailToolStripMenuItem";
+            resources.ApplyResources(ShowThumbnailToolStripMenuItem, "ShowThumbnailToolStripMenuItem");
+            // 
+            // ShowPropertiesToolStripMenuItem
+            // 
+            ShowPropertiesToolStripMenuItem.Name = "ShowPropertiesToolStripMenuItem";
+            resources.ApplyResources(ShowPropertiesToolStripMenuItem, "ShowPropertiesToolStripMenuItem");
+            // 
+            // ShowMillisecondsToolStripMenuItem
+            // 
+            ShowMillisecondsToolStripMenuItem.Name = "ShowMillisecondsToolStripMenuItem";
+            resources.ApplyResources(ShowMillisecondsToolStripMenuItem, "ShowMillisecondsToolStripMenuItem");
+            // 
+            // ShowHiddenItemsToolStripMenuItem
+            // 
+            ShowHiddenItemsToolStripMenuItem.Name = "ShowHiddenItemsToolStripMenuItem";
+            resources.ApplyResources(ShowHiddenItemsToolStripMenuItem, "ShowHiddenItemsToolStripMenuItem");
+            // 
+            // ShowEmbeddedVideoGPSToolStripMenuItem
+            // 
+            ShowEmbeddedVideoGPSToolStripMenuItem.Name = "ShowEmbeddedVideoGPSToolStripMenuItem";
+            resources.ApplyResources(ShowEmbeddedVideoGPSToolStripMenuItem, "ShowEmbeddedVideoGPSToolStripMenuItem");
+            // 
+            // ViewToolStripSeparator
+            // 
+            ViewToolStripSeparator.Name = "ViewToolStripSeparator";
+            resources.ApplyResources(ViewToolStripSeparator, "ViewToolStripSeparator");
+            // 
+            // LanguageToolStripMenuItem
+            // 
+            LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem";
+            resources.ApplyResources(LanguageToolStripMenuItem, "LanguageToolStripMenuItem");
+            // 
+            // OptionsToolStripMenuItem
+            // 
+            OptionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { UseEasyMetadataWithVideoToolStripMenuItem, PreserveDateModifiedToolStripMenuItem, PreserveDateCreatedToolStripMenuItem, LogApplicationEventsToolStripMenuItem, ShutDownUponCompletionToolStripMenuItem });
+            OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem";
+            resources.ApplyResources(OptionsToolStripMenuItem, "OptionsToolStripMenuItem");
+            // 
+            // UseEasyMetadataWithVideoToolStripMenuItem
+            // 
+            UseEasyMetadataWithVideoToolStripMenuItem.Name = "UseEasyMetadataWithVideoToolStripMenuItem";
+            resources.ApplyResources(UseEasyMetadataWithVideoToolStripMenuItem, "UseEasyMetadataWithVideoToolStripMenuItem");
+            // 
+            // PreserveDateModifiedToolStripMenuItem
+            // 
+            PreserveDateModifiedToolStripMenuItem.Name = "PreserveDateModifiedToolStripMenuItem";
+            resources.ApplyResources(PreserveDateModifiedToolStripMenuItem, "PreserveDateModifiedToolStripMenuItem");
+            // 
+            // PreserveDateCreatedToolStripMenuItem
+            // 
+            PreserveDateCreatedToolStripMenuItem.Name = "PreserveDateCreatedToolStripMenuItem";
+            resources.ApplyResources(PreserveDateCreatedToolStripMenuItem, "PreserveDateCreatedToolStripMenuItem");
+            // 
+            // LogApplicationEventsToolStripMenuItem
+            // 
+            LogApplicationEventsToolStripMenuItem.Name = "LogApplicationEventsToolStripMenuItem";
+            resources.ApplyResources(LogApplicationEventsToolStripMenuItem, "LogApplicationEventsToolStripMenuItem");
+            // 
+            // ShutDownUponCompletionToolStripMenuItem
+            // 
+            ShutDownUponCompletionToolStripMenuItem.Name = "ShutDownUponCompletionToolStripMenuItem";
+            resources.ApplyResources(ShutDownUponCompletionToolStripMenuItem, "ShutDownUponCompletionToolStripMenuItem");
+            // 
+            // HelpToolStripMenuItem
+            // 
+            HelpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SplashScreenToolStripMenuItem, RestoreToDefaultToolStripMenuItem, HelpToolStripSeparator, AboutEasyFileManagerToolStripMenuItem });
+            HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
+            resources.ApplyResources(HelpToolStripMenuItem, "HelpToolStripMenuItem");
+            // 
+            // SplashScreenToolStripMenuItem
+            // 
+            SplashScreenToolStripMenuItem.Name = "SplashScreenToolStripMenuItem";
+            resources.ApplyResources(SplashScreenToolStripMenuItem, "SplashScreenToolStripMenuItem");
+            // 
+            // RestoreToDefaultToolStripMenuItem
+            // 
+            RestoreToDefaultToolStripMenuItem.Name = "RestoreToDefaultToolStripMenuItem";
+            resources.ApplyResources(RestoreToDefaultToolStripMenuItem, "RestoreToDefaultToolStripMenuItem");
+            // 
+            // HelpToolStripSeparator
+            // 
+            HelpToolStripSeparator.Name = "HelpToolStripSeparator";
+            resources.ApplyResources(HelpToolStripSeparator, "HelpToolStripSeparator");
+            // 
+            // AboutEasyFileManagerToolStripMenuItem
+            // 
+            AboutEasyFileManagerToolStripMenuItem.Name = "AboutEasyFileManagerToolStripMenuItem";
+            resources.ApplyResources(AboutEasyFileManagerToolStripMenuItem, "AboutEasyFileManagerToolStripMenuItem");
             // 
             // OpenFolderDialog
             // 
-            resources.ApplyResources(OpenFolderDialog, "OpenFolderDialog");
             OpenFolderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
             // 
             // ImportSettingsDialog
@@ -1449,13 +1435,14 @@
             // Main
             // 
             resources.ApplyResources(this, "$this");
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(MainSplitContainer);
             Controls.Add(MainStatusStrip);
             Controls.Add(MainMenuStrip);
             Name = "Main";
             WindowState = FormWindowState.Maximized;
             MainSplitContainer.Panel1.ResumeLayout(false);
+            MainSplitContainer.Panel1.PerformLayout();
             MainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)MainSplitContainer).EndInit();
             MainSplitContainer.ResumeLayout(false);
@@ -1463,7 +1450,6 @@
             PathTableLayoutPanel.PerformLayout();
             ExplorerEditSplitContainer.Panel1.ResumeLayout(false);
             ExplorerEditSplitContainer.Panel2.ResumeLayout(false);
-            ExplorerEditSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ExplorerEditSplitContainer).EndInit();
             ExplorerEditSplitContainer.ResumeLayout(false);
             ExplorerThumbnailPropsSplitContainer.Panel1.ResumeLayout(false);
@@ -1472,13 +1458,11 @@
             ExplorerThumbnailPropsSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ExplorerDataGridView).EndInit();
             ThumbnailPropsSplitContainer.Panel1.ResumeLayout(false);
-            ThumbnailPropsSplitContainer.Panel1.PerformLayout();
             ThumbnailPropsSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ThumbnailPropsSplitContainer).EndInit();
             ThumbnailPropsSplitContainer.ResumeLayout(false);
-            RotateTableLayoutPanel.ResumeLayout(false);
-            RotateTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ThumbnailPictureBox).EndInit();
+            RotateTableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PropsDataGridView).EndInit();
             EditTableLayoutPanel.ResumeLayout(false);
             CustomizeSplitContainer.Panel1.ResumeLayout(false);
@@ -1492,7 +1476,6 @@
             CustomizeTopTableLayoutPanel.ResumeLayout(false);
             CustomizeTopTableLayoutPanel.PerformLayout();
             KeywordsGroupBox.ResumeLayout(false);
-            KeywordsGroupBox.PerformLayout();
             KeywordsTableLayoutPanel.ResumeLayout(false);
             KeywordsTableLayoutPanel.PerformLayout();
             CommentGroupBox.ResumeLayout(false);
@@ -1507,15 +1490,12 @@
             CustomizeBottomTableLayoutPanel.ResumeLayout(false);
             CustomizeBottomTableLayoutPanel.PerformLayout();
             EasyMetadataGroupBox.ResumeLayout(false);
-            EasyMetadataGroupBox.PerformLayout();
             EasyMetadataTableLayoutPanel.ResumeLayout(false);
             EasyMetadataTableLayoutPanel.PerformLayout();
             DateGroupBox.ResumeLayout(false);
-            DateGroupBox.PerformLayout();
             DateTableLayoutPanel.ResumeLayout(false);
             DateTableLayoutPanel.PerformLayout();
             GeolocationGroupBox.ResumeLayout(false);
-            GeolocationGroupBox.PerformLayout();
             GeolocationTableLayoutPanel.ResumeLayout(false);
             GeolocationTableLayoutPanel.PerformLayout();
             CopyMoveSplitContainer.Panel1.ResumeLayout(false);
@@ -1527,7 +1507,6 @@
             CopyMoveTableLayoutPanel.ResumeLayout(false);
             CopyMoveTableLayoutPanel.PerformLayout();
             FilterGroupBox.ResumeLayout(false);
-            FilterGroupBox.PerformLayout();
             FilterTableLayoutPanel.ResumeLayout(false);
             FilterTableLayoutPanel.PerformLayout();
             BackupFolderGroupBox.ResumeLayout(false);
@@ -1548,7 +1527,6 @@
             RenameTableLayoutPanel.ResumeLayout(false);
             RenameTableLayoutPanel.PerformLayout();
             DateFormatGroupBox.ResumeLayout(false);
-            DateFormatGroupBox.PerformLayout();
             DatePatternTableLayoutPanel.ResumeLayout(false);
             DatePatternTableLayoutPanel.PerformLayout();
             WithGroupBox.ResumeLayout(false);
@@ -1574,10 +1552,10 @@
             CleanUpGroupBox.ResumeLayout(false);
             CleanUpTableLayoutPanel.ResumeLayout(false);
             CleanUpTableLayoutPanel.PerformLayout();
-            MainMenuStrip.ResumeLayout(false);
-            MainMenuStrip.PerformLayout();
             MainStatusStrip.ResumeLayout(false);
             MainStatusStrip.PerformLayout();
+            MainMenuStrip.ResumeLayout(false);
+            MainMenuStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1664,7 +1642,6 @@
         private CheckBox ReplaceWithCheckBox;
         private ToolStripMenuItem ShowEmbeddedVideoGPSToolStripMenuItem;
         private DataGridViewTextBoxColumn PropsDataGridViewColumnValues;
-        private DataGridViewTextBoxColumn ExplorerDataGridViewColumnValues;
         private TableLayoutPanel CustomizeTableLayoutPanel;
         private GroupBox GeolocationGroupBox;
         private TableLayoutPanel GeolocationTableLayoutPanel;
@@ -1739,5 +1716,6 @@
         private TextBox CleanUpTextBox;
         private Button CleanUpEditButton;
         private ToolStripMenuItem PreviewPathToolStripMenuItem;
+        private DataGridViewTextBoxColumn ExplorerDataGridViewColumnValues;
     }
 }

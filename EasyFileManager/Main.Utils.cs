@@ -66,14 +66,19 @@ namespace EasyFileManager
             return id.ShowDialog() == DialogResult.OK ? m[string.Empty] : null;
         }
 
-        private string? GetEasyMetadata(object? editItem = null)
+        private static bool HasGeoAreaData(GeoArea geoArea)
+        {
+            return !string.IsNullOrEmpty(geoArea.AreaInfo) || geoArea.GeoCoords is GeoCoordinates gc && gc.IsValid;
+        }
+
+        private async Task<string?> GetEasyMetadataAsync(object? editItem = null)
         {
             EasyMetadata emd = editItem is not string s || string.IsNullOrEmpty(s) ? new() : new(s);
-            Map<string, object?> m = emd.ToMap();
+            Map<string, object?> m = emd.ToEditableMap();
             using InputDialog id = new(ref m, font: Font);
             id.OnUpdate = () =>
             {
-                foreach (KeyValuePair<string, string?> kvp in m.ToDictionary(kvp => kvp.Key, kvp => (string?)kvp.Value))
+                foreach (KeyValuePair<string, string?> kvp in m.ToDictionary(kvp => kvp.Key, kvp => kvp.Value?.ToString()))
                 {
                     string k = kvp.Key;
                     string? s = kvp.Value;
@@ -85,11 +90,16 @@ namespace EasyFileManager
                             case nameof(EasyMetadata.Date):
                                 if (s.AsDateTime() is DateTime dtfs)
                                 {
-                                    s = dtfs.ToDateTimeString();
+                                    o = dtfs.ToDateTimeString();
                                 }
                                 break;
                             case nameof(EasyMetadata.GeoArea):
-                                try { o = new GeoArea(s); } catch { }
+                                try
+                                {
+                                    GeoArea ga = new(s);
+                                    o = HasGeoAreaData(ga) ? ga : s;
+                                }
+                                catch { o = s; }
                                 break;
                             case nameof(EasyMetadata.Tags):
                                 try { o = new EasyList<string>(s); } catch { }
@@ -103,7 +113,30 @@ namespace EasyFileManager
                 }
                 return Task.CompletedTask;
             };
-            return id.ShowDialog() == DialogResult.OK ? $"{new EasyMetadata(m)}" : null;
+            if (id.ShowDialog() != DialogResult.OK)
+            {
+                return null;
+            }
+            if (m.TryGetValue(nameof(EasyMetadata.GeoArea), out object? value) && value is string geoAreaInfo && !string.IsNullOrEmpty(geoAreaInfo))
+            {
+                KeyValuePair<string, GeoCoordinates?>? kvp = await GetGPSAsync(new KeyValuePair<string, GeoCoordinates?>(geoAreaInfo, null));
+                if (kvp is KeyValuePair<string, GeoCoordinates?> geoArea)
+                {
+                    m[nameof(EasyMetadata.GeoArea)] = new GeoArea()
+                    {
+                        AreaInfo = geoArea.Key,
+                        GeoCoords = geoArea.Value
+                    };
+                }
+                else
+                {
+                    m[nameof(EasyMetadata.GeoArea)] = new GeoArea()
+                    {
+                        AreaInfo = geoAreaInfo
+                    };
+                }
+            }
+            return $"{new EasyMetadata(m)}";
         }
 
         private async Task<KeyValuePair<string, GeoCoordinates?>?> GetGPSAsync(object? editItem = null)

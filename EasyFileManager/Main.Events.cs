@@ -465,24 +465,22 @@ namespace EasyFileManager
         {
             List<object> items = [.. EasyMetadataComboBox.Items.Cast<object>()];
             using EditListDialog eld = new(ref items, font: Font, editButtons: EditButtons.AddRemoveMoveUpMoveDownSortEdit);
-            eld.OnAddItem = () =>
+            eld.OnAddItem = async () =>
             {
-                if (GetEasyMetadata() is object o)
+                if (await GetEasyMetadataAsync() is object o)
                 {
                     eld.SelectedIndex = eld.Items.Add(o);
                 }
-                return Task.CompletedTask;
             };
-            eld.OnEditItem = () =>
+            eld.OnEditItem = async () =>
             {
-                if (GetEasyMetadata(eld.SelectedItem) is object o)
+                if (await GetEasyMetadataAsync(eld.SelectedItem) is object o)
                 {
                     int i = eld.SelectedIndex;
                     eld.Items.RemoveAt(i);
                     eld.Items.Insert(i, o);
                     eld.SelectedIndex = i;
                 }
-                return Task.CompletedTask;
             };
             if (eld.ShowDialog() == DialogResult.OK)
             {

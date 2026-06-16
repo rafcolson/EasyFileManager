@@ -111,17 +111,16 @@ namespace EasyFileManager
             int rh = rsc.Panel2Collapsed ? rsc.SplitterDistance : _renameSplitContainerHeight;
             int cmh = cmsc.Panel2Collapsed ? cmsc.SplitterDistance : _copyMoveSplitContainerHeight;
             int fh = fsc.Panel2Collapsed ? fsc.SplitterDistance : _finalizeSplitContainerHeight;
-            int sw = csc.SplitterWidth + rsc.SplitterWidth + cmsc.SplitterWidth + fsc.SplitterWidth;
             int mb = csc.Margin.Bottom + rsc.Margin.Bottom + cmsc.Margin.Bottom + fsc.Margin.Bottom;
             int mt = csc.Margin.Top + rsc.Margin.Top + cmsc.Margin.Top + fsc.Margin.Top;
-            int sd = esc.Height - ch - rh - cmh - fh - sw - mb - mt;
+            int sd = esc.Height - ch - rh - cmh - fh - mb - mt - esc.SplitterWidth;
 
             esc.SuspendDrawing();
             if (customize) { csc.Height = ch; }
             if (rename) { rsc.Height = rh; }
             if (copyMove) { cmsc.Height = cmh; }
             if (finalize) { fsc.Height = fh; }
-            esc.SplitterDistance = sd;
+            esc.SplitterDistance = Math.Max(sd, 1);
             esc.ResumeDrawing();
         }
 
@@ -183,6 +182,7 @@ namespace EasyFileManager
                 }
             }
             ExplorerDataGridView.ResumeLayout(true);
+            ExplorerDataGridView.ResizeRowHeaders(DeviceDpi);
 
             RestoreSelectedPaths();
 
@@ -1030,6 +1030,7 @@ namespace EasyFileManager
             foreach (DataGridViewRow row in PropsDataGridView.SelectedRows) { row.Selected = false; }
 
             PropsDataGridView.ResumeLayout(true);
+            PropsDataGridView.ResizeRowHeaders(DeviceDpi);
 
             IsUpdating = false;
         }

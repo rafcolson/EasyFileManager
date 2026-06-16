@@ -6,8 +6,6 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationHighDpiMode>DpiUnaware</ApplicationHighDpiMode>
-    <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
     <StartupObject>EasyFileManager.Program</StartupObject>
     <ApplicationIcon>Resources\Icons\ApplicationIcon.ico</ApplicationIcon>
     <PackageIcon>PackageIcon.png</PackageIcon>

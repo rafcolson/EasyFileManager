@@ -61,7 +61,7 @@
             VersionLabel.AutoSize = true;
             VersionLabel.Dock = DockStyle.Fill;
             VersionLabel.Enabled = false;
-            VersionLabel.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            VersionLabel.Font = new Font("Microsoft Sans Serif", 9F);
             VersionLabel.Location = new Point(8, 50);
             VersionLabel.Margin = new Padding(8);
             VersionLabel.Name = "VersionLabel";
@@ -77,7 +77,7 @@
             TitleLabel.BackColor = Color.Transparent;
             TitleLabel.Dock = DockStyle.Fill;
             TitleLabel.Enabled = false;
-            TitleLabel.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            TitleLabel.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold);
             TitleLabel.Location = new Point(4, 4);
             TitleLabel.Margin = new Padding(4);
             TitleLabel.Name = "TitleLabel";
@@ -92,7 +92,7 @@
             CopyrightLinkLabel.ActiveLinkColor = Color.White;
             CopyrightLinkLabel.AutoSize = true;
             CopyrightLinkLabel.Dock = DockStyle.Fill;
-            CopyrightLinkLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            CopyrightLinkLabel.Font = new Font("Segoe UI", 9F);
             CopyrightLinkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
             CopyrightLinkLabel.LinkColor = Color.AliceBlue;
             CopyrightLinkLabel.Location = new Point(8, 85);
@@ -107,15 +107,16 @@
             // 
             // Splash
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.ControlDark;
             BackgroundImage = Properties.Resources.Splash;
-            BackgroundImageLayout = ImageLayout.Center;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(480, 360);
             ControlBox = false;
             Controls.Add(InfotableLayoutPanel);
             DoubleBuffered = true;
-            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 12F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             MaximizeBox = false;
