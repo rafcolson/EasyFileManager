@@ -22,7 +22,8 @@ namespace EasyFileManager
             TitleLabel.Text = assembly.GetTitle();
             VersionLabel.Text = $"Version {assembly.GetFileVersion()}";
             string k = $"© {assembly.GetCompany()}";
-            string v = assembly.GetCopyright();
+            string v = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+                .FirstOrDefault(attribute => attribute.Key == "LicenseUrl")?.Value ?? string.Empty;
             CopyrightLinkLabel.Text = k;
             CopyrightLinkLabel.UpdateLinks(Utils.GetLinkLabelLinks(k, new() { { k, v } }));
         }

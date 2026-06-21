@@ -1,14 +1,14 @@
 ﻿SOFTWARE LICENSE AGREEMENT
 
 
-This software is free to use, but not license-free, mainly because it uses software and services under the terms of several licenses:
+EasyFileManager is free of charge and open-source software. Its source code and the third-party software, services, and data it uses remain subject to their respective licenses:
 
-- ExifTool's Perl Artistic License
-- OpenStreetMap's Open Data Commons Open Database License (ODbL) by the OpenStreetMap Foundation.
+- ExifTool under the Perl Artistic License
+- OpenStreetMap data under the Open Data Commons Open Database License (ODbL)
 
-Code created by myself or other contributors is distributed under the BSD 3-Clause License, which includes a disclaimer of liability for damages that may be caused while using it.
+Code developed specifically for EasyFileManager by Raf Colson and other contributors is distributed under the BSD 3-Clause License, which includes a disclaimer of liability.	
 
-By installing this software, the licensee agrees to the terms and confirms to have read all notices.
+By installing this software, the user accepts the applicable license terms and acknowledges having read the accompanying notices.
 
 
 BSD 3-Clause License
@@ -16,7 +16,7 @@ BSD 3-Clause License
 
 https://opensource.org/license/bsd-3-clause/
 
-Copyright © 2026, https://github.com/rafcolson
+Copyright © 2026 Raf Colson (RacoSoft)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

@@ -24,13 +24,17 @@
     <Version>$(FileVersion)</Version>
     <Company>RacoSoft</Company>
     <RepositoryUrl>https://github.com/rafcolson/EasyFileManager</RepositoryUrl>
-    <Copyright>$(RepositoryUrl)#license</Copyright>
+    <Copyright>Copyright © $([System.DateTime]::Now.ToString('yyyy')) Raf Colson (RacoSoft)</Copyright>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageTags>$(AssemblyVersion)</PackageTags>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyMetadata Include="LicenseUrl" Value="$(RepositoryUrl)#license" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Properties\Icons\**" />

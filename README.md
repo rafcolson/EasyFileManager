@@ -1,5 +1,7 @@
 ﻿# EasyFileManager
 
+*EasyFileManager* is an open-source project developed and maintained by Raf Colson under the name RacoSoft.
+
 With this application, it is possible to manage your computer files in batch, based on their metadata. Files can be modified by editing metadata, but can also be renamed and moved (or copied). The batch process can be extended by finding and removing duplicates and/or deleting empty folders. Settings are saved when changes are made, but can also be exported and imported. There are additional options, such as preserving dates of edited and/or moved (or copied) files. Files can be opened directly or viewed in *Windows Explorer*. Images and videos can be previewed, and images can be rotated on the fly.
 
 There are six languages available to choose from: *German*, *English*, *Spanish*, *French*, *Italian* and *Dutch*. Detailed information on how to use *EasyFileManager* can be found in the [wiki](https://github.com/rafcolson/EasyFileManager/wiki).
@@ -8,13 +10,13 @@ There are six languages available to choose from: *German*, *English*, *Spanish*
 
 License
 -------
-*EasyFileManager* is free software, but not license-free, mainly because it uses software and services under the terms of several licenses:
+*EasyFileManager* is free of charge and open-source software. Its source code and the third-party software, services, and data it uses remain subject to their respective licenses:
 - [ExifTool](https://exiftool.org) under the [Perl Artistic License](https://dev.perl.org/licenses/artistic.html)
-- [OpenStreetMap](https://www.openstreetmap.org) under the [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/) by the [OpenStreetMap Foundation (OSMF)](https://osmfoundation.org).
+- [OpenStreetMap](https://www.openstreetmap.org) data under the [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/)
 
-Code created by myself or other contributors may be redistributed and/or modified under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause), which also includes a disclaimer of liability for damages that may be caused while using the software, including when customizing, renaming, moving or deleting computer files.
+Code developed specifically for *EasyFileManager* by Raf Colson and other contributors is licensed under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause), which includes a disclaimer of liability.
 
-The licenses which users must agree to in order to install this software can be viewed in [LICENSE](https://github.com/rafcolson/EasyFileManager/blob/main/LICENSE).
+The applicable license terms and notices for this software can be viewed in [LICENSE](https://github.com/rafcolson/EasyFileManager/blob/main/LICENSE).
 
 Credits
 -------
