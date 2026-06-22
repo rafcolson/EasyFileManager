@@ -40,12 +40,8 @@ namespace EasyFileManager
                     try
                     {
                         FolderWatcher.EnableRaisingEvents = false;
-                        FolderContentsWatcher.EnableRaisingEvents = false;
-                        FolderContentsWatcher.Path = path;
-                        FolderWatcher.Filter = GetDirectoryName(path);
-                        FolderWatcher.Path = GetParentPath(path);
+                        FolderWatcher.Path = path;
                         FolderWatcher.EnableRaisingEvents = true;
-                        FolderContentsWatcher.EnableRaisingEvents = true;
 
                         Properties.Settings.Default.StartupDirectory = path;
                         Properties.Settings.Default.Save();
@@ -54,7 +50,7 @@ namespace EasyFileManager
                         Folder.Initialize(path);
 
                         Folders.Replace(Folder.GetDirectoryPaths());
-                        Files.Replace(Folder.GetFilePaths(), Properties.Settings.Default.PreviewPath);
+                        Files.Replace(Folder.GetFilePaths(), Properties.Settings.Default.PreviewPath, false);
 
                         UpdateHistory();
                         UpdateOneLevelUpButton();
@@ -202,7 +198,7 @@ namespace EasyFileManager
                 WaitUntilTaskCompleted();
             }
             UpdateThumbnailPropsView();
-            DelayAsync(UpdateFormattingAsync);
+            UpdatePreviewFormatting();
         }
 
         private void UpdateReplaceWithControls()
@@ -481,8 +477,6 @@ namespace EasyFileManager
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            string dp = (Options.CopyMoveState != CheckState.Unchecked) && Options.TopFolderEnabled ? Options.TopFolderPath : Folder.Path;
-            OrderedMap<string, string> om = new(GetAllPaths(dp, true).ToDictionary(s => s));
             DataGridViewRowCollection rows = ExplorerDataGridView.Rows;
 
             EasyFiles viewFiles = [];
@@ -493,10 +487,11 @@ namespace EasyFileManager
                     viewFiles.Add(ef);
                 }
             }
+            bool useTopFolderOutput = Options.CopyMoveState != CheckState.Unchecked && Options.TopFolderEnabled;
             EasyFiles selectedFiles = [];
             foreach (DataGridViewRow row in ExplorerDataGridView.SelectedRows)
             {
-                if (row.Tag is EasyFolder ed)
+                if (useTopFolderOutput && row.Tag is EasyFolder ed)
                 {
                     string[] paths = ed.GetFilePaths(true);
                     if (filterEnabled)
@@ -513,6 +508,11 @@ namespace EasyFileManager
                     }
                 }
             }
+            string dp = useTopFolderOutput ? Options.TopFolderPath : Folder.Path;
+            IEnumerable<string> pathsForDuplicateCheck = useTopFolderOutput
+                ? GetAllPaths(dp, true)
+                : selectedFiles.Select(x => x.ParentPath).Distinct(StringComparer.OrdinalIgnoreCase).SelectMany(x => GetAllPaths(x));
+            OrderedMap<string, string> om = new(pathsForDuplicateCheck.Distinct(StringComparer.OrdinalIgnoreCase).ToDictionary(s => s, StringComparer.OrdinalIgnoreCase));
             EasyFiles selectedViewFiles = [];
             numValues = selectedFiles.Count;
             for (int i = 0; i < numValues; i++)
@@ -980,6 +980,7 @@ namespace EasyFileManager
             }
             else if (ep is EasyFile ef)
             {
+                ef.EnsureDetailsLoaded();
                 if (ef.Type == EasyType.Image)
                 {
                     if (ef.DateTaken is DateTime dtt)
@@ -995,7 +996,7 @@ namespace EasyFileManager
                         PropsDataGridView.AddRow(Globals.CameraModel, mod);
                     }
                 }
-                else if (ef.Type == EasyType.Video && ef.DateEncoded is DateTime dte)
+                else if ((ef.Type == EasyType.Video || ef.Type == EasyType.Audio) && ef.DateEncoded is DateTime dte)
                 {
                     PropsDataGridView.AddRow(Globals.DateEncoded, showMillis ? dte.ToDateTimeString() : dte.ToDateSecondString());
                 }
@@ -1134,6 +1135,14 @@ namespace EasyFileManager
             return false;
         }
 
-        private async Task<bool> UpdateFormattingAsync() => Properties.Settings.Default.PreviewPath && (Options.HasRenaming() || Options.HasCopyingMoving()) && await UpdateAsync(UpdateFormatting);
+        private async Task<bool> UpdateFormattingAsync()
+        {
+            if (!Properties.Settings.Default.PreviewPath)
+            {
+                ClearFormatting();
+                return false;
+            }
+            return await UpdateAsync(UpdateFormatting);
+        }
     }
 }

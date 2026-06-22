@@ -1,4 +1,4 @@
-﻿namespace EasyFileManager
+namespace EasyFileManager
 {
     partial class Main
     {
@@ -168,6 +168,7 @@
             ShowMillisecondsToolStripMenuItem = new ToolStripMenuItem();
             ShowHiddenItemsToolStripMenuItem = new ToolStripMenuItem();
             ShowEmbeddedVideoGPSToolStripMenuItem = new ToolStripMenuItem();
+            ShowEmbeddedAudioDateToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripSeparator = new ToolStripSeparator();
             LanguageToolStripMenuItem = new ToolStripMenuItem();
             OptionsToolStripMenuItem = new ToolStripMenuItem();
@@ -1317,7 +1318,7 @@
             // 
             // ViewToolStripMenuItem
             // 
-            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowEmbeddedVideoGPSToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
+            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowEmbeddedVideoGPSToolStripMenuItem, ShowEmbeddedAudioDateToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
             ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
             resources.ApplyResources(ViewToolStripMenuItem, "ViewToolStripMenuItem");
             // 
@@ -1350,6 +1351,11 @@
             // 
             ShowEmbeddedVideoGPSToolStripMenuItem.Name = "ShowEmbeddedVideoGPSToolStripMenuItem";
             resources.ApplyResources(ShowEmbeddedVideoGPSToolStripMenuItem, "ShowEmbeddedVideoGPSToolStripMenuItem");
+            // 
+            // ShowEmbeddedAudioDateToolStripMenuItem
+            // 
+            ShowEmbeddedAudioDateToolStripMenuItem.Name = "ShowEmbeddedAudioDateToolStripMenuItem";
+            resources.ApplyResources(ShowEmbeddedAudioDateToolStripMenuItem, "ShowEmbeddedAudioDateToolStripMenuItem");
             // 
             // ViewToolStripSeparator
             // 
@@ -1641,6 +1647,7 @@
         private TableLayoutPanel ReplaceTableLayoutPanel;
         private CheckBox ReplaceWithCheckBox;
         private ToolStripMenuItem ShowEmbeddedVideoGPSToolStripMenuItem;
+        private ToolStripMenuItem ShowEmbeddedAudioDateToolStripMenuItem;
         private DataGridViewTextBoxColumn PropsDataGridViewColumnValues;
         private TableLayoutPanel CustomizeTableLayoutPanel;
         private GroupBox GeolocationGroupBox;

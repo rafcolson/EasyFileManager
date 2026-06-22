@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
     Microsoft ResX Schema 
@@ -258,6 +258,12 @@
   </data>
   <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Text" xml:space="preserve">
     <value>Eingebettetes Video-GPS anzeigen</value>
+  </data>
+  <data name="ShowEmbeddedAudioDateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 26</value>
+  </data>
+  <data name="ShowEmbeddedAudioDateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Eingebettetes Audiodatum anzeigen</value>
   </data>
   <data name="ViewToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>314, 6</value>

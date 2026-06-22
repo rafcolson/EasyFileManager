@@ -40,8 +40,9 @@ namespace EasyFileManager
         private static EditTextContextMenuStrip? _editPropsContextMenuStrip;
         private static EditTextContextMenuStrip? _editExplorerContextMenuStrip;
 
-        public static FileSystemWatcher FolderWatcher { get; } = new();
-        public static FileSystemWatcher FolderContentsWatcher { get; } = new();
+        private readonly System.Windows.Forms.Timer _previewFormattingTimer = new() { Interval = 500 };
+
+        public static AdaptiveFileSystemWatcher FolderWatcher { get; } = new();
         public static BackgroundWorker ProgressBackgroundWorker { get; } = new()
         {
             WorkerReportsProgress = true
@@ -73,8 +74,14 @@ namespace EasyFileManager
             set
             {
                 _isApplying = value;
-                FolderWatcher.EnableRaisingEvents = !_isApplying;
-                FolderContentsWatcher.EnableRaisingEvents = !_isApplying;
+                if (_isApplying)
+                {
+                    FolderWatcher.EnableRaisingEvents = false;
+                }
+                else
+                {
+                    FolderWatcher.EnableRaisingEvents = true;
+                }
                 Cursor = _isApplying ? Cursors.WaitCursor : Cursors.Default;
             }
         }
@@ -135,6 +142,7 @@ namespace EasyFileManager
                 _editExplorerContextMenuStrip.Items.Add(openMenuItem);
             }
             _editExplorerContextMenuStrip.Opening += EditExplorerContextMenuStrip_Opening;
+            _previewFormattingTimer.Tick += PreviewFormattingTimer_TickAsync;
         }
 
         private void InitializeMainEventHandlers()
@@ -153,6 +161,7 @@ namespace EasyFileManager
             ShowMillisecondsToolStripMenuItem.Checked = Properties.Settings.Default.ShowMilliseconds;
             ShowHiddenItemsToolStripMenuItem.Checked = Properties.Settings.Default.ShowHiddenItems;
             ShowEmbeddedVideoGPSToolStripMenuItem.Checked = Properties.Settings.Default.ShowEmbeddedVideoGPS;
+            ShowEmbeddedAudioDateToolStripMenuItem.Checked = Properties.Settings.Default.ShowEmbeddedAudioDate;
 
             UseEasyMetadataWithVideoToolStripMenuItem.Checked = Options.UseEasyMetadataWithVideo;
             PreserveDateCreatedToolStripMenuItem.Checked = Options.PreserveDateCreated;
@@ -302,12 +311,7 @@ namespace EasyFileManager
         private void InitializeMinorEventHandlers()
         {
             ProgressBackgroundWorker.ProgressChanged += ProgressBackgroundWorker_ProgressChanged;
-            FolderWatcher.Renamed += FolderWatcher_RenamedOrDeleted;
-            FolderWatcher.Deleted += FolderWatcher_RenamedOrDeleted;
-            FolderContentsWatcher.Changed += FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
-            FolderContentsWatcher.Renamed += FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
-            FolderContentsWatcher.Deleted += FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
-            FolderContentsWatcher.Created += FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
+            FolderWatcher.Changed += FolderWatcher_Changed;
 
             ImportToolStripMenuItem.Click += ImportToolStripMenuItem_Click;
             ExportToolStripMenuItem.Click += ExportToolStripMenuItem_Click;
@@ -319,6 +323,7 @@ namespace EasyFileManager
             ShowPropertiesToolStripMenuItem.Click += ShowPropertiesToolStripMenuItem_Click;
             ShowMillisecondsToolStripMenuItem.Click += ShowMillisecondsToolStripMenuItem_Click;
             ShowEmbeddedVideoGPSToolStripMenuItem.Click += ShowEmbeddedVideoGPSToolStripMenuItem_Click;
+            ShowEmbeddedAudioDateToolStripMenuItem.Click += ShowEmbeddedAudioDateToolStripMenuItem_Click;
             LanguageToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
 
             UseEasyMetadataWithVideoToolStripMenuItem.Click += UseEasyMetadataWithVideoToolStripMenuItem_Click;
@@ -427,12 +432,7 @@ namespace EasyFileManager
 
         private void InitializeWatchers()
         {
-            FolderWatcher.NotifyFilter = NotifyFilters.DirectoryName;
             FolderWatcher.SynchronizingObject = this;
-            FolderWatcher.EnableRaisingEvents = true;
-            FolderContentsWatcher.NotifyFilter = NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastWrite;
-            FolderContentsWatcher.SynchronizingObject = this;
-            FolderContentsWatcher.EnableRaisingEvents = true;
         }
 
         private void ShowSplash(bool hideMainForm = false, TimeSpan? timeSpan = null)
@@ -451,7 +451,7 @@ namespace EasyFileManager
             InitializeComponent();
             Icon = Properties.Resources.ApplicationIcon;
             InitializeFields();
-            //RestoreToDefault(@"G:\_EFM\Test");
+            //RestoreToDefault();
             Options = new(Properties.Settings.Default.EasyOptions);
 
             this.SuspendDrawing();
@@ -461,11 +461,11 @@ namespace EasyFileManager
 
         private void FinishInitialization()
         {
+            InitializeWatchers();
             InitializeLayout();
             InitializeToolTips();
             BeginInvoke((MethodInvoker)delegate
             {
-                InitializeWatchers();
                 InitializeMinorEventHandlers();
                 InitializeRowHeaders();
                 this.ResumeDrawing();
@@ -550,6 +550,7 @@ namespace EasyFileManager
             _editPathContextMenuStrip?.Dispose();
             _editPropsContextMenuStrip?.Dispose();
             _editExplorerContextMenuStrip?.Dispose();
+            _previewFormattingTimer.Dispose();
         }
 
         private void DisposeMinorEventHandlers()
@@ -557,12 +558,7 @@ namespace EasyFileManager
             Debug.WriteLine($"Disposing '{Name}': minor event handlers...");
 
             ProgressBackgroundWorker.ProgressChanged -= ProgressBackgroundWorker_ProgressChanged;
-            FolderWatcher.Renamed -= FolderWatcher_RenamedOrDeleted;
-            FolderWatcher.Deleted -= FolderWatcher_RenamedOrDeleted;
-            FolderContentsWatcher.Changed -= FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
-            FolderContentsWatcher.Renamed -= FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
-            FolderContentsWatcher.Deleted -= FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
-            FolderContentsWatcher.Created -= FolderContentsWatcher_ChangedRenamedDeletedOrCreated;
+            FolderWatcher.Changed -= FolderWatcher_Changed;
 
             ImportToolStripMenuItem.Click -= ImportToolStripMenuItem_Click;
             ExportToolStripMenuItem.Click -= ExportToolStripMenuItem_Click;
@@ -574,6 +570,7 @@ namespace EasyFileManager
             ShowPropertiesToolStripMenuItem.Click -= ShowPropertiesToolStripMenuItem_Click;
             ShowMillisecondsToolStripMenuItem.Click -= ShowMillisecondsToolStripMenuItem_Click;
             ShowEmbeddedVideoGPSToolStripMenuItem.Click -= ShowEmbeddedVideoGPSToolStripMenuItem_Click;
+            ShowEmbeddedAudioDateToolStripMenuItem.Click -= ShowEmbeddedAudioDateToolStripMenuItem_Click;
             LanguageToolStripMenuItem.Click -= LanguageToolStripMenuItem_Click;
 
             UseEasyMetadataWithVideoToolStripMenuItem.Click -= UseEasyMetadataWithVideoToolStripMenuItem_Click;
@@ -693,7 +690,6 @@ namespace EasyFileManager
         private static void DisposeProperties()
         {
             FolderWatcher.Dispose();
-            FolderContentsWatcher.Dispose();
             ProgressBackgroundWorker.Dispose();
         }
 
