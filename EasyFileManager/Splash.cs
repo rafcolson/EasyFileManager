@@ -20,7 +20,7 @@ namespace EasyFileManager
             BringToFront();
             Assembly assembly = Assembly.GetExecutingAssembly();
             TitleLabel.Text = assembly.GetTitle();
-            VersionLabel.Text = $"Version {assembly.GetFileVersion()}";
+            VersionLabel.Text = $"Version {assembly.GetVersion()}";
             string k = $"© {assembly.GetCompany()}";
             string v = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
                 .FirstOrDefault(attribute => attribute.Key == "LicenseUrl")?.Value ?? string.Empty;

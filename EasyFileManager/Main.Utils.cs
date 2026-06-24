@@ -1,10 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-
 using WinFormsLib;
-
-using static WinFormsLib.Forms;
 using static WinFormsLib.Constants;
+using static WinFormsLib.Forms;
 using static WinFormsLib.GeoLocator;
 
 namespace EasyFileManager
@@ -78,7 +76,7 @@ namespace EasyFileManager
 
         private static bool HasGeoAreaData(GeoArea geoArea)
         {
-            return !string.IsNullOrEmpty(geoArea.AreaInfo) || geoArea.GeoCoords is GeoCoordinates gc && gc.IsValid;
+            return !string.IsNullOrEmpty(geoArea.AreaInfo) || (geoArea.GeoCoords is GeoCoordinates gc && gc.IsValid);
         }
 
         private async Task<string?> GetEasyMetadataAsync(object? editItem = null)
@@ -130,21 +128,16 @@ namespace EasyFileManager
             if (m.TryGetValue(nameof(EasyMetadata.GeoArea), out object? value) && value is string geoAreaInfo && !string.IsNullOrEmpty(geoAreaInfo))
             {
                 KeyValuePair<string, GeoCoordinates?>? kvp = await GetGPSAsync(new KeyValuePair<string, GeoCoordinates?>(geoAreaInfo, null));
-                if (kvp is KeyValuePair<string, GeoCoordinates?> geoArea)
-                {
-                    m[nameof(EasyMetadata.GeoArea)] = new GeoArea()
+                m[nameof(EasyMetadata.GeoArea)] = kvp is KeyValuePair<string, GeoCoordinates?> geoArea
+                    ? new GeoArea()
                     {
                         AreaInfo = geoArea.Key,
                         GeoCoords = geoArea.Value
-                    };
-                }
-                else
-                {
-                    m[nameof(EasyMetadata.GeoArea)] = new GeoArea()
+                    }
+                    : new GeoArea()
                     {
                         AreaInfo = geoAreaInfo
                     };
-                }
             }
             return $"{new EasyMetadata(m)}";
         }
@@ -213,7 +206,7 @@ namespace EasyFileManager
                 try
                 {
                     Debug.WriteLine("Waiting 10 milliseconds until previous task is completed.");
-                    _task.Wait(10);
+                    _ = _task.Wait(10);
                 }
                 catch { }
             }
@@ -244,7 +237,7 @@ namespace EasyFileManager
         private static bool TypeFilteredPathExists(EasyPath easyPath, EasyTypeFilter typeFilter)
         {
             EasyType et = typeFilter.GetContainingFlags().Select(x => x.GetValue<EasyType>()).Aggregate((x, y) => x |= y);
-            return et == EasyType.None || et.HasFlag(easyPath.Type);
+            return et == EasyType.None || (et & easyPath.Type) != EasyType.None;
         }
 
         private static string[] GetFilteredFilePaths(string[] paths, EasyTypeFilter typeFilter, EasyNameFilter nameFilter = default, string filterString = EMPTY_STRING)

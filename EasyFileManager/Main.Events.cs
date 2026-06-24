@@ -1,13 +1,11 @@
 using System.ComponentModel;
 using System.Diagnostics;
-
 using WinFormsLib;
-
-using static WinFormsLib.Utils;
-using static WinFormsLib.Forms;
 using static WinFormsLib.Buttons;
 using static WinFormsLib.Constants;
+using static WinFormsLib.Forms;
 using static WinFormsLib.GeoLocator;
+using static WinFormsLib.Utils;
 
 namespace EasyFileManager
 {
@@ -46,7 +44,7 @@ namespace EasyFileManager
             }
             else if (i == 100)
             {
-                Delay(() => { if (MainProgressBar.Value != 0) { ProgressBackgroundWorker.ReportProgress(0); } }, 750 );
+                Delay(() => { if (MainProgressBar.Value != 0) { ProgressBackgroundWorker.ReportProgress(0); } }, 750);
             }
             MainProgressBar.Value = i;
             MainProgressBar.Visible = i != 0;
@@ -250,7 +248,8 @@ namespace EasyFileManager
             UpdateExplorerView();
         }
 
-        private void ConvertEmbeddedImageToolStripMenuItem_Click(object? sender, EventArgs e) {
+        private void ConvertEmbeddedImageToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
             bool enabled = !ConvertEmbeddedImageToolStripMenuItem.Checked;
             Options.ConvertEmbeddedToEasyMetadata = GetToggledFlags(Options.ConvertEmbeddedToEasyMetadata, ConvertEmbeddedToEasyMetadata.Image, enabled);
             ConvertEmbeddedImageToolStripMenuItem.Checked = enabled;
@@ -385,7 +384,7 @@ namespace EasyFileManager
                 RotateImage((EasyOrientation)i);
 
                 IsApplying = false;
-                
+
                 UpdateThumbnailPropsView();
             }
             PathTableLayoutPanel.Focus();

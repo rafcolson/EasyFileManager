@@ -1,17 +1,15 @@
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using System.Text.Encodings.Web;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.Encodings.Web;
 using System.Text.Json;
-
+using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using WinFormsLib;
-
 using static WinFormsLib.Chars;
-using static WinFormsLib.Forms;
-using static WinFormsLib.Utils;
 using static WinFormsLib.Constants;
+using static WinFormsLib.Forms;
 using static WinFormsLib.GeoLocator;
+using static WinFormsLib.Utils;
 
 namespace EasyFileManager
 {
@@ -66,7 +64,7 @@ namespace EasyFileManager
                 }
                 foreach (object o in l)
                 {
-                    Remove(o, dispose);
+                    _ = Remove(o, dispose);
                 }
             }
 
@@ -78,7 +76,7 @@ namespace EasyFileManager
                 }
                 return base.Remove(o);
             }
-            
+
             public void Clear(bool dispose = false)
             {
                 if (dispose)
@@ -150,7 +148,7 @@ namespace EasyFileManager
                             case EasyCompareParameter.SmallThumbnail:
                                 foreach (EasyFile ef in l)
                                 {
-                                    if ((EasyType.Image | EasyType.Video).HasFlag(ef.Type) && ef.SmallThumbnail is Image img)
+                                    if ((ef.Type.HasFlag(EasyType.Image) || ef.Type.HasFlag(EasyType.Video)) && ef.SmallThumbnail is Image img)
                                     {
                                         lib.Put(img.ToJson(), ef);
                                         img.Dispose();
@@ -160,7 +158,7 @@ namespace EasyFileManager
                             case EasyCompareParameter.MediumThumbnail:
                                 foreach (EasyFile ef in l)
                                 {
-                                    if ((EasyType.Image | EasyType.Video).HasFlag(ef.Type) && ef.MediumThumbnail is Image img)
+                                    if ((ef.Type.HasFlag(EasyType.Image) || ef.Type.HasFlag(EasyType.Video)) && ef.MediumThumbnail is Image img)
                                     {
                                         lib.Put(img.ToJson(), ef);
                                         img.Dispose();
@@ -170,7 +168,7 @@ namespace EasyFileManager
                             case EasyCompareParameter.LargeThumbnail:
                                 foreach (EasyFile ef in l)
                                 {
-                                    if ((EasyType.Image | EasyType.Video).HasFlag(ef.Type) && ef.LargeThumbnail is Image img)
+                                    if ((ef.Type.HasFlag(EasyType.Image) || ef.Type.HasFlag(EasyType.Video)) && ef.LargeThumbnail is Image img)
                                     {
                                         lib.Put(img.ToJson(), ef);
                                         img.Dispose();
@@ -180,7 +178,7 @@ namespace EasyFileManager
                             case EasyCompareParameter.ExtraLargeThumbnail:
                                 foreach (EasyFile ef in l)
                                 {
-                                    if ((EasyType.Image | EasyType.Video).HasFlag(ef.Type) && ef.ExtraLargeThumbnail is Image img)
+                                    if ((ef.Type.HasFlag(EasyType.Image) || ef.Type.HasFlag(EasyType.Video)) && ef.ExtraLargeThumbnail is Image img)
                                     {
                                         lib.Put(img.ToJson(), ef);
                                         img.Dispose();
@@ -193,7 +191,7 @@ namespace EasyFileManager
                         }
                         lib.Filter(true);
                         l.Clear();
-                        kvp.Value.Remove(o);
+                        _ = kvp.Value.Remove(o);
                         kvp.Value.Union(lib);
                     }
                 }
@@ -816,7 +814,7 @@ namespace EasyFileManager
         public Map<string, object?> ToEditableMap()
         {
             Map<string, object?> map = ToMap();
-            map.Remove(nameof(Version));
+            _ = map.Remove(nameof(Version));
             return map;
         }
 
@@ -827,7 +825,7 @@ namespace EasyFileManager
 
     public class EasyList<T> : List<T>
     {
-        public EasyList(){}
+        public EasyList() { }
 
         public EasyList(string json)
         {
@@ -864,7 +862,7 @@ namespace EasyFileManager
         {
             foreach (string path in paths)
             {
-                Add(path);
+                _ = Add(path);
             }
         }
 
@@ -909,7 +907,7 @@ namespace EasyFileManager
         {
             foreach (string path in paths)
             {
-                Add(path, readShell);
+                _ = Add(path, readShell);
             }
         }
 
@@ -929,14 +927,14 @@ namespace EasyFileManager
         public new void Remove(EasyPath easyPath)
         {
             easyPath.Dispose();
-            base.Remove(easyPath);
+            _ = base.Remove(easyPath);
         }
 
         public new int RemoveAll(Predicate<EasyPath> predicate)
         {
             EasyPaths<T> el = [.. this];
             int result = base.RemoveAll(predicate);
-            el.ExceptWith(this);
+            _ = el.ExceptWith(this);
             el.Clear();
             return result;
         }
@@ -951,7 +949,7 @@ namespace EasyFileManager
         {
             EasyPaths<T> el = [.. this];
             base.RemoveRange(index, count);
-            el.ExceptWith(this);
+            _ = el.ExceptWith(this);
             el.Clear();
         }
 
@@ -989,7 +987,7 @@ namespace EasyFileManager
 
         public new IEnumerator<EasyFolder> GetEnumerator()
         {
-            var enumerator = base.GetEnumerator();
+            Enumerator enumerator = base.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 yield return (EasyFolder)enumerator.Current;
@@ -998,75 +996,75 @@ namespace EasyFileManager
 
         public override EasyFolder? Add(string path, bool readShell = true)
         {
-        if (!Contains(path))
-        {
-            EasyFolder ed;
-            try
+            if (!Contains(path))
             {
-                ed = new(path, readShell);
-                Add(ed);
-                return ed;
+                EasyFolder ed;
+                try
+                {
+                    ed = new(path, readShell);
+                    Add(ed);
+                    return ed;
+                }
+                catch (ArgumentException) { }
             }
-            catch (ArgumentException) { }
-        }
-        return null;
-    }
-}
-
-public class EasyFiles : EasyPaths<EasyFile>
-{
-    public new EasyFile this[int index] { get => (EasyFile)base[index]; set => base[index] = value; }
-
-    public EasyFiles() { }
-
-    public EasyFiles(IEnumerable<string> paths) => AddRange(paths);
-
-    public EasyFiles(IEnumerable<EasyFile> easyFiles) => AddRange(easyFiles);
-
-    public new IEnumerator<EasyFile> GetEnumerator()
-    {
-        var enumerator = base.GetEnumerator();
-        while (enumerator.MoveNext())
-        {
-            yield return (EasyFile)enumerator.Current;
+            return null;
         }
     }
 
-    public override EasyFile? Add(string path, bool readShell = true)
+    public class EasyFiles : EasyPaths<EasyFile>
     {
-        return Add(path, readShell, true);
-    }
+        public new EasyFile this[int index] { get => (EasyFile)base[index]; set => base[index] = value; }
 
-    public EasyFile? Add(string path, bool readShell, bool loadDetails)
-    {
-        if (!Contains(path))
+        public EasyFiles() { }
+
+        public EasyFiles(IEnumerable<string> paths) => AddRange(paths);
+
+        public EasyFiles(IEnumerable<EasyFile> easyFiles) => AddRange(easyFiles);
+
+        public new IEnumerator<EasyFile> GetEnumerator()
         {
-            EasyFile ef;
-            try
+            Enumerator enumerator = base.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                ef = new(path, readShell, loadDetails);
-                Add(ef);
-                return ef;
+                yield return (EasyFile)enumerator.Current;
             }
-            catch (ArgumentException) { }
         }
-        return null;
-    }
 
-    public void AddRange(IEnumerable<string> paths, bool readShell, bool loadDetails)
-    {
-        foreach (string path in paths)
+        public override EasyFile? Add(string path, bool readShell = true)
         {
-            Add(path, readShell, loadDetails);
+            return Add(path, readShell, true);
+        }
+
+        public EasyFile? Add(string path, bool readShell, bool loadDetails)
+        {
+            if (!Contains(path))
+            {
+                EasyFile ef;
+                try
+                {
+                    ef = new(path, readShell, loadDetails);
+                    Add(ef);
+                    return ef;
+                }
+                catch (ArgumentException) { }
+            }
+            return null;
+        }
+
+        public void AddRange(IEnumerable<string> paths, bool readShell, bool loadDetails)
+        {
+            foreach (string path in paths)
+            {
+                _ = Add(path, readShell, loadDetails);
+            }
+        }
+
+        public void Replace(IEnumerable<string> paths, bool readShell, bool loadDetails)
+        {
+            Clear();
+            AddRange(paths, readShell, loadDetails);
         }
     }
-
-    public void Replace(IEnumerable<string> paths, bool readShell, bool loadDetails)
-    {
-        Clear();
-        AddRange(paths, readShell, loadDetails);
-    }
-}
 
     public class EasyPath : IDisposable, IEquatable<EasyPath>, IComparable<EasyPath>
     {
@@ -1074,11 +1072,7 @@ public class EasyFiles : EasyPaths<EasyFile>
         {
             public override EasyPath Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
             {
-                if (reader.GetString() is string s)
-                {
-                    return new(s);
-                }
-                return new();
+                return reader.GetString() is string s ? new(s) : new();
             }
             public override void Write(Utf8JsonWriter writer, EasyPath easyPath, JsonSerializerOptions options)
             {
@@ -1202,8 +1196,8 @@ public class EasyFiles : EasyPaths<EasyFile>
                 if (result)
                 {
                     if (preserveDateCreated || preserveDateModified) { Initialize(path); }
-                    if (preserveDateCreated) { _dateCreated = dtc; WriteDateCreated(); }
-                    if (preserveDateModified) { _dateModified = dtm; WriteDateModified(); }
+                    if (preserveDateCreated) { _dateCreated = dtc; _ = WriteDateCreated(); }
+                    if (preserveDateModified) { _dateModified = dtm; _ = WriteDateModified(); }
                 }
             }
             return result;
@@ -1292,9 +1286,9 @@ public class EasyFiles : EasyPaths<EasyFile>
                 _fileAttributes = File.GetAttributes(_path);
                 if (readShell)
                 {
-                    ReadShellObject();
-                    ReadDateModified();
-                    ReadDateCreated();
+                    _ = ReadShellObject();
+                    _ = ReadDateModified();
+                    _ = ReadDateCreated();
                 }
             }
             catch (Exception e)
@@ -1333,7 +1327,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                                 cts.Token.ThrowIfCancellationRequested();
                                 l += fi.Length;
                             }
-                            UpdateSize(l);
+                            _ = UpdateSize(l);
                         }
                         catch { }
                     }, cts);
@@ -1421,27 +1415,23 @@ public class EasyFiles : EasyPaths<EasyFile>
 
     public class EasyFile : EasyPath
     {
-        private string _formattedPath = EMPTY_STRING;
         private string _areaInfo = EMPTY_STRING;
         private DateTime? _dateTaken;
         private DateTime? _dateEncoded;
         private EasyMetadata? _easyMetadata;
         private GeoCoordinates? _geoCoordinates;
-        private GeoObject? _geoObject;
-        private bool _shellLoaded;
-        private bool _detailsLoaded;
 
-        public string FormattedPath => _formattedPath;
-        public string AreaInfo { get { EnsureDetailsLoaded(); return _areaInfo; } }
-        public DateTime? DateTaken { get { EnsureDetailsLoaded(); return _dateTaken; } }
-        public DateTime? DateEncoded { get { EnsureDetailsLoaded(); return _dateEncoded; } }
-        public EasyMetadata? EasyMetadata { get { EnsureDetailsLoaded(); return _easyMetadata; } }
-        public GeoCoordinates? GeoCoordinates { get { EnsureDetailsLoaded(); return _geoCoordinates; } }
-        public GeoObject? GeoObject => _geoObject;
-        public bool ShellLoaded => _shellLoaded;
-        public bool DetailsLoaded => _detailsLoaded;
+        public string FormattedPath { get; private set; } = EMPTY_STRING;
+        public string AreaInfo { get { _ = EnsureDetailsLoaded(); return _areaInfo; } }
+        public DateTime? DateTaken { get { _ = EnsureDetailsLoaded(); return _dateTaken; } }
+        public DateTime? DateEncoded { get { _ = EnsureDetailsLoaded(); return _dateEncoded; } }
+        public EasyMetadata? EasyMetadata { get { _ = EnsureDetailsLoaded(); return _easyMetadata; } }
+        public GeoCoordinates? GeoCoordinates { get { _ = EnsureDetailsLoaded(); return _geoCoordinates; } }
+        public GeoObject? GeoObject { get; private set; }
+        public bool ShellLoaded { get; private set; }
+        public bool DetailsLoaded { get; private set; }
 
-        public DateTime? DateTakenOrEncoded => Type == EasyType.Image ? DateTaken : (Type == EasyType.Video || Type == EasyType.Audio) ? DateEncoded : null;
+        public DateTime? DateTakenOrEncoded => Type.HasFlag(EasyType.Image) ? DateTaken : (Type.HasFlag(EasyType.Video) || Type.HasFlag(EasyType.Audio)) ? DateEncoded : null;
         public DateTime? DateFromEasyMetadata
         {
             get => EasyMetadata is EasyMetadata emd && emd.Date is string s ? s.AsDateTime() : null;
@@ -1523,26 +1513,26 @@ public class EasyFiles : EasyPaths<EasyFile>
         }
         public string? CameraManufacturer
         {
-            get => EnsureDetailsLoaded() && _shellObject is ShellObject so && Type == EasyType.Image ? so.Properties.System.Photo.CameraManufacturer.Value : null;
-            set { if (EnsureShellLoaded() && _shellObject is ShellObject so && value is string s && Type == EasyType.Image) { so.Properties.System.Photo.CameraManufacturer.Value = s; } }
+            get => EnsureDetailsLoaded() && _shellObject is ShellObject so && Type.HasFlag(EasyType.Image) ? so.Properties.System.Photo.CameraManufacturer.Value : null;
+            set { if (EnsureShellLoaded() && _shellObject is ShellObject so && value is string s && Type.HasFlag(EasyType.Image)) { so.Properties.System.Photo.CameraManufacturer.Value = s; } }
         }
         public string? CameraModel
         {
-            get => EnsureDetailsLoaded() && _shellObject is ShellObject so && Type == EasyType.Image ? so.Properties.System.Photo.CameraModel.Value : null;
-            set { if (EnsureShellLoaded() && _shellObject is ShellObject so && value is string s && Type == EasyType.Image) { so.Properties.System.Photo.CameraModel.Value = s; } }
+            get => EnsureDetailsLoaded() && _shellObject is ShellObject so && Type.HasFlag(EasyType.Image) ? so.Properties.System.Photo.CameraModel.Value : null;
+            set { if (EnsureShellLoaded() && _shellObject is ShellObject so && value is string s && Type.HasFlag(EasyType.Image)) { so.Properties.System.Photo.CameraModel.Value = s; } }
         }
 
         private bool ReadDateTaken()
         {
-            if (_shellObject is ShellObject so && Type == EasyType.Image) { _dateTaken = so.Properties.System.Photo.DateTaken.Value; return true; }
+            if (_shellObject is ShellObject so && Type.HasFlag(EasyType.Image)) { _dateTaken = so.Properties.System.Photo.DateTaken.Value; return true; }
             return false;
         }
         private bool ReadDateEncoded()
         {
-            if (_shellObject is ShellObject so && (Type == EasyType.Video || Type == EasyType.Audio))
+            if (_shellObject is ShellObject so && (Type.HasFlag(EasyType.Video) || Type.HasFlag(EasyType.Audio)))
             {
                 _dateEncoded = so.Properties.System.Media.DateEncoded.Value;
-                if (_dateEncoded == null && Type == EasyType.Audio && Main.Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Audio))
+                if (_dateEncoded == null && Type.HasFlag(EasyType.Audio) && Main.Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Audio))
                 {
                     _dateEncoded = ReadAudioDateEncoded(_path);
                 }
@@ -1556,7 +1546,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             {
                 string args = $"-s -s -s -RecordingTime -EncodingTime -OriginalReleaseTime -ReleaseTime -DateTimeOriginal -CreateDate -Year \"{path}\"";
                 ExifWrapper.Tool.StartInfo.Arguments = args;
-                ExifWrapper.Tool.Start();
+                _ = ExifWrapper.Tool.Start();
                 string output = ExifWrapper.Tool.StandardOutput.ReadToEnd();
                 ExifWrapper.Tool.WaitForExit();
 
@@ -1621,17 +1611,17 @@ public class EasyFiles : EasyPaths<EasyFile>
         }
         private bool WriteDateTaken()
         {
-            if (_shellObject is ShellObject so && Type == EasyType.Image) { so.Properties.System.Photo.DateTaken.Value = DateTaken; return true; }
+            if (_shellObject is ShellObject so && Type.HasFlag(EasyType.Image)) { so.Properties.System.Photo.DateTaken.Value = DateTaken; return true; }
             return false;
         }
         private bool WriteDateEncoded()
         {
-            if (_shellObject is ShellObject so && (Type == EasyType.Video || Type == EasyType.Audio)) { so.Properties.System.Media.DateEncoded.Value = DateEncoded; return true; }
+            if (_shellObject is ShellObject so && (Type.HasFlag(EasyType.Video) || Type.HasFlag(EasyType.Audio))) { so.Properties.System.Media.DateEncoded.Value = DateEncoded; return true; }
             return false;
         }
         private bool WriteAreaInfo()
         {
-            if (_shellObject is ShellObject so && (EasyType.Image | EasyType.Video).HasFlag(Type))
+            if (_shellObject is ShellObject so && (Type.HasFlag(EasyType.Image) || Type.HasFlag(EasyType.Video)))
             {
                 so.Properties.System.GPS.AreaInformation.Value = AreaInfo;
                 return true;
@@ -1705,11 +1695,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             bool? deleteOrOverwrite = delete ? EasyMetadata.Options.Delete : EasyMetadata.Options.Overwrite;
             if (keyword == null)
             {
-                if (EasyMetadata == null)
-                {
-                    return false;
-                }
-                return AddKeyword($"{delimiter}{EasyMetadata}");
+                return EasyMetadata != null && AddKeyword($"{delimiter}{EasyMetadata}");
             }
             string caption = EasyMetadata == null ? Globals.DeleteEasyMetadata : Globals.OverwriteEasyMetadata;
             if (deleteOrOverwrite == null)
@@ -1732,7 +1718,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             {
                 if (keyword != null)
                 {
-                    RemoveKeyword(keyword);
+                    _ = RemoveKeyword(keyword);
                 }
                 if (!delete)
                 {
@@ -1750,7 +1736,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             {
                 if (loadDetails)
                 {
-                    EnsureDetailsLoaded();
+                    _ = EnsureDetailsLoaded();
                 }
                 return;
             }
@@ -1760,25 +1746,25 @@ public class EasyFiles : EasyPaths<EasyFile>
         public override void Initialize(string path = EMPTY_STRING, bool readShell = true)
         {
             base.Initialize(path, readShell);
-            _formattedPath = path;
+            FormattedPath = path;
             _easyMetadata = null;
             _geoCoordinates = null;
-            _geoObject = null;
-            _shellLoaded = readShell && _shellObject != null;
-            _detailsLoaded = false;
+            GeoObject = null;
+            ShellLoaded = readShell && _shellObject != null;
+            DetailsLoaded = false;
         }
 
         public bool EnsureShellLoaded()
         {
-            if (_shellLoaded && _shellObject != null)
+            if (ShellLoaded && _shellObject != null)
             {
                 return true;
             }
             if (ReadShellObject())
             {
-                ReadDateModified();
-                ReadDateCreated();
-                _shellLoaded = true;
+                _ = ReadDateModified();
+                _ = ReadDateCreated();
+                ShellLoaded = true;
                 return true;
             }
             return false;
@@ -1786,7 +1772,7 @@ public class EasyFiles : EasyPaths<EasyFile>
 
         public bool EnsureDetailsLoaded()
         {
-            if (_detailsLoaded)
+            if (DetailsLoaded)
             {
                 return true;
             }
@@ -1797,13 +1783,13 @@ public class EasyFiles : EasyPaths<EasyFile>
 
             if (!IsInvalid && _shellObject != null)
             {
-                ReadDateTaken();
-                ReadDateEncoded();
-                ReadAreaInfo();
-                ReadGeoCoordinates();
-                ReadEasyMetadata();
+                _ = ReadDateTaken();
+                _ = ReadDateEncoded();
+                _ = ReadAreaInfo();
+                _ = ReadGeoCoordinates();
+                _ = ReadEasyMetadata();
             }
-            _detailsLoaded = true;
+            DetailsLoaded = true;
             return true;
         }
 
@@ -1814,8 +1800,8 @@ public class EasyFiles : EasyPaths<EasyFile>
             _dateEncoded = null;
             _easyMetadata = null;
             _geoCoordinates = null;
-            _geoObject = null;
-            _detailsLoaded = false;
+            GeoObject = null;
+            DetailsLoaded = false;
         }
 
         public bool AddKeyword(string keyword)
@@ -1843,14 +1829,9 @@ public class EasyFiles : EasyPaths<EasyFile>
 
         public bool RemoveProperty(EasyFileProperty property)
         {
-            if (property is EasyFileProperty.GPSCoordinates or EasyFileProperty.AreaInfo or EasyFileProperty.EasyMetadata)
-            {
-                EnsureDetailsLoaded();
-            }
-            else
-            {
-                EnsureShellLoaded();
-            }
+            _ = property is EasyFileProperty.GPSCoordinates or EasyFileProperty.AreaInfo or EasyFileProperty.EasyMetadata
+                ? EnsureDetailsLoaded()
+                : EnsureShellLoaded();
             bool result = false;
             switch (property)
             {
@@ -1861,7 +1842,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                     result = DeleteGeoCoordinates();
                     break;
                 case EasyFileProperty.AreaInfo: if (!string.IsNullOrEmpty(AreaInfo)) { _areaInfo = string.Empty; result = WriteAreaInfo(); }; break;
-                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { _easyMetadata = null; WriteEasyMetaData(); result = true; } break;
+                case EasyFileProperty.EasyMetadata: if (EasyMetadata != null || ReadEasyMetadata()) { _easyMetadata = null; _ = WriteEasyMetaData(); result = true; } break;
             }
             return result;
         }
@@ -1915,7 +1896,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             }
             if (options != null && RequiresFormattingDetails(options))
             {
-                EnsureDetailsLoaded();
+                _ = EnsureDetailsLoaded();
             }
             string n = NameWithoutExtension;
             string pp = ParentPath;
@@ -2033,13 +2014,13 @@ public class EasyFiles : EasyPaths<EasyFile>
                 n = WinFormsLib.Globals.FileNameDefault;
             }
             string p = System.IO.Path.Join(pp, $"{n}{ext}");
-            _formattedPath = GetPathDuplicate(p, excludedPaths ?? GetAllPaths(pp));
+            FormattedPath = GetPathDuplicate(p, excludedPaths ?? GetAllPaths(pp));
             return p != _path;
         }
 
         public bool Rotate(EasyOrientation orientation, bool preserveDateModified = false)
         {
-            if (_shellObject is ShellObject so && Type == EasyType.Image)
+            if (_shellObject is ShellObject so && Type.HasFlag(EasyType.Image))
             {
                 DateTime? dtm = preserveDateModified ? DateModified : null;
 
@@ -2062,7 +2043,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                 so.Properties.System.Photo.Orientation.Value = (ushort?)i;
                 so.Thumbnail.Refresh();
 
-                if (preserveDateModified && dtm is DateTime dt) { _dateModified = dt.Similar(); WriteDateModified(); Initialize(_path); }
+                if (preserveDateModified && dtm is DateTime dt) { _dateModified = dt.Similar(); _ = WriteDateModified(); Initialize(_path); }
 
                 return true;
             }
@@ -2071,9 +2052,9 @@ public class EasyFiles : EasyPaths<EasyFile>
 
         public void ExtractExifGeoArea()
         {
-            EnsureDetailsLoaded();
+            _ = EnsureDetailsLoaded();
             bool convertToEasyMetadata = Main.Options.ConvertEmbeddedToEasyMetadata.HasFlag(ConvertEmbeddedToEasyMetadata.Video);
-            if (Type != EasyType.Video
+            if (!Type.HasFlag(EasyType.Video)
                 || (_geoCoordinates is GeoCoordinates gc && gc.IsValid)
                 || (convertToEasyMetadata && EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
                 || ReadVideoGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
@@ -2105,7 +2086,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                     {
                         _easyMetadata.GeoArea.GeoCoords = gc1;
                     }
-                    WriteEasyMetaData();
+                    _ = WriteEasyMetaData();
                 }
             }
         }
@@ -2114,7 +2095,7 @@ public class EasyFiles : EasyPaths<EasyFile>
         {
             if (options != null && options.CustomizeEnabled)
             {
-                EnsureDetailsLoaded();
+                _ = EnsureDetailsLoaded();
                 DateTime? dtm = options.PreserveDateModified ? DateModified : null;
                 if (options.TitleEnabled)
                 {
@@ -2160,7 +2141,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                             }
                             geoObject = GeoObject;
                         }
-                        if ((allTypes || egds == EasyMetadataSource.VideoMetadata) && Type == EasyType.Video)
+                        if ((allTypes || egds == EasyMetadataSource.VideoMetadata) && Type.HasFlag(EasyType.Video))
                         {
                             geoCoords = ReadVideoGPSCoords(_path);
                         }
@@ -2202,7 +2183,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                             if (geoObject != null)
                             {
                                 geoCoords ??= geoObject.GetGeoCoordinates();
-                                _geoObject = geoObject;
+                                GeoObject = geoObject;
                                 _geoCoordinates = geoCoords;
                             }
                         }
@@ -2232,7 +2213,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                             _easyMetadata.GeoArea = geoArea;
                             if (apply)
                             {
-                                WriteEasyMetaData();
+                                _ = WriteEasyMetaData();
                             }
                         }
                         else if (_easyMetadata.GeoArea != null)
@@ -2240,7 +2221,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                             _easyMetadata.GeoArea = null;
                             if (apply)
                             {
-                                WriteEasyMetaData();
+                                _ = WriteEasyMetaData();
                             }
                         }
                     }
@@ -2249,7 +2230,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                         _areaInfo = areaInfo ?? string.Empty;
                         if (apply)
                         {
-                            WriteAreaInfo();
+                            _ = WriteAreaInfo();
                         }
                     }
                     if (options.WriteGPSCoords)
@@ -2257,7 +2238,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                         _geoCoordinates = geoCoords;
                         if (apply)
                         {
-                            WriteGeoCoordinates();
+                            _ = WriteGeoCoordinates();
                         }
                     }
                 }
@@ -2268,7 +2249,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                         _easyMetadata = new(options.EasyMetadata[options.EasyMetadataIndex]);
                         if (apply)
                         {
-                            WriteEasyMetaData();
+                            _ = WriteEasyMetaData();
                         }
                     }
                 }
@@ -2305,25 +2286,25 @@ public class EasyFiles : EasyPaths<EasyFile>
                             _easyMetadata.Date = dt?.ToDateTimeString();
                             if (apply)
                             {
-                                WriteEasyMetaData();
+                                _ = WriteEasyMetaData();
                             }
                         }
                         if (options.WriteDateCamera)
                         {
-                            if (Type == EasyType.Image)
+                            if (Type.HasFlag(EasyType.Image))
                             {
                                 _dateTaken = dt;
                                 if (apply)
                                 {
-                                    WriteDateTaken();
+                                    _ = WriteDateTaken();
                                 }
                             }
-                            else if (Type == EasyType.Video || Type == EasyType.Audio)
+                            else if (Type.HasFlag(EasyType.Video) || Type.HasFlag(EasyType.Audio))
                             {
                                 _dateEncoded = dt;
                                 if (apply)
                                 {
-                                    WriteDateEncoded();
+                                    _ = WriteDateEncoded();
                                 }
                             }
                         }
@@ -2332,7 +2313,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                             _dateCreated = dt;
                             if (apply)
                             {
-                                WriteDateCreated();
+                                _ = WriteDateCreated();
                             }
                         }
                         if (options.WriteDateModified)
@@ -2340,7 +2321,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                             _dateModified = dt;
                             if (apply)
                             {
-                                WriteDateModified();
+                                _ = WriteDateModified();
                             }
                             dtm = null;
                         }
@@ -2351,7 +2332,7 @@ public class EasyFiles : EasyPaths<EasyFile>
                     _dateModified = dtm;
                     if (apply)
                     {
-                        WriteDateModified();
+                        _ = WriteDateModified();
                     }
                 }
             }

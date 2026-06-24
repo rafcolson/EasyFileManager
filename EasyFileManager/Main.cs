@@ -1,14 +1,12 @@
 using System.ComponentModel;
-using System.Globalization;
 using System.Diagnostics;
-
+using System.Globalization;
 using WinFormsLib;
-
-using static WinFormsLib.Forms;
-using static WinFormsLib.Utils;
 using static WinFormsLib.Constants;
 using static WinFormsLib.DateTimeExtensions;
+using static WinFormsLib.Forms;
 using static WinFormsLib.ToolStripMenuItems;
+using static WinFormsLib.Utils;
 
 namespace EasyFileManager
 {
@@ -75,14 +73,7 @@ namespace EasyFileManager
             set
             {
                 _isApplying = value;
-                if (_isApplying)
-                {
-                    FolderWatcher.EnableRaisingEvents = false;
-                }
-                else
-                {
-                    FolderWatcher.EnableRaisingEvents = true;
-                }
+                FolderWatcher.EnableRaisingEvents = !_isApplying;
                 Cursor = _isApplying ? Cursors.WaitCursor : Cursors.Default;
             }
         }
@@ -98,7 +89,7 @@ namespace EasyFileManager
         protected override void OnDpiChanged(DpiChangedEventArgs e)
         {
             base.OnDpiChanged(e);
-            BeginInvoke((MethodInvoker)delegate
+            _ = BeginInvoke((MethodInvoker)delegate
             {
                 InitializeRowHeaders();
             });
@@ -132,19 +123,19 @@ namespace EasyFileManager
             _editPathContextMenuStrip = new(Font);
             if (GetToolStripMenuItem(Globals.Explore, PathToolStripMenuItem_Click) is ToolStripMenuItem exploreMenuItem)
             {
-                _editPathContextMenuStrip.Items.Add(exploreMenuItem);
+                _ = _editPathContextMenuStrip.Items.Add(exploreMenuItem);
             }
             _editPropsContextMenuStrip = new(Font, EditMenuItems.CopySelectAll);
             _editExplorerContextMenuStrip = new(Font, EditMenuItems.CopySelectAll);
-            var explorerMenuItem = GetToolStripMenuItem(Globals.Explore, (o, e) => ExplorerToolStripMenuItem_Click(o, e));
+            ToolStripMenuItem? explorerMenuItem = GetToolStripMenuItem(Globals.Explore, (o, e) => ExplorerToolStripMenuItem_Click(o, e));
             if (explorerMenuItem is not null)
             {
-                _editExplorerContextMenuStrip.Items.Add(explorerMenuItem);
+                _ = _editExplorerContextMenuStrip.Items.Add(explorerMenuItem);
             }
-            var openMenuItem = GetToolStripMenuItem(Globals.Open, (o, e) => ExplorerToolStripMenuItem_Click(o, e, true));
+            ToolStripMenuItem? openMenuItem = GetToolStripMenuItem(Globals.Open, (o, e) => ExplorerToolStripMenuItem_Click(o, e, true));
             if (openMenuItem is not null)
             {
-                _editExplorerContextMenuStrip.Items.Add(openMenuItem);
+                _ = _editExplorerContextMenuStrip.Items.Add(openMenuItem);
             }
             _editExplorerContextMenuStrip.Opening += EditExplorerContextMenuStrip_Opening;
             _previewFormattingTimer.Tick += PreviewFormattingTimer_TickAsync;
@@ -287,7 +278,7 @@ namespace EasyFileManager
 
             UpdateEditPanel(true, true, true, true);
 
-            Update(Properties.Settings.Default.StartupDirectory, true);
+            _ = Update(Properties.Settings.Default.StartupDirectory, true);
 
             ActiveControl = null;
         }
@@ -454,7 +445,7 @@ namespace EasyFileManager
         {
             if (hideMainForm) { Visible = false; }
             using Splash splash = new(timeSpan);
-            splash.ShowDialog();
+            _ = splash.ShowDialog();
             if (hideMainForm) { Visible = true; }
         }
 
@@ -470,7 +461,7 @@ namespace EasyFileManager
             Options = new(Properties.Settings.Default.EasyOptions);
             if (_args.Length == 1)
             {
-                UpdateOptions(_args[0]);
+                _ = UpdateOptions(_args[0]);
             }
 
             this.SuspendDrawing();
@@ -483,7 +474,7 @@ namespace EasyFileManager
             InitializeWatchers();
             InitializeLayout();
             InitializeToolTips();
-            BeginInvoke((MethodInvoker)delegate
+            _ = BeginInvoke((MethodInvoker)delegate
             {
                 InitializeMinorEventHandlers();
                 InitializeRowHeaders();

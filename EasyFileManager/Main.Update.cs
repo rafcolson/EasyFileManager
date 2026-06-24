@@ -1,13 +1,11 @@
 using System.Diagnostics;
-
 using WinFormsLib;
-
-using static WinFormsLib.Chars;
-using static WinFormsLib.Forms;
-using static WinFormsLib.Utils;
 using static WinFormsLib.Buttons;
+using static WinFormsLib.Chars;
 using static WinFormsLib.Constants;
+using static WinFormsLib.Forms;
 using static WinFormsLib.GeoLocator;
+using static WinFormsLib.Utils;
 
 namespace EasyFileManager
 {
@@ -452,7 +450,7 @@ namespace EasyFileManager
                 if (!IsValidDirectoryPath(Options.BackupFolderPath))
                 {
                     using MessageDialog md = new(Globals.BackupFolderDoesNotExist);
-                    md.ShowDialog();
+                    _ = md.ShowDialog();
 
                     if (Properties.Settings.Default.LogApplicationEvents)
                     {
@@ -475,9 +473,9 @@ namespace EasyFileManager
                     string path = paths[i];
                     using EasyPath ep = new(path);
                     string bp = GetPathDuplicate(Path.Join(backupPath, ep.Name));
-                    ep.Copy(bp, Options.PreserveDateCreated, Options.PreserveDateModified);
+                    _ = ep.Copy(bp, Options.PreserveDateCreated, Options.PreserveDateModified);
 
-                    Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{path} -> {bp}");
+                    Progress.Report(EasyProgress.GetValue(maxValue * i / numValues, maxValue, subStepIndex, numSubSteps), $"{path} -> {bp}");
                 }
                 subStepIndex += 1;
 
@@ -490,7 +488,7 @@ namespace EasyFileManager
             if ((Options.CopyMoveState != CheckState.Unchecked) && Options.TopFolderEnabled && !IsValidDirectoryPath(Options.TopFolderPath))
             {
                 using MessageDialog md = new(Globals.TopFolderDoesNotExist);
-                md.ShowDialog();
+                _ = md.ShowDialog();
 
                 if (Properties.Settings.Default.LogApplicationEvents)
                 {
@@ -546,16 +544,16 @@ namespace EasyFileManager
                 EasyFile ef = selectedFiles[i];
                 string p = ef.Path;
                 om.Remove(p);
-                ef.UpdateFormatting(Options, om.GetValues());
+                _ = ef.UpdateFormatting(Options, om.GetValues());
                 string fp = ef.FormattedPath;
-                om.Put(p, fp);
+                _ = om.Put(p, fp);
                 if (p != fp)
                 {
                     if (apply)
                     {
                         if (Options.CopyMoveState == CheckState.Indeterminate)
                         {
-                            ef.Copy(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
+                            _ = ef.Copy(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
                             if (Properties.Settings.Default.LogApplicationEvents)
                             {
                                 Logger.Write($"Copied {p} -> {fp}");
@@ -563,7 +561,7 @@ namespace EasyFileManager
                         }
                         else
                         {
-                            ef.Move(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
+                            _ = ef.Move(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
                             if (Properties.Settings.Default.LogApplicationEvents)
                             {
                                 Logger.Write($"Moved {p} -> {fp}");
@@ -583,7 +581,7 @@ namespace EasyFileManager
                 {
                     ef.Dispose();
                 }
-                Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), $"{p} -> {fp}");
+                Progress.Report(EasyProgress.GetValue(maxValue * i / numValues, maxValue, subStepIndex, numSubSteps), $"{p} -> {fp}");
             }
 
             subStepIndex += 1;
@@ -612,7 +610,7 @@ namespace EasyFileManager
                         row.Cells[0].Value = fp;
                     }
                 }
-                Progress.Report(EasyProgress.GetValue(((maxValue * i) / numValues), maxValue, subStepIndex, numSubSteps), string.Empty);
+                Progress.Report(EasyProgress.GetValue(maxValue * i / numValues, maxValue, subStepIndex, numSubSteps), string.Empty);
             }
             Progress.Report(maxValue);
         }
@@ -686,7 +684,7 @@ namespace EasyFileManager
                 using EasyFile ef = new(p);
                 ef.CustomizeAsync(Options).Wait(cancellationToken);
                 string info = $"Customized {p}";
-                Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 1, numSubSteps), info);
+                Progress.Report(EasyProgress.GetValue(maxValue * i / n, maxValue, 1, numSubSteps), info);
                 if (Properties.Settings.Default.LogApplicationEvents)
                 {
                     Logger.Write(info);
@@ -730,7 +728,7 @@ namespace EasyFileManager
                     using EasyFolder ed = new(p);
                     if (ed.GetAllPaths().Length == 0)
                     {
-                        Progress.Report(EasyProgress.GetValue(((maxValue * fpai) / fpan), maxValue, i, numSubSteps), $"Deleting empty folder: {p}");
+                        Progress.Report(EasyProgress.GetValue(maxValue * fpai / fpan, maxValue, i, numSubSteps), $"Deleting empty folder: {p}");
                         if (ed.Delete() && Properties.Settings.Default.LogApplicationEvents)
                         {
                             Logger.Write($"Deleted empty folder: {p}");
@@ -753,7 +751,7 @@ namespace EasyFileManager
                 for (int sfpai = 0; sfpai < sfpan; sfpai++)
                 {
                     using EasyFile ef = new(sfpa[sfpai]);
-                    Progress.Report(EasyProgress.GetValue(((maxValue * sfpai) / sfpan), maxValue, i, numSubSteps), $"Deleting '{s}' property of {ef.Path}");
+                    Progress.Report(EasyProgress.GetValue(maxValue * sfpai / sfpan, maxValue, i, numSubSteps), $"Deleting '{s}' property of {ef.Path}");
                     if (ef.RemoveProperty(efp) && Properties.Settings.Default.LogApplicationEvents)
                     {
                         Logger.Write($"Deleted '{s}' property of {ef.Path}");
@@ -809,7 +807,7 @@ namespace EasyFileManager
                                 itd.CaptionText = string.Format(deleteOrStore, sa[itd.SelectedIndex]);
                                 return Task.CompletedTask;
                             };
-                            itd.OnSelectedIndexChanged.Invoke();
+                            _ = itd.OnSelectedIndexChanged.Invoke();
                             if (itd.ShowDialog() == DialogResult.Yes)
                             {
                                 easyPaths.RemoveAt(itd.SelectedIndex);
@@ -817,14 +815,14 @@ namespace EasyFileManager
                                 {
                                     if (deleteInsteadOfStore)
                                     {
-                                        ep.Delete();
+                                        _ = ep.Delete();
                                     }
                                     else
                                     {
                                         if (Options.DuplicatesState == CheckState.Checked)
                                         {
                                             string filePath = GetPathDuplicate(Path.Join(duplicatesPath, ep.Name));
-                                            ep.Move(filePath, Options.PreserveDateCreated, Options.PreserveDateModified);
+                                            _ = ep.Move(filePath, Options.PreserveDateCreated, Options.PreserveDateModified);
                                         }
                                         ep.Dispose();
                                     }
@@ -850,14 +848,14 @@ namespace EasyFileManager
                                     EasyPath ep = new(s);
                                     if (deleteInsteadOfStore)
                                     {
-                                        ep.Delete();
+                                        _ = ep.Delete();
                                     }
                                     else
                                     {
                                         if (Options.DuplicatesState == CheckState.Checked)
                                         {
                                             string p = Path.Join(Options.DuplicatesFolderPath, ep.Name);
-                                            ep.Move(p, Options.PreserveDateCreated, Options.PreserveDateModified);
+                                            _ = ep.Move(p, Options.PreserveDateCreated, Options.PreserveDateModified);
                                         }
                                         ep.Dispose();
                                     }
@@ -871,7 +869,7 @@ namespace EasyFileManager
             else
             {
                 using MessageDialog md = new(Globals.DuplicatesFolderDoesNotExist);
-                md.ShowDialog();
+                _ = md.ShowDialog();
 
                 info = $"{deletOrStor}ing duplicates aborted. Duplicates folder does not exist.";
             }
@@ -914,7 +912,7 @@ namespace EasyFileManager
             DataGridViewSelectedRowCollection rows = ExplorerDataGridView.SelectedRows;
             if (rows.Count == 1 && rows[0].Tag is EasyFile ef)
             {
-                ef.Rotate(orientation, Options.PreserveDateModified);
+                _ = ef.Rotate(orientation, Options.PreserveDateModified);
 
                 Debug.WriteLine("Image rotated.");
             }
@@ -946,7 +944,7 @@ namespace EasyFileManager
             {
                 ep.Initialize(ep.Path);
             }
-            RotateTableLayoutPanel.Visible = showThumbnail && ep.Type == EasyType.Image;
+            RotateTableLayoutPanel.Visible = showThumbnail && ep.Type.HasFlag(EasyType.Image);
             ExplorerThumbnailPropsSplitContainer.Panel2Collapsed = false;
             ThumbnailPropsSplitContainer.Panel1Collapsed = !showThumbnail;
             ThumbnailPropsSplitContainer.Panel2Collapsed = !showProperties;
@@ -968,88 +966,88 @@ namespace EasyFileManager
                 return;
             }
             double mb = Math.Round(ep.Size / (double)1048576L, 2);
-            PropsDataGridView.AddRow(Globals.Name, ep.Name);
+            _ = PropsDataGridView.AddRow(Globals.Name, ep.Name);
             string ext = ep.Extension;
             if (!string.IsNullOrEmpty(ext))
             {
-                ext = $" ({[.. ep.Extension]})";
+                ext = $" ({ [.. ep.Extension]})";
             }
-            PropsDataGridView.AddRow(Globals.Type, $"{GetTypeText(ep)}{ext}");
-            PropsDataGridView.AddRow(Globals.Size, $"{mb} MB");
+            _ = PropsDataGridView.AddRow(Globals.Type, $"{GetTypeText(ep)}{ext}");
+            _ = PropsDataGridView.AddRow(Globals.Size, $"{mb} MB");
             if (ep.IsSymbolicLink)
             {
                 if (ep.TargetPath is string targetPath)
                 {
-                    PropsDataGridView.AddRow(Globals.Target, targetPath);
+                    _ = PropsDataGridView.AddRow(Globals.Target, targetPath);
                     using EasyPath targetPathInfo = new(targetPath);
                     if (await UpdateSizeAsync(targetPathInfo))
                     {
                         double targetMb = Math.Round(targetPathInfo.Size / (double)1048576L, 2);
-                        PropsDataGridView.AddRow(Globals.TargetSize, $"{targetMb} MB");
+                        _ = PropsDataGridView.AddRow(Globals.TargetSize, $"{targetMb} MB");
                     }
                 }
             }
             bool showMillis = Options.Show.HasFlag(EasyShow.Milliseconds);
             if (ep.DateModified is DateTime dtm)
             {
-                PropsDataGridView.AddRow(Globals.DateModified, showMillis ? dtm.ToDateTimeString() : dtm.ToDateSecondString());
+                _ = PropsDataGridView.AddRow(Globals.DateModified, showMillis ? dtm.ToDateTimeString() : dtm.ToDateSecondString());
             }
             if (ep.DateCreated is DateTime dtc)
             {
-                PropsDataGridView.AddRow(Globals.DateCreated, showMillis ? dtc.ToDateTimeString() : dtc.ToDateSecondString());
+                _ = PropsDataGridView.AddRow(Globals.DateCreated, showMillis ? dtc.ToDateTimeString() : dtc.ToDateSecondString());
             }
             if (ep is EasyFolder ed)
             {
-                PropsDataGridView.AddRow(Globals.Contents, ed.ContentText);
+                _ = PropsDataGridView.AddRow(Globals.Contents, ed.ContentText);
             }
             else if (ep is EasyFile ef)
             {
-                ef.EnsureDetailsLoaded();
-                if (ef.Type == EasyType.Image)
+                _ = ef.EnsureDetailsLoaded();
+                if (ef.Type.HasFlag(EasyType.Image))
                 {
                     if (ef.DateTaken is DateTime dtt)
                     {
-                        PropsDataGridView.AddRow(Globals.DateTaken, showMillis ? dtt.ToDateTimeString() : dtt.ToDateSecondString());
+                        _ = PropsDataGridView.AddRow(Globals.DateTaken, showMillis ? dtt.ToDateTimeString() : dtt.ToDateSecondString());
                     }
                     if (ef.CameraManufacturer is string man && !string.IsNullOrEmpty(man))
                     {
-                        PropsDataGridView.AddRow(Globals.CameraManufacturer, man);
+                        _ = PropsDataGridView.AddRow(Globals.CameraManufacturer, man);
                     }
                     if (ef.CameraModel is string mod && !string.IsNullOrEmpty(mod))
                     {
-                        PropsDataGridView.AddRow(Globals.CameraModel, mod);
+                        _ = PropsDataGridView.AddRow(Globals.CameraModel, mod);
                     }
                 }
-                else if ((ef.Type == EasyType.Video || ef.Type == EasyType.Audio) && ef.DateEncoded is DateTime dte)
+                else if ((ef.Type.HasFlag(EasyType.Video) || ef.Type.HasFlag(EasyType.Audio)) && ef.DateEncoded is DateTime dte)
                 {
-                    PropsDataGridView.AddRow(Globals.DateEncoded, showMillis ? dte.ToDateTimeString() : dte.ToDateSecondString());
+                    _ = PropsDataGridView.AddRow(Globals.DateEncoded, showMillis ? dte.ToDateTimeString() : dte.ToDateSecondString());
                 }
-                PropsDataGridView.AddRow(Globals.Title, ef.Title);
-                PropsDataGridView.AddRow(Globals.Subject, ef.Subject);
-                PropsDataGridView.AddRow(Globals.Comment, ef.Comment);
+                _ = PropsDataGridView.AddRow(Globals.Title, ef.Title);
+                _ = PropsDataGridView.AddRow(Globals.Subject, ef.Subject);
+                _ = PropsDataGridView.AddRow(Globals.Comment, ef.Comment);
 
                 if (Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Video))
                 {
                     ef.ExtractExifGeoArea();
                 }
 
-                PropsDataGridView.AddRow(Globals.Keywords, string.Join(COMMA, ef.Keywords));
+                _ = PropsDataGridView.AddRow(Globals.Keywords, string.Join(COMMA, ef.Keywords));
                 if (ef.GeoCoordinates != null && ef.GeoCoordinates.IsValid)
                 {
-                    PropsDataGridView.AddRow(Globals.GPSCoordinates, ef.GeoCoordinates.ToString());
+                    _ = PropsDataGridView.AddRow(Globals.GPSCoordinates, ef.GeoCoordinates.ToString());
                 }
                 string ai = ef.AreaInfo;
                 if (!string.IsNullOrEmpty(ai))
                 {
-                    PropsDataGridView.AddRow(Globals.AreaInfo, ai);
+                    _ = PropsDataGridView.AddRow(Globals.AreaInfo, ai);
                 }
                 if (ef.GeoObject is GeoObject go && go.address is GeoAddress gad)
                 {
-                    PropsDataGridView.AddRow(Globals.Address, gad.ToString());
+                    _ = PropsDataGridView.AddRow(Globals.Address, gad.ToString());
                 }
                 if (ef.EasyMetadata is EasyMetadata emd && emd.CustomDict is Dictionary<string, object> cd)
                 {
-                    PropsDataGridView.AddRow(Globals.CustomDict, cd.ToJson());
+                    _ = PropsDataGridView.AddRow(Globals.CustomDict, cd.ToJson());
                 }
             }
             foreach (DataGridViewRow row in PropsDataGridView.SelectedRows) { row.Selected = false; }
@@ -1089,7 +1087,7 @@ namespace EasyFileManager
                         _cancellationTokenSource.Token.ThrowIfCancellationRequested();
                         l += fi.Length;
                     }
-                    easyPath.UpdateSize(l);
+                    _ = easyPath.UpdateSize(l);
                 }
                 catch (OperationCanceledException) { aborted = true; }
                 Progress.Report(100, easyPath.Path);

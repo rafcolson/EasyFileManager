@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Version>0.0.0.23</Version>
+    <WinFormsLibVersion>0.0.0.7</WinFormsLibVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <InformationalVersion>$(Version)</InformationalVersion>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
     <Nullable>enable</Nullable>
@@ -20,19 +25,16 @@
     <Authors>Raf Colson</Authors>
     <PackageProjectUrl>https://github.com/rafcolson/EasyFileManager</PackageProjectUrl>
     <Product></Product>
-    <FileVersion>0.0.0</FileVersion>
-    <Version>$(FileVersion)</Version>
     <Company>RacoSoft</Company>
     <RepositoryUrl>https://github.com/rafcolson/EasyFileManager</RepositoryUrl>
     <Copyright>Copyright © $([System.DateTime]::Now.ToString('yyyy')) Raf Colson (RacoSoft)</Copyright>
-    <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageTags>$(AssemblyVersion)</PackageTags>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
+	<AssemblyMetadata Include="WinFormsLibVersion" Value="$(WinFormsLibVersion)" />
     <AssemblyMetadata Include="LicenseUrl" Value="$(RepositoryUrl)#license" />
   </ItemGroup>
 
