@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abort" xml:space="preserve">
+    <value>Afbreken</value>
+  </data>
+  <data name="AboutMessage" xml:space="preserve">
+    <value>Informatie over licenties en het gebruik van Easy File Manager kan worden bekeken op https://github.com/rafcolson/EasyFileManager. Problemen kunnen worden gemeld op https://github.com/rafcolson/EasyFileManager/issues. Releases kunnen worden gedownload op https://github.com/rafcolson/EasyFileManager/releases.</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Adres</value>
   </data>
   <data name="Application" xml:space="preserve">
     <value>Applicatie</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Toepassen</value>
   </data>
   <data name="AreaInfo" xml:space="preserve">
     <value>Omgevingsinfo</value>
@@ -132,6 +141,15 @@
   <data name="Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
+  <data name="BackupFolderDoesNotExist" xml:space="preserve">
+    <value>Back-upmap bestaat niet. Geen wijzigingen aangebracht.</value>
+  </data>
+  <data name="CameraManufacturer" xml:space="preserve">
+    <value>Camerafabrikant</value>
+  </data>
+  <data name="CameraModel" xml:space="preserve">
+    <value>Cameramodel</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Commentaar</value>
   </data>
@@ -141,8 +159,17 @@
   <data name="Contacts" xml:space="preserve">
     <value>Contacten</value>
   </data>
+  <data name="Contains" xml:space="preserve">
+    <value>Bevat</value>
+  </data>
   <data name="Contents" xml:space="preserve">
     <value>Inhoud</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Kopiëren | Verplaatsen</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Aangepast</value>
@@ -171,6 +198,9 @@
   <data name="DateFromEasyMetadata" xml:space="preserve">
     <value>Datum uit Easy-metagegevens</value>
   </data>
+  <data name="DateFromFolderName" xml:space="preserve">
+    <value>Datum uit mapnaam</value>
+  </data>
   <data name="DateMetadata" xml:space="preserve">
     <value>Datum (metagegevens)</value>
   </data>
@@ -195,11 +225,38 @@
   <data name="DayTakenOrEncoded" xml:space="preserve">
     <value>Dag genomen of gecodeerd</value>
   </data>
+  <data name="DeleteAllDuplicates" xml:space="preserve">
+    <value>Alle duplicaten worden permanent verwijderd. Voortzetten?</value>
+  </data>
+  <data name="DeleteDuplicates" xml:space="preserve">
+    <value>Duplicaten van '{0}' worden permanent verwijderd. Voortzetten?</value>
+  </data>
   <data name="DeleteEasyMetadata" xml:space="preserve">
     <value>Easy-metagegevens worden verwijderd. Voortzetten?</value>
   </data>
   <data name="Document" xml:space="preserve">
     <value>Document</value>
+  </data>
+  <data name="DoesNotContain" xml:space="preserve">
+    <value>Bevat niet</value>
+  </data>
+  <data name="DoesNotEndWith" xml:space="preserve">
+    <value>Eindigt niet met</value>
+  </data>
+  <data name="DoesNotStartWith" xml:space="preserve">
+    <value>Begint niet met</value>
+  </data>
+  <data name="DuplicatesDefault" xml:space="preserve">
+    <value>Duplicaten</value>
+  </data>
+  <data name="DuplicatesDelete" xml:space="preserve">
+    <value>Duplicaten (verwijderen)</value>
+  </data>
+  <data name="DuplicatesFolderDoesNotExist" xml:space="preserve">
+    <value>Doelmap voor duplicaten bestaat niet. Geen wijzigingen aangebracht.</value>
+  </data>
+  <data name="DuplicatesMove" xml:space="preserve">
+    <value>Duplicaten (verplaatsen)</value>
   </data>
   <data name="EasyMetadata" xml:space="preserve">
     <value>Easy-metagegevens</value>
@@ -207,8 +264,44 @@
   <data name="EasyShellOrVideoMetadata" xml:space="preserve">
     <value>Easy-, Shell- of videometagegevens</value>
   </data>
+  <data name="EditComparisonProfile" xml:space="preserve">
+    <value>Vergelijkingsprofiel bewerken</value>
+  </data>
+  <data name="EditEasyMetadata" xml:space="preserve">
+    <value>Easy-metagegevens bewerken</value>
+  </data>
+  <data name="EditFilter" xml:space="preserve">
+    <value>Filter bewerken</value>
+  </data>
+  <data name="EditGPS" xml:space="preserve">
+    <value>GPS bewerken</value>
+  </data>
+  <data name="EditKeywords" xml:space="preserve">
+    <value>Sleutelwoorden bewerken</value>
+  </data>
+  <data name="EditSubfolders" xml:space="preserve">
+    <value>Submappen bewerken</value>
+  </data>
+  <data name="EmptyFolders" xml:space="preserve">
+    <value>Lege mappen</value>
+  </data>
+  <data name="EndsWith" xml:space="preserve">
+    <value>Eindigt met</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>Verkennen...</value>
+  </data>
+  <data name="ExtraLargeThumbnail" xml:space="preserve">
+    <value>Extra grote miniatuur</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
   <data name="FileExtension" xml:space="preserve">
     <value>Bestandsextensie</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Bestanden</value>
   </data>
   <data name="FileType" xml:space="preserve">
     <value>Bestandstype</value>
@@ -218,6 +311,9 @@
   </data>
   <data name="Folder" xml:space="preserve">
     <value>Map</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Mappen</value>
   </data>
   <data name="FormatAlreadyExists" xml:space="preserve">
     <value>'{0}' bestaat al.</value>
@@ -231,14 +327,23 @@
   <data name="Image" xml:space="preserve">
     <value>Afbeelding</value>
   </data>
-  <data name="KeywordsAdd" xml:space="preserve">
-    <value>Trefwoorden (toevoegen)</value>
+  <data name="Invalid" xml:space="preserve">
+    <value>Ongeldig</value>
   </data>
   <data name="Keywords" xml:space="preserve">
     <value>Trefwoorden</value>
   </data>
+  <data name="KeywordsAdd" xml:space="preserve">
+    <value>Trefwoorden (toevoegen)</value>
+  </data>
   <data name="KeywordsReplace" xml:space="preserve">
     <value>Trefwoorden (vervangen)</value>
+  </data>
+  <data name="LargeThumbnail" xml:space="preserve">
+    <value>Grote miniatuur</value>
+  </data>
+  <data name="MediumThumbnail" xml:space="preserve">
+    <value>Gemiddelde miniatuur</value>
   </data>
   <data name="MessageCheckDialogText" xml:space="preserve">
     <value>Niet opnieuw vragen.</value>
@@ -255,11 +360,29 @@
   <data name="MonthTakenOrEncoded" xml:space="preserve">
     <value>Maand genomen of gecodeerd</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Verplaatsen</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="NextFolder" xml:space="preserve">
+    <value>Volgende map</value>
+  </data>
+  <data name="OneLevelUp" xml:space="preserve">
+    <value>Bovenste map</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Openen...</value>
+  </data>
   <data name="OverwriteEasyMetadata" xml:space="preserve">
     <value>Easy-metagegevens worden overschreven. Voortzetten?</value>
+  </data>
+  <data name="PreviousFolder" xml:space="preserve">
+    <value>Vorige map</value>
+  </data>
+  <data name="RawName" xml:space="preserve">
+    <value>Onbewerkte naam</value>
   </data>
   <data name="Replace" xml:space="preserve">
     <value>Vervangen</value>
@@ -267,8 +390,26 @@
   <data name="ReplaceRegex" xml:space="preserve">
     <value>Vervangen (regex)</value>
   </data>
+  <data name="SelectBackupFolder" xml:space="preserve">
+    <value>Backup-map selecteren</value>
+  </data>
+  <data name="SelectDuplicatesFolder" xml:space="preserve">
+    <value>Selecteer doelmap voor duplicaten</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Map selecteren</value>
+  </data>
+  <data name="SelectTopFolder" xml:space="preserve">
+    <value>Bovenste map selecteren</value>
+  </data>
   <data name="ShellProperties" xml:space="preserve">
     <value>Shell-eigenschappen</value>
+  </data>
+  <data name="ShowComparisonDialog" xml:space="preserve">
+    <value>Vergelijkingsdialoogvenster weergeven</value>
+  </data>
+  <data name="ShuttingDown" xml:space="preserve">
+    <value>Systeem afsluiten...</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Grootte</value>
@@ -279,8 +420,23 @@
   <data name="TargetSize" xml:space="preserve">
     <value>Doelgrootte</value>
   </data>
+  <data name="SmallThumbnail" xml:space="preserve">
+    <value>Kleine miniatuur</value>
+  </data>
+  <data name="StartsWith" xml:space="preserve">
+    <value>Begint met</value>
+  </data>
+  <data name="StoreAllDuplicates" xml:space="preserve">
+    <value>Alle duplicaten worden opgeslagen in doelmap. Voortzetten?</value>
+  </data>
+  <data name="StoreDuplicates" xml:space="preserve">
+    <value>Duplicaten van '{0}' worden opgeslagen in doelmap. Voortzetten?</value>
+  </data>
   <data name="Subject" xml:space="preserve">
     <value>Onderwerp</value>
+  </data>
+  <data name="SymbolicLink" xml:space="preserve">
+    <value>Symbolische link</value>
   </data>
   <data name="System" xml:space="preserve">
     <value>Systeem</value>
@@ -290,6 +446,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Titel</value>
+  </data>
+  <data name="TopFolderDoesNotExist" xml:space="preserve">
+    <value>Bovenste map bestaat niet. Geen wijzigingen aangebracht.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -306,8 +465,29 @@
   <data name="VideoMetadata" xml:space="preserve">
     <value>Videometagegevens</value>
   </data>
+  <data name="WriteDateCreated" xml:space="preserve">
+    <value>Overschrijf aanmaakdatum</value>
+  </data>
+  <data name="WriteDateEasyMetadata" xml:space="preserve">
+    <value>Overschrijf datum Easy-metagegevens</value>
+  </data>
+  <data name="WriteDateModified" xml:space="preserve">
+    <value>Overschrijf wijzigingsdatum</value>
+  </data>
+  <data name="WriteDateTakenOrEncoded" xml:space="preserve">
+    <value>Overschrijf datum genomen of gecodeerd</value>
+  </data>
   <data name="WriteEasyMetadata" xml:space="preserve">
     <value>Videometagegevens opslaan als Easy-metagegevens?</value>
+  </data>
+  <data name="WriteGPSAreaInfo" xml:space="preserve">
+    <value>Overschrijf GPS omgevingsinfo</value>
+  </data>
+  <data name="WriteGPSCoords" xml:space="preserve">
+    <value>Overschrijf GPS coordinaten</value>
+  </data>
+  <data name="WriteGPSEasyMetadata" xml:space="preserve">
+    <value>Overschrijf GPS Easy-metagegevens</value>
   </data>
   <data name="YearCreated" xml:space="preserve">
     <value>Jaar gemaakt</value>
@@ -320,185 +500,5 @@
   </data>
   <data name="YearTakenOrEncoded" xml:space="preserve">
     <value>Jaar genomen of gecodeerd</value>
-  </data>
-  <data name="PreviousFolder" xml:space="preserve">
-    <value>Vorige map</value>
-  </data>
-  <data name="NextFolder" xml:space="preserve">
-    <value>Volgende map</value>
-  </data>
-  <data name="OneLevelUp" xml:space="preserve">
-    <value>Bovenste map</value>
-  </data>
-  <data name="SelectFolder" xml:space="preserve">
-    <value>Map selecteren</value>
-  </data>
-  <data name="SelectTopFolder" xml:space="preserve">
-    <value>Bovenste map selecteren</value>
-  </data>
-  <data name="EditKeywords" xml:space="preserve">
-    <value>Sleutelwoorden bewerken</value>
-  </data>
-  <data name="EditGPS" xml:space="preserve">
-    <value>GPS bewerken</value>
-  </data>
-  <data name="EditSubfolders" xml:space="preserve">
-    <value>Submappen bewerken</value>
-  </data>
-  <data name="WriteGPSCoords" xml:space="preserve">
-    <value>Overschrijf GPS coordinaten</value>
-  </data>
-  <data name="WriteGPSAreaInfo" xml:space="preserve">
-    <value>Overschrijf GPS omgevingsinfo</value>
-  </data>
-  <data name="WriteGPSEasyMetadata" xml:space="preserve">
-    <value>Overschrijf GPS Easy-metagegevens</value>
-  </data>
-  <data name="WriteDateModified" xml:space="preserve">
-    <value>Overschrijf wijzigingsdatum</value>
-  </data>
-  <data name="WriteDateCreated" xml:space="preserve">
-    <value>Overschrijf aanmaakdatum</value>
-  </data>
-  <data name="WriteDateTakenOrEncoded" xml:space="preserve">
-    <value>Overschrijf datum genomen of gecodeerd</value>
-  </data>
-  <data name="WriteDateEasyMetadata" xml:space="preserve">
-    <value>Overschrijf datum Easy-metagegevens</value>
-  </data>
-  <data name="EditEasyMetadata" xml:space="preserve">
-    <value>Easy-metagegevens bewerken</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>Bestand</value>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>Bestanden</value>
-  </data>
-  <data name="Folders" xml:space="preserve">
-    <value>Mappen</value>
-  </data>
-  <data name="DateFromFolderName" xml:space="preserve">
-    <value>Datum uit mapnaam</value>
-  </data>
-  <data name="EmptyFolders" xml:space="preserve">
-    <value>Lege mappen</value>
-  </data>
-  <data name="SmallThumbnail" xml:space="preserve">
-    <value>Kleine miniatuur</value>
-  </data>
-  <data name="SelectBackupFolder" xml:space="preserve">
-    <value>Backup-map selecteren</value>
-  </data>
-  <data name="EditComparisonProfile" xml:space="preserve">
-    <value>Vergelijkingsprofiel bewerken</value>
-  </data>
-  <data name="ShowComparisonDialog" xml:space="preserve">
-    <value>Vergelijkingsdialoogvenster weergeven</value>
-  </data>
-  <data name="SelectDuplicatesFolder" xml:space="preserve">
-    <value>Selecteer doelmap voor duplicaten</value>
-  </data>
-  <data name="DuplicatesDefault" xml:space="preserve">
-    <value>Duplicaten</value>
-  </data>
-  <data name="DuplicatesDelete" xml:space="preserve">
-    <value>Duplicaten (verwijderen)</value>
-  </data>
-  <data name="DuplicatesMove" xml:space="preserve">
-    <value>Duplicaten (verplaatsen)</value>
-  </data>
-  <data name="Abort" xml:space="preserve">
-    <value>Afbreken</value>
-  </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Toepassen</value>
-  </data>
-  <data name="ShutingDown" xml:space="preserve">
-    <value>Systeem afsluiten...</value>
-  </data>
-  <data name="ExtraLargeThumbnail" xml:space="preserve">
-    <value>Extra grote miniatuur</value>
-  </data>
-  <data name="LargeThumbnail" xml:space="preserve">
-    <value>Grote miniatuur</value>
-  </data>
-  <data name="MediumThumbnail" xml:space="preserve">
-    <value>Gemiddelde miniatuur</value>
-  </data>
-  <data name="RawName" xml:space="preserve">
-    <value>Onbewerkte naam</value>
-  </data>
-  <data name="DeleteDuplicates" xml:space="preserve">
-    <value>Duplicaten van '{0}' worden permanent verwijderd. Voortzetten?</value>
-  </data>
-  <data name="DeleteAllDuplicates" xml:space="preserve">
-    <value>Alle duplicaten worden permanent verwijderd. Voortzetten?</value>
-  </data>
-  <data name="DuplicatesFolderDoesNotExist" xml:space="preserve">
-    <value>Doelmap voor duplicaten bestaat niet. Geen wijzigingen aangebracht.</value>
-  </data>
-  <data name="StoreDuplicates" xml:space="preserve">
-    <value>Duplicaten van '{0}' worden opgeslagen in doelmap. Voortzetten?</value>
-  </data>
-  <data name="StoreAllDuplicates" xml:space="preserve">
-    <value>Alle duplicaten worden opgeslagen in doelmap. Voortzetten?</value>
-  </data>
-  <data name="Explore" xml:space="preserve">
-    <value>Verkennen...</value>
-  </data>
-  <data name="Open" xml:space="preserve">
-    <value>Openen...</value>
-  </data>
-  <data name="Invalid" xml:space="preserve">
-    <value>Ongeldig</value>
-  </data>
-  <data name="SymbolicLink" xml:space="preserve">
-    <value>Symbolische link</value>
-  </data>
-  <data name="EditFilter" xml:space="preserve">
-    <value>Filter bewerken</value>
-  </data>
-  <data name="AboutMessage" xml:space="preserve">
-    <value>Informatie over licenties en het gebruik van Easy File Manager kan worden bekeken op https://github.com/rafcolson/EasyFileManager. Problemen kunnen worden gemeld op https://github.com/rafcolson/EasyFileManager/issues. Releases kunnen worden gedownload op https://github.com/rafcolson/EasyFileManager/releases.</value>
-  </data>
-  <data name="CameraManufacturer" xml:space="preserve">
-    <value>Camerafabrikant</value>
-  </data>
-  <data name="CameraModel" xml:space="preserve">
-    <value>Cameramodel</value>
-  </data>
-  <data name="Contains" xml:space="preserve">
-    <value>Bevat</value>
-  </data>
-  <data name="EndsWith" xml:space="preserve">
-    <value>Eindigt met</value>
-  </data>
-  <data name="StartsWith" xml:space="preserve">
-    <value>Begint met</value>
-  </data>
-  <data name="BackupFolderDoesNotExist" xml:space="preserve">
-    <value>Back-upmap bestaat niet. Geen wijzigingen aangebracht.</value>
-  </data>
-  <data name="TopFolderDoesNotExist" xml:space="preserve">
-    <value>Bovenste map bestaat niet. Geen wijzigingen aangebracht.</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Kopiëren</value>
-  </data>
-  <data name="CopyMove" xml:space="preserve">
-    <value>Kopiëren | Verplaatsen</value>
-  </data>
-  <data name="Move" xml:space="preserve">
-    <value>Verplaatsen</value>
-  </data>
-  <data name="DoesNotContain" xml:space="preserve">
-    <value>Bevat niet</value>
-  </data>
-  <data name="DoesNotEndWith" xml:space="preserve">
-    <value>Eindigt niet met</value>
-  </data>
-  <data name="DoesNotStartWith" xml:space="preserve">
-    <value>Begint niet met</value>
   </data>
 </root>

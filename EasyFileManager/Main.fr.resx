@@ -221,49 +221,43 @@
     <value>87, 25</value>
   </data>
   <data name="ViewToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Affichage</value>
+    <value>&amp;Vue</value>
   </data>
-  <data name="PreviewPathToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ShowOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>297, 26</value>
   </data>
-  <data name="PreviewPathToolStripMenuItem.Text" xml:space="preserve">
-    <value>Prévisualiser le chemin</value>
+  <data name="ShowOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sortie</value>
+  </data>
+  <data name="ShowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ShowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Afficher</value>
   </data>
   <data name="ShowThumbnailToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>297, 26</value>
   </data>
   <data name="ShowThumbnailToolStripMenuItem.Text" xml:space="preserve">
-    <value>Afficher la vignette</value>
+    <value>Vignette</value>
   </data>
   <data name="ShowPropertiesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>297, 26</value>
   </data>
   <data name="ShowPropertiesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Afficher les propriétés</value>
+    <value>Propriétés</value>
   </data>
   <data name="ShowMillisecondsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>297, 26</value>
   </data>
   <data name="ShowMillisecondsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Afficher les millisecondes</value>
+    <value>Millisecondes</value>
   </data>
   <data name="ShowHiddenItemsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>297, 26</value>
   </data>
   <data name="ShowHiddenItemsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Afficher les éléments masqués</value>
-  </data>
-  <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>330, 26</value>
-  </data>
-  <data name="ShowEmbeddedVideoGPSToolStripMenuItem.Text" xml:space="preserve">
-    <value>Afficher le GPS vidéo intégré</value>
-  </data>
-  <data name="ShowEmbeddedAudioDateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>330, 26</value>
-  </data>
-  <data name="ShowEmbeddedAudioDateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Afficher la date audio intégrée</value>
+    <value>Éléments masqués</value>
   </data>
   <data name="ViewToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>294, 6</value>
@@ -274,11 +268,65 @@
   <data name="LanguageToolStripMenuItem.Text" xml:space="preserve">
     <value>Langue...</value>
   </data>
-  <data name="UseEasyMetadataWithVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 26</value>
+  <data name="ExtractEmbeddedMetadataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 26</value>
   </data>
-  <data name="UseEasyMetadataWithVideoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Easy métadonnées pour la vidéo</value>
+  <data name="ExtractEmbeddedMetadataToolStripMenuItem.Text" xml:space="preserve">
+    <value>Extraire les métadonnées intégrées</value>
+  </data>
+  <data name="ExtractEmbeddedVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ExtractEmbeddedVideoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Vidéo</value>
+  </data>
+  <data name="ExtractEmbeddedImageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ExtractEmbeddedImageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="ExtractEmbeddedAudioToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ExtractEmbeddedAudioToolStripMenuItem.Text" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="ExtractEmbeddedDocumentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ExtractEmbeddedDocumentToolStripMenuItem.Text" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="ConvertEmbeddedToEasyMetadataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 26</value>
+  </data>
+  <data name="ConvertEmbeddedToEasyMetadataToolStripMenuItem.Text" xml:space="preserve">
+    <value>Convertir les métadonnées intégrées en EasyMetadata</value>
+  </data>
+  <data name="ConvertEmbeddedVideoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ConvertEmbeddedVideoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Vidéo</value>
+  </data>
+  <data name="ConvertEmbeddedImageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ConvertEmbeddedImageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="ConvertEmbeddedAudioToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ConvertEmbeddedAudioToolStripMenuItem.Text" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="ConvertEmbeddedDocumentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="ConvertEmbeddedDocumentToolStripMenuItem.Text" xml:space="preserve">
+    <value>Document</value>
   </data>
   <data name="PreserveDateModifiedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>371, 26</value>

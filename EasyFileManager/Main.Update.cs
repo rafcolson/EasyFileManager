@@ -13,7 +13,18 @@ namespace EasyFileManager
 {
     public partial class Main
     {
-        public static bool UpdateOptions(string path)
+        private static void SaveOptions()
+        {
+            string options = Options.ToString();
+            if (Properties.Settings.Default.EasyOptions == options)
+            {
+                return;
+            }
+            Properties.Settings.Default.EasyOptions = options;
+            Properties.Settings.Default.Save();
+        }
+
+        private static bool UpdateOptions(string path)
         {
             FileInfo fi = new(path);
             if (!fi.Exists)
@@ -22,8 +33,7 @@ namespace EasyFileManager
             }
             string s = fi.ReadText();
             Options = new(s);
-            Properties.Settings.Default.EasyOptions = s;
-            Properties.Settings.Default.Save();
+            SaveOptions();
             return true;
         }
 
@@ -50,7 +60,7 @@ namespace EasyFileManager
                         Folder.Initialize(path);
 
                         Folders.Replace(Folder.GetDirectoryPaths());
-                        Files.Replace(Folder.GetFilePaths(), Properties.Settings.Default.PreviewPath, false);
+                        Files.Replace(Folder.GetFilePaths(), Options.Show.HasFlag(EasyShow.Output), false);
 
                         UpdateHistory();
                         UpdateOneLevelUpButton();
@@ -153,7 +163,7 @@ namespace EasyFileManager
             ExplorerDataGridView.SuspendLayout();
             foreach (EasyFolder ed in Folders)
             {
-                if (!Properties.Settings.Default.ShowHiddenItems && ed.IsHidden)
+                if (!Options.Show.HasFlag(EasyShow.HiddenItems) && ed.IsHidden)
                 {
                     continue;
                 }
@@ -166,7 +176,7 @@ namespace EasyFileManager
             }
             foreach (EasyFile ef in Files)
             {
-                if (!Properties.Settings.Default.ShowHiddenItems && ef.IsHidden)
+                if (!Options.Show.HasFlag(EasyShow.HiddenItems) && ef.IsHidden)
                 {
                     continue;
                 }
@@ -185,6 +195,12 @@ namespace EasyFileManager
             IsUpdating = false;
 
             UpdateSelection();
+        }
+
+        private void UpdatePreviewFormatting()
+        {
+            _previewFormattingTimer.Stop();
+            _previewFormattingTimer.Start();
         }
 
         private void UpdateSelection()
@@ -402,6 +418,14 @@ namespace EasyFileManager
             DuplicatesCompareTextBox.Text = string.Join($"{SPACE}{VERTICAL_BAR}{SPACE}", sa);
         }
 
+        private void ResetFileDetails()
+        {
+            foreach (EasyFile file in Files)
+            {
+                file.ResetDetails();
+            }
+        }
+
         private void UpdateFormatting(bool apply, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -430,7 +454,7 @@ namespace EasyFileManager
                     using MessageDialog md = new(Globals.BackupFolderDoesNotExist);
                     md.ShowDialog();
 
-                    if (Options.LogApplicationEvents)
+                    if (Properties.Settings.Default.LogApplicationEvents)
                     {
                         Logger.Write($"Aborted: Backup folder does not exist.");
                     }
@@ -457,7 +481,7 @@ namespace EasyFileManager
                 }
                 subStepIndex += 1;
 
-                if (Options.LogApplicationEvents)
+                if (Properties.Settings.Default.LogApplicationEvents)
                 {
                     Logger.Write($"Backup copied in: {Options.BackupFolderPath}");
                 }
@@ -468,7 +492,7 @@ namespace EasyFileManager
                 using MessageDialog md = new(Globals.TopFolderDoesNotExist);
                 md.ShowDialog();
 
-                if (Options.LogApplicationEvents)
+                if (Properties.Settings.Default.LogApplicationEvents)
                 {
                     Logger.Write($"Aborted: Top folder does not exist.");
                 }
@@ -532,7 +556,7 @@ namespace EasyFileManager
                         if (Options.CopyMoveState == CheckState.Indeterminate)
                         {
                             ef.Copy(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
-                            if (Options.LogApplicationEvents)
+                            if (Properties.Settings.Default.LogApplicationEvents)
                             {
                                 Logger.Write($"Copied {p} -> {fp}");
                             }
@@ -540,13 +564,13 @@ namespace EasyFileManager
                         else
                         {
                             ef.Move(fp, Options.PreserveDateCreated, Options.PreserveDateModified);
-                            if (Options.LogApplicationEvents)
+                            if (Properties.Settings.Default.LogApplicationEvents)
                             {
                                 Logger.Write($"Moved {p} -> {fp}");
                             }
                         }
                     }
-                    else if (Options.LogApplicationEvents)
+                    else if (Properties.Settings.Default.LogApplicationEvents)
                     {
                         Logger.Write($"Formatted {p} -> {fp}");
                     }
@@ -663,7 +687,7 @@ namespace EasyFileManager
                 ef.CustomizeAsync(Options).Wait(cancellationToken);
                 string info = $"Customized {p}";
                 Progress.Report(EasyProgress.GetValue(((maxValue * i) / n), maxValue, 1, numSubSteps), info);
-                if (Options.LogApplicationEvents)
+                if (Properties.Settings.Default.LogApplicationEvents)
                 {
                     Logger.Write(info);
                 }
@@ -707,7 +731,7 @@ namespace EasyFileManager
                     if (ed.GetAllPaths().Length == 0)
                     {
                         Progress.Report(EasyProgress.GetValue(((maxValue * fpai) / fpan), maxValue, i, numSubSteps), $"Deleting empty folder: {p}");
-                        if (ed.Delete() && Options.LogApplicationEvents)
+                        if (ed.Delete() && Properties.Settings.Default.LogApplicationEvents)
                         {
                             Logger.Write($"Deleted empty folder: {p}");
                         }
@@ -730,7 +754,7 @@ namespace EasyFileManager
                 {
                     using EasyFile ef = new(sfpa[sfpai]);
                     Progress.Report(EasyProgress.GetValue(((maxValue * sfpai) / sfpan), maxValue, i, numSubSteps), $"Deleting '{s}' property of {ef.Path}");
-                    if (ef.RemoveProperty(efp) && Options.LogApplicationEvents)
+                    if (ef.RemoveProperty(efp) && Properties.Settings.Default.LogApplicationEvents)
                     {
                         Logger.Write($"Deleted '{s}' property of {ef.Path}");
                     }
@@ -854,7 +878,7 @@ namespace EasyFileManager
             Progress.Report(EasyProgress.GetValue(100, maxValue, 1, numSubSteps));
 
             Debug.WriteLine(info);
-            if (Options.LogApplicationEvents)
+            if (Properties.Settings.Default.LogApplicationEvents)
             {
                 Logger.Write(info);
             }
@@ -909,8 +933,8 @@ namespace EasyFileManager
                 ThumbnailPictureBox.Image = null;
                 image.Dispose();
             }
-            bool showThumbnail = Properties.Settings.Default.ShowThumbnail;
-            bool showProperties = Properties.Settings.Default.ShowProperties;
+            bool showThumbnail = Options.Show.HasFlag(EasyShow.Thumbnail);
+            bool showProperties = Options.Show.HasFlag(EasyShow.Properties);
             DataGridViewSelectedRowCollection rows = ExplorerDataGridView.SelectedRows;
             if (!(showThumbnail || showProperties) || rows.Count != 1 || rows[0].Tag is not EasyPath ep)
             {
@@ -918,7 +942,7 @@ namespace EasyFileManager
                 IsUpdating = false;
                 return;
             }
-            if (!Properties.Settings.Default.PreviewPath)
+            if (!Options.Show.HasFlag(EasyShow.Output))
             {
                 ep.Initialize(ep.Path);
             }
@@ -965,7 +989,7 @@ namespace EasyFileManager
                     }
                 }
             }
-            bool showMillis = Properties.Settings.Default.ShowMilliseconds;
+            bool showMillis = Options.Show.HasFlag(EasyShow.Milliseconds);
             if (ep.DateModified is DateTime dtm)
             {
                 PropsDataGridView.AddRow(Globals.DateModified, showMillis ? dtm.ToDateTimeString() : dtm.ToDateSecondString());
@@ -1004,9 +1028,9 @@ namespace EasyFileManager
                 PropsDataGridView.AddRow(Globals.Subject, ef.Subject);
                 PropsDataGridView.AddRow(Globals.Comment, ef.Comment);
 
-                if (Properties.Settings.Default.ShowEmbeddedVideoGPS)
+                if (Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Video))
                 {
-                    ef.ExtractExifGeoArea(Options.UseEasyMetadataWithVideo);
+                    ef.ExtractExifGeoArea();
                 }
 
                 PropsDataGridView.AddRow(Globals.Keywords, string.Join(COMMA, ef.Keywords));
@@ -1137,7 +1161,7 @@ namespace EasyFileManager
 
         private async Task<bool> UpdateFormattingAsync()
         {
-            if (!Properties.Settings.Default.PreviewPath)
+            if (!Options.Show.HasFlag(EasyShow.Output))
             {
                 ClearFormatting();
                 return false;

@@ -11,6 +11,14 @@ namespace EasyFileManager
 {
     public partial class Main
     {
+        private static T GetToggledFlags<T>(T flags, T flag, bool enabled) where T : struct, Enum
+        {
+            long flagsValue = Convert.ToInt64(flags);
+            long flagValue = Convert.ToInt64(flag);
+            long value = enabled ? flagsValue | flagValue : flagsValue & ~flagValue;
+            return (T)Enum.ToObject(typeof(T), value);
+        }
+
         private EasyList<string>? GetKeywords(object? editItem = null)
         {
             editItem ??= new EasyList<string>();
@@ -65,6 +73,8 @@ namespace EasyFileManager
             };
             return id.ShowDialog() == DialogResult.OK ? m[string.Empty] : null;
         }
+
+        private static string GetExplorerPath(EasyPath easyPath) => easyPath.TargetPath ?? easyPath.Path;
 
         private static bool HasGeoAreaData(GeoArea geoArea)
         {
@@ -273,14 +283,14 @@ namespace EasyFileManager
         //    return result;
         //}
 
-        public static Main? GetMainForm() => Application.OpenForms.Count == 0 ? null : Application.OpenForms[0] as Main;
+        private static Main? GetMainForm() => Application.OpenForms.Count == 0 ? null : Application.OpenForms[0] as Main;
 
-        public static Assembly GetAssembly() => Assembly.GetExecutingAssembly();
+        private static Assembly GetAssembly() => Assembly.GetExecutingAssembly();
 
-        public static string GetAssemblyName() => GetAssembly().GetSimpleName();
+        private static string GetAssemblyName() => GetAssembly().GetSimpleName();
 
-        public static string GetAppDataDirectoryPath() => Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), GetAssemblyName());
+        private static string GetAppDataDirectoryPath() => Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), GetAssemblyName());
 
-        public static string GetAppDataConfigPath() => Path.Join(GetAppDataDirectoryPath(), $"{GetAssemblyName()}.cfg");
+        private static string GetAppDataConfigPath() => Path.Join(GetAppDataDirectoryPath(), $"{GetAssemblyName()}.cfg");
     }
 }

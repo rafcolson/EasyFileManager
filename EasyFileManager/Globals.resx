@@ -408,7 +408,7 @@
   <data name="ShowComparisonDialog" xml:space="preserve">
     <value>Show comparison dialog</value>
   </data>
-  <data name="ShutingDown" xml:space="preserve">
+  <data name="ShuttingDown" xml:space="preserve">
     <value>Shutting down system...</value>
   </data>
   <data name="Size" xml:space="preserve">

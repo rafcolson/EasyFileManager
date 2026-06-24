@@ -409,6 +409,41 @@ namespace EasyFileManager
     }
 
     [Flags]
+    public enum ExtractEmbeddedMetadata
+    {
+        None = 0,
+        Image = 1 << 0,
+        Video = 1 << 1,
+        Audio = 1 << 2,
+        Document = 1 << 3,
+        All = Image | Video | Audio | Document
+    }
+
+    [Flags]
+    public enum ConvertEmbeddedToEasyMetadata
+    {
+        None = 0,
+        Image = 1 << 0,
+        Video = 1 << 1,
+        Audio = 1 << 2,
+        Document = 1 << 3,
+        All = Image | Video | Audio | Document
+    }
+
+    [Flags]
+    public enum EasyShow
+    {
+        None = 0,
+        Output = 1 << 0,
+        Thumbnail = 1 << 1,
+        Properties = 1 << 2,
+        Milliseconds = 1 << 3,
+        HiddenItems = 1 << 4,
+        Default = Output | Thumbnail | Properties | HiddenItems,
+        All = Output | Thumbnail | Properties | Milliseconds | HiddenItems
+    }
+
+    [Flags]
     public enum EasyFileProperty
     {
         None = 0,
@@ -552,6 +587,7 @@ namespace EasyFileManager
         public string BackupFolderPath { get; set; } = STARTUP_DIRECTORY_DEFAULT;
         public string TopFolderPath { get; set; } = STARTUP_DIRECTORY_DEFAULT;
         public string DuplicatesFolderPath { get; set; } = STARTUP_DIRECTORY_DEFAULT;
+        public string ImportExportDirectory { get; set; } = EMPTY_STRING;
 
         public bool CustomizeEnabled { get; set; }
         public bool RenameEnabled { get; set; }
@@ -573,11 +609,8 @@ namespace EasyFileManager
         public bool TopFolderEnabled { get; set; }
         public bool SubfoldersEnabled { get; set; }
         public bool FilterEnabled { get; set; }
-        public bool UseEasyMetadataWithVideo { get; set; }
-        public bool PreserveDateModified { get; set; }
-        public bool PreserveDateCreated { get; set; }
-        public bool LogApplicationEvents { get; set; }
-        public bool ShutdownUponCompletion { get; set; }
+        public bool PreserveDateModified { get; set; } = true;
+        public bool PreserveDateCreated { get; set; } = true;
         public bool CleanUpEnabled { get; set; }
         public bool ShowDuplicatesCompareDialog { get; set; }
 
@@ -599,6 +632,9 @@ namespace EasyFileManager
         public EasyNameFilter NameFilter { get; set; } = EasyNameFilter.Contains;
         public EasyCleanUpParameter CleanUpParameters { get; set; } = EasyCleanUpParameter.Default;
         public EasyCompareParameter DuplicatesCompareParameters { get; set; } = EasyCompareParameter.Default;
+        public EasyShow Show { get; set; } = EasyShow.Default;
+        public ExtractEmbeddedMetadata ExtractEmbeddedMetadata { get; set; } = ExtractEmbeddedMetadata.None;
+        public ConvertEmbeddedToEasyMetadata ConvertEmbeddedToEasyMetadata { get; set; } = ConvertEmbeddedToEasyMetadata.None;
 
         public List<EasyList<string>> Keywords { get; set; } = [];
         public Dictionary<string, GeoCoordinates?> GeoAreas { get; set; } = [];
@@ -624,6 +660,7 @@ namespace EasyFileManager
                 BackupFolderPath = GetValidDirectoryPath(eo.BackupFolderPath);
                 TopFolderPath = GetValidDirectoryPath(eo.TopFolderPath);
                 DuplicatesFolderPath = GetValidDirectoryPath(eo.DuplicatesFolderPath);
+                ImportExportDirectory = GetValidDirectoryPath(eo.ImportExportDirectory);
 
                 CustomizeEnabled = eo.CustomizeEnabled;
                 RenameEnabled = eo.RenameEnabled;
@@ -645,11 +682,8 @@ namespace EasyFileManager
                 SubfoldersEnabled = eo.SubfoldersEnabled;
                 FilterEnabled = eo.FilterEnabled;
                 WriteDateEasyMetadata = eo.WriteDateEasyMetadata;
-                UseEasyMetadataWithVideo = eo.UseEasyMetadataWithVideo;
                 PreserveDateModified = eo.PreserveDateModified;
                 PreserveDateCreated = eo.PreserveDateCreated;
-                LogApplicationEvents = eo.LogApplicationEvents;
-                ShutdownUponCompletion = eo.ShutdownUponCompletion;
                 CleanUpEnabled = eo.CleanUpEnabled;
                 ShowDuplicatesCompareDialog = eo.ShowDuplicatesCompareDialog;
 
@@ -671,6 +705,9 @@ namespace EasyFileManager
                 NameFilter = eo.NameFilter;
                 CleanUpParameters = eo.CleanUpParameters;
                 DuplicatesCompareParameters = eo.DuplicatesCompareParameters;
+                Show = eo.Show;
+                ExtractEmbeddedMetadata = eo.ExtractEmbeddedMetadata;
+                ConvertEmbeddedToEasyMetadata = eo.ConvertEmbeddedToEasyMetadata;
 
                 Keywords = eo.Keywords;
                 GeoAreas = eo.GeoAreas;
@@ -1505,7 +1542,7 @@ public class EasyFiles : EasyPaths<EasyFile>
             if (_shellObject is ShellObject so && (Type == EasyType.Video || Type == EasyType.Audio))
             {
                 _dateEncoded = so.Properties.System.Media.DateEncoded.Value;
-                if (_dateEncoded == null && Type == EasyType.Audio && Properties.Settings.Default.ShowEmbeddedAudioDate)
+                if (_dateEncoded == null && Type == EasyType.Audio && Main.Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Audio))
                 {
                     _dateEncoded = ReadAudioDateEncoded(_path);
                 }
@@ -1549,7 +1586,7 @@ public class EasyFiles : EasyPaths<EasyFile>
         }
         private bool ReadGeoCoordinates()
         {
-            if (Type.HasFlag(EasyType.Video) && Properties.Settings.Default.ShowEmbeddedVideoGPS)
+            if (Type.HasFlag(EasyType.Video) && Main.Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Video))
             {
                 _geoCoordinates = ReadVideoGPSCoords(_path);
                 if (_geoCoordinates is GeoCoordinates gc && gc.IsValid) { return true; }
@@ -2032,18 +2069,19 @@ public class EasyFiles : EasyPaths<EasyFile>
             return false;
         }
 
-        public void ExtractExifGeoArea(bool useEasyMetadataWithVideo = true)
+        public void ExtractExifGeoArea()
         {
             EnsureDetailsLoaded();
+            bool convertToEasyMetadata = Main.Options.ConvertEmbeddedToEasyMetadata.HasFlag(ConvertEmbeddedToEasyMetadata.Video);
             if (Type != EasyType.Video
                 || (_geoCoordinates is GeoCoordinates gc && gc.IsValid)
-                || (useEasyMetadataWithVideo && EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
+                || (convertToEasyMetadata && EasyMetadata is EasyMetadata emd && emd.GeoArea != null)
                 || ReadVideoGPSCoords(_path) is not GeoCoordinates gc0 || !gc0.IsValid)
             {
                 return;
             }
             _geoCoordinates = gc0;
-            if (useEasyMetadataWithVideo)
+            if (convertToEasyMetadata)
             {
                 bool result = true;
                 if (EasyMetadata.Options.VideoMetadata is not bool ov)

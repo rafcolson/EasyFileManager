@@ -162,17 +162,25 @@ namespace EasyFileManager
             ExportToolStripMenuItem = new ToolStripMenuItem();
             ExitToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripMenuItem = new ToolStripMenuItem();
-            PreviewPathToolStripMenuItem = new ToolStripMenuItem();
+            ShowOutputToolStripMenuItem = new ToolStripMenuItem();
+            ShowToolStripMenuItem = new ToolStripMenuItem();
             ShowThumbnailToolStripMenuItem = new ToolStripMenuItem();
             ShowPropertiesToolStripMenuItem = new ToolStripMenuItem();
             ShowMillisecondsToolStripMenuItem = new ToolStripMenuItem();
             ShowHiddenItemsToolStripMenuItem = new ToolStripMenuItem();
-            ShowEmbeddedVideoGPSToolStripMenuItem = new ToolStripMenuItem();
-            ShowEmbeddedAudioDateToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripSeparator = new ToolStripSeparator();
             LanguageToolStripMenuItem = new ToolStripMenuItem();
             OptionsToolStripMenuItem = new ToolStripMenuItem();
-            UseEasyMetadataWithVideoToolStripMenuItem = new ToolStripMenuItem();
+            ExtractEmbeddedMetadataToolStripMenuItem = new ToolStripMenuItem();
+            ExtractEmbeddedVideoToolStripMenuItem = new ToolStripMenuItem();
+            ExtractEmbeddedImageToolStripMenuItem = new ToolStripMenuItem();
+            ExtractEmbeddedAudioToolStripMenuItem = new ToolStripMenuItem();
+            ExtractEmbeddedDocumentToolStripMenuItem = new ToolStripMenuItem();
+            ConvertEmbeddedToEasyMetadataToolStripMenuItem = new ToolStripMenuItem();
+            ConvertEmbeddedVideoToolStripMenuItem = new ToolStripMenuItem();
+            ConvertEmbeddedImageToolStripMenuItem = new ToolStripMenuItem();
+            ConvertEmbeddedAudioToolStripMenuItem = new ToolStripMenuItem();
+            ConvertEmbeddedDocumentToolStripMenuItem = new ToolStripMenuItem();
             PreserveDateModifiedToolStripMenuItem = new ToolStripMenuItem();
             PreserveDateCreatedToolStripMenuItem = new ToolStripMenuItem();
             LogApplicationEventsToolStripMenuItem = new ToolStripMenuItem();
@@ -1318,14 +1326,20 @@ namespace EasyFileManager
             // 
             // ViewToolStripMenuItem
             // 
-            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PreviewPathToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem, ShowEmbeddedVideoGPSToolStripMenuItem, ShowEmbeddedAudioDateToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
+            ViewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowToolStripMenuItem, ViewToolStripSeparator, LanguageToolStripMenuItem });
             ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
             resources.ApplyResources(ViewToolStripMenuItem, "ViewToolStripMenuItem");
             // 
-            // PreviewPathToolStripMenuItem
+            // ShowOutputToolStripMenuItem
             // 
-            PreviewPathToolStripMenuItem.Name = "PreviewPathToolStripMenuItem";
-            resources.ApplyResources(PreviewPathToolStripMenuItem, "PreviewPathToolStripMenuItem");
+            ShowOutputToolStripMenuItem.Name = "ShowOutputToolStripMenuItem";
+            resources.ApplyResources(ShowOutputToolStripMenuItem, "ShowOutputToolStripMenuItem");
+            // 
+            // ShowToolStripMenuItem
+            // 
+            ShowToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ShowOutputToolStripMenuItem, ShowThumbnailToolStripMenuItem, ShowPropertiesToolStripMenuItem, ShowMillisecondsToolStripMenuItem, ShowHiddenItemsToolStripMenuItem });
+            ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
+            resources.ApplyResources(ShowToolStripMenuItem, "ShowToolStripMenuItem");
             // 
             // ShowThumbnailToolStripMenuItem
             // 
@@ -1347,16 +1361,6 @@ namespace EasyFileManager
             ShowHiddenItemsToolStripMenuItem.Name = "ShowHiddenItemsToolStripMenuItem";
             resources.ApplyResources(ShowHiddenItemsToolStripMenuItem, "ShowHiddenItemsToolStripMenuItem");
             // 
-            // ShowEmbeddedVideoGPSToolStripMenuItem
-            // 
-            ShowEmbeddedVideoGPSToolStripMenuItem.Name = "ShowEmbeddedVideoGPSToolStripMenuItem";
-            resources.ApplyResources(ShowEmbeddedVideoGPSToolStripMenuItem, "ShowEmbeddedVideoGPSToolStripMenuItem");
-            // 
-            // ShowEmbeddedAudioDateToolStripMenuItem
-            // 
-            ShowEmbeddedAudioDateToolStripMenuItem.Name = "ShowEmbeddedAudioDateToolStripMenuItem";
-            resources.ApplyResources(ShowEmbeddedAudioDateToolStripMenuItem, "ShowEmbeddedAudioDateToolStripMenuItem");
-            // 
             // ViewToolStripSeparator
             // 
             ViewToolStripSeparator.Name = "ViewToolStripSeparator";
@@ -1369,14 +1373,61 @@ namespace EasyFileManager
             // 
             // OptionsToolStripMenuItem
             // 
-            OptionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { UseEasyMetadataWithVideoToolStripMenuItem, PreserveDateModifiedToolStripMenuItem, PreserveDateCreatedToolStripMenuItem, LogApplicationEventsToolStripMenuItem, ShutDownUponCompletionToolStripMenuItem });
+            OptionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ExtractEmbeddedMetadataToolStripMenuItem, ConvertEmbeddedToEasyMetadataToolStripMenuItem, PreserveDateModifiedToolStripMenuItem, PreserveDateCreatedToolStripMenuItem, LogApplicationEventsToolStripMenuItem, ShutDownUponCompletionToolStripMenuItem });
             OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem";
             resources.ApplyResources(OptionsToolStripMenuItem, "OptionsToolStripMenuItem");
             // 
-            // UseEasyMetadataWithVideoToolStripMenuItem
+            // ExtractEmbeddedMetadataToolStripMenuItem
             // 
-            UseEasyMetadataWithVideoToolStripMenuItem.Name = "UseEasyMetadataWithVideoToolStripMenuItem";
-            resources.ApplyResources(UseEasyMetadataWithVideoToolStripMenuItem, "UseEasyMetadataWithVideoToolStripMenuItem");
+            ExtractEmbeddedMetadataToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ExtractEmbeddedImageToolStripMenuItem, ExtractEmbeddedVideoToolStripMenuItem, ExtractEmbeddedAudioToolStripMenuItem, ExtractEmbeddedDocumentToolStripMenuItem });
+            ExtractEmbeddedMetadataToolStripMenuItem.Name = "ExtractEmbeddedMetadataToolStripMenuItem";
+            resources.ApplyResources(ExtractEmbeddedMetadataToolStripMenuItem, "ExtractEmbeddedMetadataToolStripMenuItem");
+            // 
+            // ExtractEmbeddedVideoToolStripMenuItem
+            // 
+            ExtractEmbeddedVideoToolStripMenuItem.Name = "ExtractEmbeddedVideoToolStripMenuItem";
+            resources.ApplyResources(ExtractEmbeddedVideoToolStripMenuItem, "ExtractEmbeddedVideoToolStripMenuItem");
+            // 
+            // ExtractEmbeddedImageToolStripMenuItem
+            // 
+            ExtractEmbeddedImageToolStripMenuItem.Name = "ExtractEmbeddedImageToolStripMenuItem";
+            resources.ApplyResources(ExtractEmbeddedImageToolStripMenuItem, "ExtractEmbeddedImageToolStripMenuItem");
+            // 
+            // ExtractEmbeddedAudioToolStripMenuItem
+            // 
+            ExtractEmbeddedAudioToolStripMenuItem.Name = "ExtractEmbeddedAudioToolStripMenuItem";
+            resources.ApplyResources(ExtractEmbeddedAudioToolStripMenuItem, "ExtractEmbeddedAudioToolStripMenuItem");
+            // 
+            // ExtractEmbeddedDocumentToolStripMenuItem
+            // 
+            ExtractEmbeddedDocumentToolStripMenuItem.Name = "ExtractEmbeddedDocumentToolStripMenuItem";
+            resources.ApplyResources(ExtractEmbeddedDocumentToolStripMenuItem, "ExtractEmbeddedDocumentToolStripMenuItem");
+            // 
+            // ConvertEmbeddedToEasyMetadataToolStripMenuItem
+            // 
+            ConvertEmbeddedToEasyMetadataToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ConvertEmbeddedImageToolStripMenuItem, ConvertEmbeddedVideoToolStripMenuItem, ConvertEmbeddedAudioToolStripMenuItem, ConvertEmbeddedDocumentToolStripMenuItem });
+            ConvertEmbeddedToEasyMetadataToolStripMenuItem.Name = "ConvertEmbeddedToEasyMetadataToolStripMenuItem";
+            resources.ApplyResources(ConvertEmbeddedToEasyMetadataToolStripMenuItem, "ConvertEmbeddedToEasyMetadataToolStripMenuItem");
+            // 
+            // ConvertEmbeddedVideoToolStripMenuItem
+            // 
+            ConvertEmbeddedVideoToolStripMenuItem.Name = "ConvertEmbeddedVideoToolStripMenuItem";
+            resources.ApplyResources(ConvertEmbeddedVideoToolStripMenuItem, "ConvertEmbeddedVideoToolStripMenuItem");
+            // 
+            // ConvertEmbeddedImageToolStripMenuItem
+            // 
+            ConvertEmbeddedImageToolStripMenuItem.Name = "ConvertEmbeddedImageToolStripMenuItem";
+            resources.ApplyResources(ConvertEmbeddedImageToolStripMenuItem, "ConvertEmbeddedImageToolStripMenuItem");
+            // 
+            // ConvertEmbeddedAudioToolStripMenuItem
+            // 
+            ConvertEmbeddedAudioToolStripMenuItem.Name = "ConvertEmbeddedAudioToolStripMenuItem";
+            resources.ApplyResources(ConvertEmbeddedAudioToolStripMenuItem, "ConvertEmbeddedAudioToolStripMenuItem");
+            // 
+            // ConvertEmbeddedDocumentToolStripMenuItem
+            // 
+            ConvertEmbeddedDocumentToolStripMenuItem.Name = "ConvertEmbeddedDocumentToolStripMenuItem";
+            resources.ApplyResources(ConvertEmbeddedDocumentToolStripMenuItem, "ConvertEmbeddedDocumentToolStripMenuItem");
             // 
             // PreserveDateModifiedToolStripMenuItem
             // 
@@ -1620,6 +1671,7 @@ namespace EasyFileManager
         private ToolStripMenuItem ImportToolStripMenuItem;
         private ToolStripMenuItem ExitToolStripMenuItem;
         private ToolStripMenuItem ViewToolStripMenuItem;
+        private ToolStripMenuItem ShowToolStripMenuItem;
         private ToolStripMenuItem ShowHiddenItemsToolStripMenuItem;
         private ToolStripMenuItem ShowMillisecondsToolStripMenuItem;
         private SplitContainer ExplorerThumbnailPropsSplitContainer;
@@ -1646,8 +1698,16 @@ namespace EasyFileManager
         private CheckBox DateFormatCheckBox;
         private TableLayoutPanel ReplaceTableLayoutPanel;
         private CheckBox ReplaceWithCheckBox;
-        private ToolStripMenuItem ShowEmbeddedVideoGPSToolStripMenuItem;
-        private ToolStripMenuItem ShowEmbeddedAudioDateToolStripMenuItem;
+        private ToolStripMenuItem ExtractEmbeddedMetadataToolStripMenuItem;
+        private ToolStripMenuItem ExtractEmbeddedVideoToolStripMenuItem;
+        private ToolStripMenuItem ExtractEmbeddedImageToolStripMenuItem;
+        private ToolStripMenuItem ExtractEmbeddedAudioToolStripMenuItem;
+        private ToolStripMenuItem ExtractEmbeddedDocumentToolStripMenuItem;
+        private ToolStripMenuItem ConvertEmbeddedToEasyMetadataToolStripMenuItem;
+        private ToolStripMenuItem ConvertEmbeddedVideoToolStripMenuItem;
+        private ToolStripMenuItem ConvertEmbeddedImageToolStripMenuItem;
+        private ToolStripMenuItem ConvertEmbeddedAudioToolStripMenuItem;
+        private ToolStripMenuItem ConvertEmbeddedDocumentToolStripMenuItem;
         private DataGridViewTextBoxColumn PropsDataGridViewColumnValues;
         private TableLayoutPanel CustomizeTableLayoutPanel;
         private GroupBox GeolocationGroupBox;
@@ -1671,7 +1731,6 @@ namespace EasyFileManager
         private CheckBox WriteGPSAreaInfoCheckBox;
         private CheckBox WriteGPSEasyMetadataCheckBox;
         private ToolStripMenuItem OptionsToolStripMenuItem;
-        private ToolStripMenuItem UseEasyMetadataWithVideoToolStripMenuItem;
         private ToolStripMenuItem PreserveDateModifiedToolStripMenuItem;
         private CheckBox WriteDateEasyMetadataCheckBox;
         private CheckBox WriteDateModifiedCheckBox;
@@ -1722,7 +1781,7 @@ namespace EasyFileManager
         private TextBox FilterStringTextBox;
         private TextBox CleanUpTextBox;
         private Button CleanUpEditButton;
-        private ToolStripMenuItem PreviewPathToolStripMenuItem;
+        private ToolStripMenuItem ShowOutputToolStripMenuItem;
         private DataGridViewTextBoxColumn ExplorerDataGridViewColumnValues;
     }
 }

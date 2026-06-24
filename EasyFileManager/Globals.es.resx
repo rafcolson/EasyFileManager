@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abort" xml:space="preserve">
+    <value>Abandonar</value>
+  </data>
+  <data name="AboutMessage" xml:space="preserve">
+    <value>La información sobre las licencias y el uso de Easy File Manager se puede ver en https://github.com/rafcolson/EasyFileManager. Los problemas se pueden informar en https://github.com/rafcolson/EasyFileManager/issues. Los lanzamientos se pueden descargar en https://github.com/rafcolson/EasyFileManager/releases.</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Dirección</value>
   </data>
   <data name="Application" xml:space="preserve">
     <value>Aplicación</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Applicar</value>
   </data>
   <data name="AreaInfo" xml:space="preserve">
     <value>Información de área</value>
@@ -132,6 +141,15 @@
   <data name="Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
+  <data name="BackupFolderDoesNotExist" xml:space="preserve">
+    <value>Carpeta de copia de seguridad no existe. No se han realizado cambios.</value>
+  </data>
+  <data name="CameraManufacturer" xml:space="preserve">
+    <value>Fabricante de cámara</value>
+  </data>
+  <data name="CameraModel" xml:space="preserve">
+    <value>Modelo de cámara</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Comentario</value>
   </data>
@@ -141,8 +159,17 @@
   <data name="Contacts" xml:space="preserve">
     <value>Contactos</value>
   </data>
+  <data name="Contains" xml:space="preserve">
+    <value>Contiene</value>
+  </data>
   <data name="Contents" xml:space="preserve">
     <value>Contenido</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="CopyMove" xml:space="preserve">
+    <value>Copiar | Mover</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Personalizado</value>
@@ -171,6 +198,9 @@
   <data name="DateFromEasyMetadata" xml:space="preserve">
     <value>Fecha a partir de Easy metadatos</value>
   </data>
+  <data name="DateFromFolderName" xml:space="preserve">
+    <value>Fecha del nombre de la carpeta</value>
+  </data>
   <data name="DateMetadata" xml:space="preserve">
     <value>Fecha (metadatos)</value>
   </data>
@@ -195,11 +225,38 @@
   <data name="DayTakenOrEncoded" xml:space="preserve">
     <value>Día de toma o codificación</value>
   </data>
+  <data name="DeleteAllDuplicates" xml:space="preserve">
+    <value>Todos los duplicados se eliminarán de forma permanente. ¿Continuar?</value>
+  </data>
+  <data name="DeleteDuplicates" xml:space="preserve">
+    <value>Los duplicados de '{0}' se eliminarán de forma permanente. ¿Continuar?</value>
+  </data>
   <data name="DeleteEasyMetadata" xml:space="preserve">
     <value>Easy metadatos se eliminarán. ¿Continuar?</value>
   </data>
   <data name="Document" xml:space="preserve">
     <value>Documento</value>
+  </data>
+  <data name="DoesNotContain" xml:space="preserve">
+    <value>No contiene</value>
+  </data>
+  <data name="DoesNotEndWith" xml:space="preserve">
+    <value>No termina con</value>
+  </data>
+  <data name="DoesNotStartWith" xml:space="preserve">
+    <value>No comienza con</value>
+  </data>
+  <data name="DuplicatesDefault" xml:space="preserve">
+    <value>Duplicados</value>
+  </data>
+  <data name="DuplicatesDelete" xml:space="preserve">
+    <value>Duplicados (eliminar)</value>
+  </data>
+  <data name="DuplicatesFolderDoesNotExist" xml:space="preserve">
+    <value>Carpeta de destino para los duplicados no existe. No se han realizado cambios.</value>
+  </data>
+  <data name="DuplicatesMove" xml:space="preserve">
+    <value>Duplicados (mover)</value>
   </data>
   <data name="EasyMetadata" xml:space="preserve">
     <value>Easy metadatos</value>
@@ -207,8 +264,44 @@
   <data name="EasyShellOrVideoMetadata" xml:space="preserve">
     <value>Metadatos de Easy, Shell o vídeo</value>
   </data>
+  <data name="EditComparisonProfile" xml:space="preserve">
+    <value>Editar perfil de comparación</value>
+  </data>
+  <data name="EditEasyMetadata" xml:space="preserve">
+    <value>Editar Easy metadatos</value>
+  </data>
+  <data name="EditFilter" xml:space="preserve">
+    <value>Editar filtro</value>
+  </data>
+  <data name="EditGPS" xml:space="preserve">
+    <value>Editar GPS</value>
+  </data>
+  <data name="EditKeywords" xml:space="preserve">
+    <value>Editar palabras clave</value>
+  </data>
+  <data name="EditSubfolders" xml:space="preserve">
+    <value>Editar subcarpetas</value>
+  </data>
+  <data name="EmptyFolders" xml:space="preserve">
+    <value>Carpetas vacías</value>
+  </data>
+  <data name="EndsWith" xml:space="preserve">
+    <value>Termina con</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>Explorar...</value>
+  </data>
+  <data name="ExtraLargeThumbnail" xml:space="preserve">
+    <value>Miniatura extra grande</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
   <data name="FileExtension" xml:space="preserve">
     <value>Extensión de archivo</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Archivos</value>
   </data>
   <data name="FileType" xml:space="preserve">
     <value>Tipo de archivo</value>
@@ -218,6 +311,9 @@
   </data>
   <data name="Folder" xml:space="preserve">
     <value>Carpeta</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Carpetas</value>
   </data>
   <data name="FormatAlreadyExists" xml:space="preserve">
     <value>'{0}' ya existe.</value>
@@ -231,14 +327,23 @@
   <data name="Image" xml:space="preserve">
     <value>Imagen</value>
   </data>
-  <data name="KeywordsAdd" xml:space="preserve">
-    <value>Palabras clave (añadir)</value>
+  <data name="Invalid" xml:space="preserve">
+    <value>No válido</value>
   </data>
   <data name="Keywords" xml:space="preserve">
     <value>Palabras clave</value>
   </data>
+  <data name="KeywordsAdd" xml:space="preserve">
+    <value>Palabras clave (añadir)</value>
+  </data>
   <data name="KeywordsReplace" xml:space="preserve">
     <value>Palabras clave (reemplazar)</value>
+  </data>
+  <data name="LargeThumbnail" xml:space="preserve">
+    <value>Miniatura grande</value>
+  </data>
+  <data name="MediumThumbnail" xml:space="preserve">
+    <value>Miniatura mediana</value>
   </data>
   <data name="MessageCheckDialogText" xml:space="preserve">
     <value>No vuelvas a preguntar.</value>
@@ -255,11 +360,29 @@
   <data name="MonthTakenOrEncoded" xml:space="preserve">
     <value>Mes tomado o codificado</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Mover</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nombre</value>
   </data>
+  <data name="NextFolder" xml:space="preserve">
+    <value>Carpeta siguiente</value>
+  </data>
+  <data name="OneLevelUp" xml:space="preserve">
+    <value>Un nivel más arriba</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Abrir...</value>
+  </data>
   <data name="OverwriteEasyMetadata" xml:space="preserve">
     <value>Easy metadatos se sobrescribirán. ¿Continuar?</value>
+  </data>
+  <data name="PreviousFolder" xml:space="preserve">
+    <value>Carpeta anterior</value>
+  </data>
+  <data name="RawName" xml:space="preserve">
+    <value>Nombre sin procesar</value>
   </data>
   <data name="Replace" xml:space="preserve">
     <value>Reemplazar</value>
@@ -267,8 +390,26 @@
   <data name="ReplaceRegex" xml:space="preserve">
     <value>Reemplazar (regex)</value>
   </data>
+  <data name="SelectBackupFolder" xml:space="preserve">
+    <value>Seleccionar la carpeta de copia de seguridad</value>
+  </data>
+  <data name="SelectDuplicatesFolder" xml:space="preserve">
+    <value>Seleccionar carpeta de destino para los duplicados</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Seleccionar carpeta</value>
+  </data>
+  <data name="SelectTopFolder" xml:space="preserve">
+    <value>Seleccionar carpeta superior</value>
+  </data>
   <data name="ShellProperties" xml:space="preserve">
     <value>Propiedades del Shell</value>
+  </data>
+  <data name="ShowComparisonDialog" xml:space="preserve">
+    <value>Mostrar cuadro de diálogo de comparación</value>
+  </data>
+  <data name="ShuttingDown" xml:space="preserve">
+    <value>Apagar el sistema...</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Tamaño</value>
@@ -279,8 +420,23 @@
   <data name="TargetSize" xml:space="preserve">
     <value>Tamaño del destino</value>
   </data>
+  <data name="SmallThumbnail" xml:space="preserve">
+    <value>Miniatura pequeña</value>
+  </data>
+  <data name="StartsWith" xml:space="preserve">
+    <value>Comienza con</value>
+  </data>
+  <data name="StoreAllDuplicates" xml:space="preserve">
+    <value>Todos los duplicados se almacenarán en la carpeta de destino. ¿Continuar?</value>
+  </data>
+  <data name="StoreDuplicates" xml:space="preserve">
+    <value>Los duplicados de '{0}' se almacenarán en la carpeta de destino. ¿Continuar?</value>
+  </data>
   <data name="Subject" xml:space="preserve">
     <value>Asunto</value>
+  </data>
+  <data name="SymbolicLink" xml:space="preserve">
+    <value>Vínculo simbólico</value>
   </data>
   <data name="System" xml:space="preserve">
     <value>Sistema</value>
@@ -290,6 +446,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Título</value>
+  </data>
+  <data name="TopFolderDoesNotExist" xml:space="preserve">
+    <value>Carpeta superior no existe. No se han realizado cambios.</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tipo</value>
@@ -306,8 +465,29 @@
   <data name="VideoMetadata" xml:space="preserve">
     <value>Metadatos de vídeo</value>
   </data>
+  <data name="WriteDateCreated" xml:space="preserve">
+    <value>Sobrescribir fecha de creación</value>
+  </data>
+  <data name="WriteDateEasyMetadata" xml:space="preserve">
+    <value>Sobrescribir fecha de metadatos Easy</value>
+  </data>
+  <data name="WriteDateModified" xml:space="preserve">
+    <value>Sobrescribir fecha de modificación</value>
+  </data>
+  <data name="WriteDateTakenOrEncoded" xml:space="preserve">
+    <value>Sobrescribir fecha de toma o codificación</value>
+  </data>
   <data name="WriteEasyMetadata" xml:space="preserve">
     <value>¿Almacenar metadatos de vídeo como Easy metadatos?</value>
+  </data>
+  <data name="WriteGPSAreaInfo" xml:space="preserve">
+    <value>Sobrescribir información de área GPS</value>
+  </data>
+  <data name="WriteGPSCoords" xml:space="preserve">
+    <value>Sobrescribir coordenadas GPS</value>
+  </data>
+  <data name="WriteGPSEasyMetadata" xml:space="preserve">
+    <value>Sobrescribir coordenadas GPS de metadatos Easy</value>
   </data>
   <data name="YearCreated" xml:space="preserve">
     <value>Año de creación</value>
@@ -320,185 +500,5 @@
   </data>
   <data name="YearTakenOrEncoded" xml:space="preserve">
     <value>Año tomado o codificado</value>
-  </data>
-  <data name="PreviousFolder" xml:space="preserve">
-    <value>Carpeta anterior</value>
-  </data>
-  <data name="NextFolder" xml:space="preserve">
-    <value>Carpeta siguiente</value>
-  </data>
-  <data name="OneLevelUp" xml:space="preserve">
-    <value>Un nivel más arriba</value>
-  </data>
-  <data name="SelectFolder" xml:space="preserve">
-    <value>Seleccionar carpeta</value>
-  </data>
-  <data name="SelectTopFolder" xml:space="preserve">
-    <value>Seleccionar carpeta superior</value>
-  </data>
-  <data name="EditKeywords" xml:space="preserve">
-    <value>Editar palabras clave</value>
-  </data>
-  <data name="EditGPS" xml:space="preserve">
-    <value>Editar GPS</value>
-  </data>
-  <data name="EditSubfolders" xml:space="preserve">
-    <value>Editar subcarpetas</value>
-  </data>
-  <data name="WriteGPSCoords" xml:space="preserve">
-    <value>Sobrescribir coordenadas GPS</value>
-  </data>
-  <data name="WriteGPSAreaInfo" xml:space="preserve">
-    <value>Sobrescribir información de área GPS</value>
-  </data>
-  <data name="WriteGPSEasyMetadata" xml:space="preserve">
-    <value>Sobrescribir coordenadas GPS de metadatos Easy</value>
-  </data>
-  <data name="WriteDateModified" xml:space="preserve">
-    <value>Sobrescribir fecha de modificación</value>
-  </data>
-  <data name="WriteDateCreated" xml:space="preserve">
-    <value>Sobrescribir fecha de creación</value>
-  </data>
-  <data name="WriteDateTakenOrEncoded" xml:space="preserve">
-    <value>Sobrescribir fecha de toma o codificación</value>
-  </data>
-  <data name="WriteDateEasyMetadata" xml:space="preserve">
-    <value>Sobrescribir fecha de metadatos Easy</value>
-  </data>
-  <data name="EditEasyMetadata" xml:space="preserve">
-    <value>Editar Easy metadatos</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>Archivo</value>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>Archivos</value>
-  </data>
-  <data name="Folders" xml:space="preserve">
-    <value>Carpetas</value>
-  </data>
-  <data name="DateFromFolderName" xml:space="preserve">
-    <value>Fecha del nombre de la carpeta</value>
-  </data>
-  <data name="EmptyFolders" xml:space="preserve">
-    <value>Carpetas vacías</value>
-  </data>
-  <data name="SmallThumbnail" xml:space="preserve">
-    <value>Miniatura pequeña</value>
-  </data>
-  <data name="SelectBackupFolder" xml:space="preserve">
-    <value>Seleccionar la carpeta de copia de seguridad</value>
-  </data>
-  <data name="EditComparisonProfile" xml:space="preserve">
-    <value>Editar perfil de comparación</value>
-  </data>
-  <data name="ShowComparisonDialog" xml:space="preserve">
-    <value>Mostrar cuadro de diálogo de comparación</value>
-  </data>
-  <data name="SelectDuplicatesFolder" xml:space="preserve">
-    <value>Seleccionar carpeta de destino para los duplicados</value>
-  </data>
-  <data name="DuplicatesDefault" xml:space="preserve">
-    <value>Duplicados</value>
-  </data>
-  <data name="DuplicatesDelete" xml:space="preserve">
-    <value>Duplicados (eliminar)</value>
-  </data>
-  <data name="DuplicatesMove" xml:space="preserve">
-    <value>Duplicados (mover)</value>
-  </data>
-  <data name="Abort" xml:space="preserve">
-    <value>Abandonar</value>
-  </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Applicar</value>
-  </data>
-  <data name="ShutingDown" xml:space="preserve">
-    <value>Apagar el sistema...</value>
-  </data>
-  <data name="ExtraLargeThumbnail" xml:space="preserve">
-    <value>Miniatura extra grande</value>
-  </data>
-  <data name="LargeThumbnail" xml:space="preserve">
-    <value>Miniatura grande</value>
-  </data>
-  <data name="MediumThumbnail" xml:space="preserve">
-    <value>Miniatura mediana</value>
-  </data>
-  <data name="RawName" xml:space="preserve">
-    <value>Nombre sin procesar</value>
-  </data>
-  <data name="DeleteDuplicates" xml:space="preserve">
-    <value>Los duplicados de '{0}' se eliminarán de forma permanente. ¿Continuar?</value>
-  </data>
-  <data name="DeleteAllDuplicates" xml:space="preserve">
-    <value>Todos los duplicados se eliminarán de forma permanente. ¿Continuar?</value>
-  </data>
-  <data name="DuplicatesFolderDoesNotExist" xml:space="preserve">
-    <value>Carpeta de destino para los duplicados no existe. No se han realizado cambios.</value>
-  </data>
-  <data name="StoreDuplicates" xml:space="preserve">
-    <value>Los duplicados de '{0}' se almacenarán en la carpeta de destino. ¿Continuar?</value>
-  </data>
-  <data name="StoreAllDuplicates" xml:space="preserve">
-    <value>Todos los duplicados se almacenarán en la carpeta de destino. ¿Continuar?</value>
-  </data>
-  <data name="Explore" xml:space="preserve">
-    <value>Explorar...</value>
-  </data>
-  <data name="Open" xml:space="preserve">
-    <value>Abrir...</value>
-  </data>
-  <data name="Invalid" xml:space="preserve">
-    <value>No válido</value>
-  </data>
-  <data name="SymbolicLink" xml:space="preserve">
-    <value>Vínculo simbólico</value>
-  </data>
-  <data name="EditFilter" xml:space="preserve">
-    <value>Editar filtro</value>
-  </data>
-  <data name="AboutMessage" xml:space="preserve">
-    <value>La información sobre las licencias y el uso de Easy File Manager se puede ver en https://github.com/rafcolson/EasyFileManager. Los problemas se pueden informar en https://github.com/rafcolson/EasyFileManager/issues. Los lanzamientos se pueden descargar en https://github.com/rafcolson/EasyFileManager/releases.</value>
-  </data>
-  <data name="CameraManufacturer" xml:space="preserve">
-    <value>Fabricante de cámara</value>
-  </data>
-  <data name="CameraModel" xml:space="preserve">
-    <value>Modelo de cámara</value>
-  </data>
-  <data name="Contains" xml:space="preserve">
-    <value>Contiene</value>
-  </data>
-  <data name="EndsWith" xml:space="preserve">
-    <value>Termina con</value>
-  </data>
-  <data name="StartsWith" xml:space="preserve">
-    <value>Comienza con</value>
-  </data>
-  <data name="BackupFolderDoesNotExist" xml:space="preserve">
-    <value>Carpeta de copia de seguridad no existe. No se han realizado cambios.</value>
-  </data>
-  <data name="TopFolderDoesNotExist" xml:space="preserve">
-    <value>Carpeta superior no existe. No se han realizado cambios.</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Copiar</value>
-  </data>
-  <data name="CopyMove" xml:space="preserve">
-    <value>Copiar | Mover</value>
-  </data>
-  <data name="Move" xml:space="preserve">
-    <value>Mover</value>
-  </data>
-  <data name="DoesNotContain" xml:space="preserve">
-    <value>No contiene</value>
-  </data>
-  <data name="DoesNotEndWith" xml:space="preserve">
-    <value>No termina con</value>
-  </data>
-  <data name="DoesNotStartWith" xml:space="preserve">
-    <value>No comienza con</value>
   </data>
 </root>

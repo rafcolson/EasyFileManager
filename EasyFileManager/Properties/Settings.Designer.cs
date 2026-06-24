@@ -49,18 +49,6 @@ namespace EasyFileManager.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ImportExportDirectory {
-            get {
-                return ((string)(this["ImportExportDirectory"]));
-            }
-            set {
-                this["ImportExportDirectory"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int LanguageIndex {
             get {
@@ -73,85 +61,25 @@ namespace EasyFileManager.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PreviewPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogApplicationEvents {
             get {
-                return ((bool)(this["PreviewPath"]));
+                return ((bool)(this["LogApplicationEvents"]));
             }
             set {
-                this["PreviewPath"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowThumbnail {
-            get {
-                return ((bool)(this["ShowThumbnail"]));
-            }
-            set {
-                this["ShowThumbnail"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowProperties {
-            get {
-                return ((bool)(this["ShowProperties"]));
-            }
-            set {
-                this["ShowProperties"] = value;
+                this["LogApplicationEvents"] = value;
             }
         }
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowMilliseconds {
+        public bool ShutdownUponCompletion {
             get {
-                return ((bool)(this["ShowMilliseconds"]));
+                return ((bool)(this["ShutdownUponCompletion"]));
             }
             set {
-                this["ShowMilliseconds"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowHiddenItems {
-            get {
-                return ((bool)(this["ShowHiddenItems"]));
-            }
-            set {
-                this["ShowHiddenItems"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowEmbeddedVideoGPS {
-            get {
-                return ((bool)(this["ShowEmbeddedVideoGPS"]));
-            }
-            set {
-                this["ShowEmbeddedVideoGPS"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowEmbeddedAudioDate {
-            get {
-                return ((bool)(this["ShowEmbeddedAudioDate"]));
-            }
-            set {
-                this["ShowEmbeddedAudioDate"] = value;
+                this["ShutdownUponCompletion"] = value;
             }
         }
     }

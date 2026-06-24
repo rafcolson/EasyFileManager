@@ -40,6 +40,7 @@ namespace EasyFileManager
         private static EditTextContextMenuStrip? _editPropsContextMenuStrip;
         private static EditTextContextMenuStrip? _editExplorerContextMenuStrip;
 
+        private readonly string[] _args;
         private readonly System.Windows.Forms.Timer _previewFormattingTimer = new() { Interval = 500 };
 
         public static AdaptiveFileSystemWatcher FolderWatcher { get; } = new();
@@ -86,7 +87,11 @@ namespace EasyFileManager
             }
         }
 
-        public Main() => StartInitialization();
+        public Main(string[] args)
+        {
+            _args = args;
+            StartInitialization();
+        }
 
         private void Main_Load(object? sender, EventArgs e) => FinishInitialization();
 
@@ -155,19 +160,24 @@ namespace EasyFileManager
 
         private void InitializeLayout()
         {
-            PreviewPathToolStripMenuItem.Checked = Properties.Settings.Default.PreviewPath;
-            ShowThumbnailToolStripMenuItem.Checked = Properties.Settings.Default.ShowThumbnail;
-            ShowPropertiesToolStripMenuItem.Checked = Properties.Settings.Default.ShowProperties;
-            ShowMillisecondsToolStripMenuItem.Checked = Properties.Settings.Default.ShowMilliseconds;
-            ShowHiddenItemsToolStripMenuItem.Checked = Properties.Settings.Default.ShowHiddenItems;
-            ShowEmbeddedVideoGPSToolStripMenuItem.Checked = Properties.Settings.Default.ShowEmbeddedVideoGPS;
-            ShowEmbeddedAudioDateToolStripMenuItem.Checked = Properties.Settings.Default.ShowEmbeddedAudioDate;
+            ShowOutputToolStripMenuItem.Checked = Options.Show.HasFlag(EasyShow.Output);
+            ShowThumbnailToolStripMenuItem.Checked = Options.Show.HasFlag(EasyShow.Thumbnail);
+            ShowPropertiesToolStripMenuItem.Checked = Options.Show.HasFlag(EasyShow.Properties);
+            ShowMillisecondsToolStripMenuItem.Checked = Options.Show.HasFlag(EasyShow.Milliseconds);
+            ShowHiddenItemsToolStripMenuItem.Checked = Options.Show.HasFlag(EasyShow.HiddenItems);
 
-            UseEasyMetadataWithVideoToolStripMenuItem.Checked = Options.UseEasyMetadataWithVideo;
+            ExtractEmbeddedImageToolStripMenuItem.Checked = Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Image);
+            ExtractEmbeddedVideoToolStripMenuItem.Checked = Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Video);
+            ExtractEmbeddedAudioToolStripMenuItem.Checked = Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Audio);
+            ExtractEmbeddedDocumentToolStripMenuItem.Checked = Options.ExtractEmbeddedMetadata.HasFlag(ExtractEmbeddedMetadata.Document);
+            ConvertEmbeddedImageToolStripMenuItem.Checked = Options.ConvertEmbeddedToEasyMetadata.HasFlag(ConvertEmbeddedToEasyMetadata.Image);
+            ConvertEmbeddedVideoToolStripMenuItem.Checked = Options.ConvertEmbeddedToEasyMetadata.HasFlag(ConvertEmbeddedToEasyMetadata.Video);
+            ConvertEmbeddedAudioToolStripMenuItem.Checked = Options.ConvertEmbeddedToEasyMetadata.HasFlag(ConvertEmbeddedToEasyMetadata.Audio);
+            ConvertEmbeddedDocumentToolStripMenuItem.Checked = Options.ConvertEmbeddedToEasyMetadata.HasFlag(ConvertEmbeddedToEasyMetadata.Document);
             PreserveDateCreatedToolStripMenuItem.Checked = Options.PreserveDateCreated;
             PreserveDateModifiedToolStripMenuItem.Checked = Options.PreserveDateModified;
-            LogApplicationEventsToolStripMenuItem.Checked = Options.LogApplicationEvents;
-            ShutDownUponCompletionToolStripMenuItem.Checked = Options.ShutdownUponCompletion;
+            LogApplicationEventsToolStripMenuItem.Checked = Properties.Settings.Default.LogApplicationEvents;
+            ShutDownUponCompletionToolStripMenuItem.Checked = Properties.Settings.Default.ShutdownUponCompletion;
 
             PathTextBox.ContextMenuStrip = _editPathContextMenuStrip;
             ExplorerDataGridView.ContextMenuStrip = _editExplorerContextMenuStrip;
@@ -317,16 +327,21 @@ namespace EasyFileManager
             ExportToolStripMenuItem.Click += ExportToolStripMenuItem_Click;
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
 
-            PreviewPathToolStripMenuItem.Click += PreviewPathToolStripMenuItem_Click;
+            ShowOutputToolStripMenuItem.Click += ShowOutputToolStripMenuItem_Click;
             ShowThumbnailToolStripMenuItem.Click += ShowThumbnailToolStripMenuItem_Click;
             ShowHiddenItemsToolStripMenuItem.Click += ShowHiddenItemsToolStripMenuItem_Click;
             ShowPropertiesToolStripMenuItem.Click += ShowPropertiesToolStripMenuItem_Click;
             ShowMillisecondsToolStripMenuItem.Click += ShowMillisecondsToolStripMenuItem_Click;
-            ShowEmbeddedVideoGPSToolStripMenuItem.Click += ShowEmbeddedVideoGPSToolStripMenuItem_Click;
-            ShowEmbeddedAudioDateToolStripMenuItem.Click += ShowEmbeddedAudioDateToolStripMenuItem_Click;
             LanguageToolStripMenuItem.Click += LanguageToolStripMenuItem_Click;
 
-            UseEasyMetadataWithVideoToolStripMenuItem.Click += UseEasyMetadataWithVideoToolStripMenuItem_Click;
+            ExtractEmbeddedImageToolStripMenuItem.Click += ExtractEmbeddedImageToolStripMenuItem_Click;
+            ExtractEmbeddedVideoToolStripMenuItem.Click += ExtractEmbeddedVideoToolStripMenuItem_Click;
+            ExtractEmbeddedAudioToolStripMenuItem.Click += ExtractEmbeddedAudioToolStripMenuItem_Click;
+            ExtractEmbeddedDocumentToolStripMenuItem.Click += ExtractEmbeddedDocumentToolStripMenuItem_Click;
+            ConvertEmbeddedImageToolStripMenuItem.Click += ConvertEmbeddedImageToolStripMenuItem_Click;
+            ConvertEmbeddedVideoToolStripMenuItem.Click += ConvertEmbeddedVideoToolStripMenuItem_Click;
+            ConvertEmbeddedAudioToolStripMenuItem.Click += ConvertEmbeddedAudioToolStripMenuItem_Click;
+            ConvertEmbeddedDocumentToolStripMenuItem.Click += ConvertEmbeddedDocumentToolStripMenuItem_Click;
             PreserveDateCreatedToolStripMenuItem.Click += PreserveDateCreatedToolStripMenuItem_Click;
             PreserveDateModifiedToolStripMenuItem.Click += PreserveDateModifiedToolStripMenuItem_Click;
             LogApplicationEventsToolStripMenuItem.Click += LogApplicationEventsToolStripMenuItem_Click;
@@ -453,6 +468,10 @@ namespace EasyFileManager
             InitializeFields();
             //RestoreToDefault();
             Options = new(Properties.Settings.Default.EasyOptions);
+            if (_args.Length == 1)
+            {
+                UpdateOptions(_args[0]);
+            }
 
             this.SuspendDrawing();
             InitializeMainEventHandlers();
@@ -480,8 +499,7 @@ namespace EasyFileManager
 
         private void Main_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.EasyOptions = Options.ToString();
-            Properties.Settings.Default.Save();
+            SaveOptions();
 
             _isClosing = true;
             if (Tag is not CloseReason.ApplicationExitCall)
@@ -564,16 +582,21 @@ namespace EasyFileManager
             ExportToolStripMenuItem.Click -= ExportToolStripMenuItem_Click;
             ExitToolStripMenuItem.Click -= ExitToolStripMenuItem_Click;
 
-            PreviewPathToolStripMenuItem.Click -= PreviewPathToolStripMenuItem_Click;
+            ShowOutputToolStripMenuItem.Click -= ShowOutputToolStripMenuItem_Click;
             ShowThumbnailToolStripMenuItem.Click -= ShowThumbnailToolStripMenuItem_Click;
             ShowHiddenItemsToolStripMenuItem.Click -= ShowHiddenItemsToolStripMenuItem_Click;
             ShowPropertiesToolStripMenuItem.Click -= ShowPropertiesToolStripMenuItem_Click;
             ShowMillisecondsToolStripMenuItem.Click -= ShowMillisecondsToolStripMenuItem_Click;
-            ShowEmbeddedVideoGPSToolStripMenuItem.Click -= ShowEmbeddedVideoGPSToolStripMenuItem_Click;
-            ShowEmbeddedAudioDateToolStripMenuItem.Click -= ShowEmbeddedAudioDateToolStripMenuItem_Click;
             LanguageToolStripMenuItem.Click -= LanguageToolStripMenuItem_Click;
 
-            UseEasyMetadataWithVideoToolStripMenuItem.Click -= UseEasyMetadataWithVideoToolStripMenuItem_Click;
+            ExtractEmbeddedImageToolStripMenuItem.Click -= ExtractEmbeddedImageToolStripMenuItem_Click;
+            ExtractEmbeddedVideoToolStripMenuItem.Click -= ExtractEmbeddedVideoToolStripMenuItem_Click;
+            ExtractEmbeddedAudioToolStripMenuItem.Click -= ExtractEmbeddedAudioToolStripMenuItem_Click;
+            ExtractEmbeddedDocumentToolStripMenuItem.Click -= ExtractEmbeddedDocumentToolStripMenuItem_Click;
+            ConvertEmbeddedImageToolStripMenuItem.Click -= ConvertEmbeddedImageToolStripMenuItem_Click;
+            ConvertEmbeddedVideoToolStripMenuItem.Click -= ConvertEmbeddedVideoToolStripMenuItem_Click;
+            ConvertEmbeddedAudioToolStripMenuItem.Click -= ConvertEmbeddedAudioToolStripMenuItem_Click;
+            ConvertEmbeddedDocumentToolStripMenuItem.Click -= ConvertEmbeddedDocumentToolStripMenuItem_Click;
             PreserveDateCreatedToolStripMenuItem.Click -= PreserveDateCreatedToolStripMenuItem_Click;
             PreserveDateModifiedToolStripMenuItem.Click -= PreserveDateModifiedToolStripMenuItem_Click;
             LogApplicationEventsToolStripMenuItem.Click -= LogApplicationEventsToolStripMenuItem_Click;
@@ -707,8 +730,7 @@ namespace EasyFileManager
                 Properties.Settings.Default.StartupDirectory = STARTUP_DIRECTORY_DEFAULT;
             }
             Options = new();
-            Properties.Settings.Default.EasyOptions = Options.ToString();
-            Properties.Settings.Default.Save();
+            SaveOptions();
         }
 
         #endregion
